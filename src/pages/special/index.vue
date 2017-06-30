@@ -52,7 +52,7 @@
                         apiData:{
                         key:'',
                         currentPage: 0,
-                        pageCount: 15,
+                        pageCount: 10,
                         type: '',
                         material: '',
                         surface: '',

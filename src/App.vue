@@ -25,7 +25,7 @@
     @import '~vux/src/styles/1px.less';
 
     body,html {
-      background-color: #fbf9fe;
+      background-color: #efeff4;
       height: 100%;
       overflow:hidden;
     }

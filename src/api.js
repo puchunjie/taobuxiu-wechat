@@ -21,3 +21,9 @@ export const specoffers = 'specoffer/specoffers';
  * params: offerId
  */
 export const specoffer = 'specoffer/specoffer';
+
+/**
+ * 采购报价列表
+ * 
+ */
+export const ironBuy = 'iron/buy';

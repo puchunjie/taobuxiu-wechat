@@ -1,7 +1,7 @@
 <template>
     <div class="scroll-list-container">
         <scroller lock-x  ref="scroller" 
-        :height="'-44'"
+        :height="height"
         :use-pulldown="true"
         :use-pullup="true"
         :pulldown-config="pulldown"
@@ -15,6 +15,7 @@
                 </slot>
             </div>
         </scroller>
+        <span v-show="backShow" class="back-to-top iconfont icon-huidaodingbu1" @click="backTop"></span>
     </div>
 </template>
 
@@ -22,6 +23,16 @@
     import { Scroller } from 'vux'
     import notFound from '@/assets/not-found.00ba998.png'
     export default {
+        props:{
+            height:{
+                type: String,
+                default: '-44'
+            },
+            backShow:{
+                type: Boolean,
+                default: false
+            }
+        },
         components: {
             Scroller
         },
@@ -78,6 +89,9 @@
                         this.$refs.scroller.reset({top:top});
                     }
                 })
+            },
+            backTop(){
+                this.$refs.scroller.reset({top:0});
             }
         }
     }
@@ -92,6 +106,15 @@
             width: 80%;
             margin: 0 auto;
             padding-bottom: 4rem;
+        }
+        .back-to-top {
+            display: block;
+            position: absolute;
+            width: .44rem;
+            height: .44rem;
+            right: .1rem;
+            bottom: 1.2rem;
+            font-size: .44rem;
         }
     }
 </style>

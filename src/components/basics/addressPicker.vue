@@ -104,7 +104,7 @@
                 }else{
                     this.requestData.str = this.level1.name + this.level2.name;
                     this.requestData.id = this.level2.id;
-                    this.showChose.show = false;
+                    this.closed();
                     this.$emit('on-seleted',this.requestData);
                 }
             },
@@ -112,7 +112,7 @@
                 this.activeIndex3 = index;
                 this.requestData.str = this.level1.name + this.level2.name + this.level3.name;
                 this.requestData.id = this.level3.id;
-                this.showChose.show = false;
+                this.closed();
                 this.$emit('on-seleted',this.requestData);
             },
             setLevel(i){
@@ -120,6 +120,10 @@
             },
             closed(){
                 this.showChose.show = false;
+                this.step = 1;
+                this.activeIndex1 = NaN;
+                this.activeIndex2 = NaN;
+                this.activeIndex3 = NaN;
             }
         }
     }
