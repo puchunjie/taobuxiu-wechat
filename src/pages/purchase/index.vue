@@ -20,18 +20,14 @@
                 <p class="dead-time">
                     报价期限：
                     <clocker :time="item.pushTime + item.timeLimit" v-if="timeOver(item.pushTime + item.timeLimit)" slot="value">
-                        <span v-if="dayShow(item.pushTime + item.timeLimit)" class="day">%_D1</span>
-                        <span v-if="dayShow(item.pushTime + item.timeLimit)" class="day">%_D2</span>天
-                        <span class="day">%_H1</span>
-                        <span class="day">%_H2</span>时
-                        <span class="day">%_M1</span>
-                        <span class="day">%_M2</span>分
-                        <span class="day">%_S1</span>
-                        <span class="day">%_S2</span>秒
+                        <span v-if="dayShow(item.pushTime + item.timeLimit)" class="day">%_D1%_D2</span>天
+                        <span class="day">%_H1%_H2</span>时
+                        <span class="day">%_M1%_M2</span>分
+                        <span class="day">%_S1%_S2</span>秒
                     </clocker>
                     <template v-else>已结束</template>
                 </p> 
-                <a class="action-btn" :class="{'gray':true}">我要供货</a>
+                <a class="action-btn" :class="{'gray':item.status != 0}">我要供货</a>
             </div>
         </scrollList>
 
@@ -86,7 +82,7 @@
             },
             // 筛选选择完毕事件
             selected(request){
-                this.apiData.type = request.ironType;
+                this.apiData.ironType = request.ironType;
                 this.apiData.material = request.material;
                 this.apiData.surface = request.surface;
                 this.apiData.proPlace = request.proPlace;
@@ -194,6 +190,7 @@
             color: #fff;
             font-size: .14rem;
             line-height: .3rem;
+            background-color: #FF6537;
         }
     }
 </style>

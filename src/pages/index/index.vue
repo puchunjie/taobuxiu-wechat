@@ -16,20 +16,19 @@
             <article-part :list="newsList" :title="'淘不锈咨询'" :icon="'icon-comiiszixun'"></article-part>
 
             <article-part :list="buysList" :title="'最新采购'" :icon="'icon-caigou'" showTime></article-part>
-            <bottom-menu slot="bottom"></bottom-menu>
         </div>
+        <bottom-menu slot="bottom"></bottom-menu>
     </view-box>
 </template>
 
 <script>
-    import { ViewBox, Swiper, SwiperItem, Grid, GridItem } from 'vux'
+    import { ViewBox, Swiper, Grid, GridItem } from 'vux'
     import bottomMenu from '@/components/business/bottomMenu'
     import articlePart from '@/components/business/article'
     export default {
         components: {
             ViewBox,
             Swiper,
-            SwiperItem,
             bottomMenu,
             Grid,
             GridItem,
@@ -47,11 +46,11 @@
                     }],
                 cellOptions:[
                     {label:"现货市场",link:"",icon:"icon-yishouhuo"},
-                    {label:"特价资源",link:"",icon:"icon-tejiashangpin"},
+                    {label:"特价资源",link:"special",icon:"icon-tejiashangpin"},
                     {label:"加工定制",link:"",icon:"icon-jiagonghuanjie"},
                     {label:"上门质检",link:"",icon:"icon-zhijianfuwu"},
-                    {label:"货运物流",link:"",icon:"icon-shouyewuliu"},
-                    {label:"采购报价",link:"",icon:"icon-cai"}
+                    {label:"货运物流",link:"logistics",icon:"icon-shouyewuliu"},
+                    {label:"采购报价",link:"purchase",icon:"icon-cai"}
                     ],
                 newsList:[],
                 buysList: []

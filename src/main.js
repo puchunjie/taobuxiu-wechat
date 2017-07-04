@@ -43,7 +43,12 @@ axios.interceptors.response.use((response) => {
     if (response.data.status === 0) {
         return response.data;
     } else {
-        console.log(response.data.errorMsg)
+        Vue.$vux.toast.show({
+            text: response.data.errorMsg,
+            type: 'warn',
+            width: '2rem'
+        })
+        return Promise.reject(response.data.errorMsg)
     }
 }, (error) => {
     console.log("服务器异常")

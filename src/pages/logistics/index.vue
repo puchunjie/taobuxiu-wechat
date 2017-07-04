@@ -1,8 +1,9 @@
 <template>
-    <view-box body-padding-bottom="53px">
+    <div style="height:100%">
+        <view-box body-padding-bottom="53px">
         <div class="container">
             <section class="head-img">
-                <img src="https://img.alicdn.com/imgextra/i1/111/TB2iqvGystnpuFjSZFKXXalFFXa_!!111-0-luban.jpg_q50.jpg">
+                <swiper :list="swiperImgs" height="1.6rem" auto></swiper>
             </section>
 
             <section class="goods-info">
@@ -57,28 +58,27 @@
                     <span class="iconfont icon-dianhua"></span>
                     电话找货
                 </a>
-                <a class="btn vehicle" @click="confirmShow = true">
+                <a class="btn vehicle" @click="checkComfim">
                     <span class="iconfont icon-bangwozhao"></span>
                     帮我找车
                 </a>
             </section>
-
-            <!--选择地址组件-->
-            <address-picker :showChose="adShow" @on-seleted="selectedAdress"></address-picker>
-            <!--选择货物组件-->
-            <goods-picker :showChose="goodsShow" @on-seleted="selectedGoods"></goods-picker>
-            <demand-picker :showChose="demandShow" @on-selected="selectedDmand"></demand-picker>
+            </div>
             <bottom-menu slot="bottom"></bottom-menu>
-
-            <confirm v-model="confirmShow" title="请确认" @on-confirm="onConfirm">
-                <p style="text-align:center;">是否确认提交找物流申请？</p>
-            </confirm>
-        </div>
-    </view-box>
+        </view-box>
+        <!--选择地址组件-->
+        <address-picker :showChose="adShow" @on-seleted="selectedAdress"></address-picker>
+        <!--选择货物组件-->
+        <goods-picker :showChose="goodsShow" @on-seleted="selectedGoods"></goods-picker>
+        <demand-picker :showChose="demandShow" @on-selected="selectedDmand"></demand-picker>
+        <confirm v-model="confirmShow" title="请确认" @on-confirm="onConfirm">
+            <p style="text-align:center;">是否确认提交找物流申请？</p>
+        </confirm>
+    </div>
 </template>
 
 <script>
-    import { Group, XTextarea, XInput, ViewBox, Confirm } from 'vux'
+    import { Swiper, Group, XTextarea, XInput, ViewBox, Confirm } from 'vux'
     import bottomMenu from '@/components/business/bottomMenu'
     import addressPicker from '@/components/basics/addressPicker.vue'
     import goodsPicker from '@/components/basics/goodsPicker.vue'
@@ -86,6 +86,7 @@
     import phone from '@/assets/Phone.png'
     export default {
         components: {
+            Swiper,
             ViewBox,
             bottomMenu,
             addressPicker,
@@ -98,6 +99,11 @@
         },
         data () {
             return {
+                swiperImgs:[{
+                        img: 'http://wap.gangg.cn/system/templates/default12/images/bn12121-1.jpg?4',
+                    }, {
+                        img: 'http://wap.gangg.cn/system/templates/default12/images/bn12121-1.jpg?4'
+                    }],
                 confirmShow: false,
                 phoneImg: phone,
                 // 地址选择显示/隐藏
@@ -201,7 +207,7 @@
                 this.demandArr = arr;
                 this.apiData.sepcCommand = this.mergeCommad;
             },
-            onConfirm(){
+            checkComfim(){
                 let isOk = true;
                 for(const key in this.apiData){
                     if(this.apiData[key] === '' && key != 'comment' && key != 'sepcCommand'){
@@ -209,14 +215,23 @@
                     }
                 }
                 if(isOk){
-                    this.$http.post(this.api.logistics,this.apiData).then(res =>{
-                        this.$vux.alert.show({
-                            title: '提交成功！',
-                            content: '物流专员会尽快与您联系'
-                        })
-                        this.resetParmas();
+                    this.confirmShow = true;
+                }else{
+                    this.$vux.toast.show({
+                        text: '请将必填资料填写完整！',
+                        type: 'warn',
+                        width: '2rem'
                     })
                 }
+            },
+            onConfirm(){
+                this.$http.post(this.api.logistics,this.apiData).then(res => {
+                    this.$vux.alert.show({
+                        title: '提交成功！',
+                        content: '物流专员会尽快与您联系'
+                    })
+                    this.resetParmas();
+                })
             },
             resetParmas(){
                 for(const key in this.apiData){
@@ -241,7 +256,6 @@
         margin-bottom: .1rem;
         img{
             width: 100%;
-            height: 100%;
         }
     }
 
@@ -365,5 +379,6 @@
             background-color: #007de4;
         }
     }
+    
     
 </style>

@@ -176,7 +176,7 @@
         position:fixed;
         top:0;
         left:0;
-        z-index:1000;
+        z-index:501;
         background:rgba(77,82,113,0.8);
     }
     .address{

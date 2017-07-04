@@ -106,7 +106,9 @@
                 }else{
                     this.count = '';
                     this.$vux.toast.show({
-                        text: '请输入数字！'
+                        text: '请输入数字！',
+                        type: 'warn',
+                        width: '2rem'
                     })
                 }
                 
@@ -115,14 +117,14 @@
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     .goods-container{
-        position: fixed;
+        position: absolute;
         width: 100%;
         height: 100%;
         top: 0;
         left: 0;
-        z-index: 999;
+        z-index: 501;
         background-color: #efeff4; 
         .header{
             position: relative;
