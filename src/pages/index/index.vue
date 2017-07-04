@@ -1,30 +1,39 @@
 <template>
-    <div class="container">
-        <section class="swiper-container">
-            <swiper :list="swiperImgs" height="1.75rem" auto></swiper>
-        </section>
+    <view-box>
+        <div class="container">
+            <section class="swiper-container">
+                <swiper :list="swiperImgs" height="1.75rem" auto></swiper>
+            </section>
 
-        <section class="cell-container">
-            <grid>
-                <grid-item :link="option.link" :label="option.label" v-for="(option,index) in cellOptions" :key="index">
-                    <span slot="icon" class="cell-icon iconfont" :class="option.icon"></span>
-                </grid-item>
-            </grid>
-        </section>
-        <bottom-menu></bottom-menu>
-    </div>
+            <section class="cell-container">
+                <grid>
+                    <grid-item :link="option.link" :label="option.label" v-for="(option,index) in cellOptions" :key="index">
+                        <span slot="icon" class="cell-icon iconfont" :class="option.icon"></span>
+                    </grid-item>
+                </grid>
+            </section>
+
+            <article-part :list="newsList" :title="'淘不锈咨询'" :icon="'icon-comiiszixun'"></article-part>
+
+            <article-part :list="buysList" :title="'最新采购'" :icon="'icon-caigou'" showTime></article-part>
+            <bottom-menu slot="bottom"></bottom-menu>
+        </div>
+    </view-box>
 </template>
 
 <script>
-    import { Swiper, SwiperItem, Grid, GridItem } from 'vux'
+    import { ViewBox, Swiper, SwiperItem, Grid, GridItem } from 'vux'
     import bottomMenu from '@/components/business/bottomMenu'
+    import articlePart from '@/components/business/article'
     export default {
         components: {
+            ViewBox,
             Swiper,
             SwiperItem,
             bottomMenu,
             Grid,
-            GridItem
+            GridItem,
+            articlePart
         },
         data () {
             return {
@@ -43,11 +52,26 @@
                     {label:"上门质检",link:"",icon:"icon-zhijianfuwu"},
                     {label:"货运物流",link:"",icon:"icon-shouyewuliu"},
                     {label:"采购报价",link:"",icon:"icon-cai"}
-                    ]
+                    ],
+                newsList:[],
+                buysList: []
             }
         },
         methods: {
-
+            //新闻列表
+            getNews(){
+                return this.$http.get(this.api.news)
+            },
+            //最新采购列表
+            getBuys(){
+                return this.$http.get(this.api.indexBuy)
+            }
+        },
+        created () {
+            this.$http.all([this.getNews(),this.getBuys()]).then(this.$http.spread((news,buys) =>{
+                this.newsList = news.data;
+                this.buysList = buys.data;
+            }));
         }
     }
 </script>

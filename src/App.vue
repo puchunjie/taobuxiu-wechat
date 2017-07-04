@@ -1,7 +1,9 @@
 <template>
-  <transition enter-active-class="animated fadeIn">
+  <div id="app">
+    <transition enter-active-class="animated fadeIn">
       <router-view></router-view>
     </transition>
+  </div>
 </template>
 
 <script>
@@ -27,6 +29,10 @@
     body,html {
       background-color: #efeff4;
       height: 100%;
-      overflow:hidden;
+    }
+
+    #app{
+      width: 100%;
+      height: 100%;
     }
 </style>

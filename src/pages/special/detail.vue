@@ -146,15 +146,13 @@
                 this.$http.get(this.api.specoffer,{
                     params: this.offerId
                 }).then(res => {
-                    let specOffer = res.data.data.specOffer;
-                    if(res.data.status === 0){
-                        this.title = specOffer.title;
-                        this.date = specOffer.pushTime;
-                        this.des = specOffer.des;
-                        this.tel = specOffer.tel;
-                        this.handleImg(specOffer);
-                        this.handleSkus(specOffer);
-                    }
+                    let specOffer = res.data.specOffer;
+                    this.title = specOffer.title;
+                    this.date = specOffer.pushTime;
+                    this.des = specOffer.des;
+                    this.tel = specOffer.tel;
+                    this.handleImg(specOffer);
+                    this.handleSkus(specOffer);
                 })
             },
             handleImg(specOffer){

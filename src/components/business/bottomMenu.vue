@@ -34,6 +34,11 @@
 </script>
 
 <style lang="less">
+    .fix-b{
+        position: fixed!important;
+        bottom: 0;
+    }
+
     .tab-icon{
         font-size: .22rem
     }

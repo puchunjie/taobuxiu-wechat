@@ -114,15 +114,13 @@
                 this.$http.get(this.api.specoffers,{
                     params: this.apiData
                 }).then(res => {
-                    if(res.data.status === 0){
-                        if(this.apiData.currentPage === 0){
-                            this.list = res.data.data.specOffers;
-                        }else{
-                            this.list.push(...res.data.data.specOffers);
-                        }
-                        this.maxCount = res.data.data.maxCount;
-                        callback();
+                    if(this.apiData.currentPage === 0){
+                        this.list = res.data.specOffers;
+                    }else{
+                        this.list.push(...res.data.specOffers);
                     }
+                    this.maxCount = res.data.maxCount;
+                    callback();
                 })
             },
             // 刷新列表

@@ -1,13 +1,13 @@
 <template>
-    <div>
-        <x-header>
+    <view-box>
+        <x-header slot="header">
             <a slot="right"><span class="iconfont icon-shouye-page"></span></a>
             采购报价
         </x-header>
         <filter-bar @on-selected="selected" :screen="screen"></filter-bar>
 
         <scrollList ref="sScroller" @on-pull-down="reflash" @on-pull-up="loadMore" :height="'-110'" backShow>
-            <div class="item vux-1px-b" v-for="(item,index) in list">
+            <div class="item vux-1px-b" v-for="(item,index) in list" :key="index">
                 <p class="title">
                     {{ `${ item.ironType } | ${ item.material } | ${ item.surface } | ${ item.proPlace } (${ item.sourceCity })` }}
                 </p> 
@@ -35,8 +35,8 @@
             </div>
         </scrollList>
 
-        <bottom-menu></bottom-menu>
-    </div>
+        <bottom-menu  slot="bottom"></bottom-menu>
+    </view-box>
 </template>
 
 <script>
@@ -101,15 +101,13 @@
                 this.$http.get(this.api.ironBuy,{
                     params: this.apiData
                 }).then(res => {
-                    if(res.data.status === 0){
-                        if(this.apiData.currentPage === 0){
-                            this.list = res.data.data.buys;
-                        }else{
-                            this.list.push(...res.data.data.buys);
-                        }
-                        this.maxCount = res.data.data.maxCount;
-                        callback();
+                    if(this.apiData.currentPage === 0){
+                        this.list = res.data.buys;
+                    }else{
+                        this.list.push(...res.data.buys);
                     }
+                    this.maxCount = res.data.maxCount;
+                    callback();
                 })
             },
             // 刷新列表

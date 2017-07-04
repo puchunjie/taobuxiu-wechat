@@ -5,6 +5,7 @@ import FastClick from 'fastclick'
 import App from './App'
 import router from './router/index'
 import axios from 'axios'
+import qs from 'qs'
 import * as api from './api'
 import VueLocalStorage from 'vue-localstorage'
 
@@ -39,9 +40,13 @@ axios.interceptors.request.use((config) => {
 })
 
 axios.interceptors.response.use((response) => {
-    return response;
+    if (response.data.status === 0) {
+        return response.data;
+    } else {
+        console.log(response.data.errorMsg)
+    }
 }, (error) => {
-    Vue.message.error("服务器异常")
+    console.log("服务器异常")
     return Promise.reject(error)
 });
 

@@ -22,7 +22,7 @@ export default {
                     url: window.location.href
                 }
             }).then(res => {
-                let data = res.data.data;
+                let data = res.data;
                 if (res.data.status === 0) {
                     this.wxconfig.appId = data.appid;
                     this.wxconfig.nonceStr = data.nonceStr;
