@@ -13,11 +13,22 @@
     name: 'app',
     mixins: [ wxShare ],
     created () {
-      let wid = document.documentElement.clientWidth;
-      var fz = wid / 3.75
-      document.getElementsByTagName("html")[0].style.fontSize = fz + "px";
+      let _this = this;
+      this.resizeWindow();
+      window.onresize = function() {
+        console.log(1)
+          _this.resizeWindow();
+      };
       // 设置微信分享
       this.getWXinfo()
+    },
+    methods: {
+      resizeWindow(){
+        let wid = document.documentElement.clientWidth;
+        wid = wid > 640 ? 640 : wid;
+        let fz = wid / 3.75
+        document.getElementsByTagName("html")[0].style.fontSize = fz + "px";
+      }
     }
   }
 </script>
@@ -29,6 +40,8 @@
     body,html {
       background-color: #efeff4;
       height: 100%;
+      max-width: 640px;
+      margin: 0 auto;
     }
 
     #app{

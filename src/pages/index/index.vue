@@ -13,9 +13,10 @@
                 </grid>
             </section>
 
-            <article-part :list="newsList" :title="'淘不锈咨询'" :icon="'icon-comiiszixun'"></article-part>
+            <article-part :list="newsList" title="淘不锈资讯" :icon="'icon-comiiszixun'" :moreLink="{name:'informationCenter'}"></article-part>
 
-            <article-part :list="buysList" :title="'最新采购'" :icon="'icon-caigou'" showTime></article-part>
+            <article-part :list="buysList" title="最新采购" 
+            :icon="'icon-caigou'" showTime :moreLink="{name:'purchase'}"></article-part>
         </div>
         <bottom-menu slot="bottom"></bottom-menu>
     </view-box>
@@ -45,7 +46,7 @@
                         img: 'http://wap.gangg.cn/system/templates/default12/images/bn12121-1.jpg?4',
                     }],
                 cellOptions:[
-                    {label:"现货市场",link:"",icon:"icon-yishouhuo"},
+                    {label:"现货市场",link:"goodsInStock",icon:"icon-yishouhuo"},
                     {label:"特价资源",link:"special",icon:"icon-tejiashangpin"},
                     {label:"加工定制",link:"",icon:"icon-jiagonghuanjie"},
                     {label:"上门质检",link:"",icon:"icon-zhijianfuwu"},
@@ -68,7 +69,7 @@
         },
         created () {
             this.$http.all([this.getNews(),this.getBuys()]).then(this.$http.spread((news,buys) =>{
-                this.newsList = news.data;
+                this.newsList = news.data.slice(0, 3);
                 this.buysList = buys.data;
             }));
         }
@@ -92,7 +93,7 @@
             .cell-icon {
                 display: block;
                 font-size: .4rem;
-                color: #d60101;
+                color: #007de4;
             }
             .weui-grid__icon {
                 width: .4rem!important;

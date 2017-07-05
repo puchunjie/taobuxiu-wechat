@@ -5,6 +5,9 @@ const special = resolve => require(['@/pages/special/index.vue'], resolve);
 const specialDetail = resolve => require(['@/pages/special/detail.vue'], resolve);
 const purchase = resolve => require(['@/pages/purchase/index.vue'], resolve);
 const logistics = resolve => require(['@/pages/logistics/index.vue'], resolve);
+const goodsInStock = resolve => require(['@/pages/goodsInStock/index.vue'], resolve);
+const informationCenter = resolve => require(['@/pages/informationCenter/index.vue'], resolve);
+const informationDetail = resolve => require(['@/pages/informationCenter/detail.vue'], resolve);
 
 Vue.use(Router)
 
@@ -33,6 +36,21 @@ export default new Router({
             path: '/logistics',
             name: 'logistics',
             component: logistics
+        },
+        {
+            path: '/goodsInStock',
+            name: 'goodsInStock',
+            component: goodsInStock
+        },
+        {
+            path: '/informationCenter',
+            name: 'informationCenter',
+            component: informationCenter
+        },
+        {
+            path: '/informationDetail-:id-:apiKey',
+            name: 'informationDetail',
+            component: informationDetail
         }
     ]
 })

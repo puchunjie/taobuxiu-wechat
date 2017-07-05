@@ -3,7 +3,7 @@
         <div class="header">
             <span class="iconfont" :class="icon"></span> 
             <span class="label">{{ title }}</span> 
-            <a>更多</a>
+            <a @click="jumpTo(moreLink)" v-show="moreLink">更多</a>
         </div>
         <div class="content">
             <div class="item" v-for="(item,index) in list" :key="item.id">
@@ -33,11 +33,18 @@
             },
             title:{
                 type:String
+            },
+            moreLink:{
+                type:Object
             }
         },
         methods: {
             formateDate(time){
                 return dateFormat(new Date(time*1), 'YYYY-MM-DD')
+            },
+            jumpTo(link){
+                if(link)
+                    this.$router.push(link)
             }
         }
     }

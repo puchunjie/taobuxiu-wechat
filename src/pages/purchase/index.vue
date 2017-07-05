@@ -1,9 +1,6 @@
 <template>
     <view-box>
-        <x-header slot="header">
-            <a slot="right"><span class="iconfont icon-shouye-page"></span></a>
-            采购报价
-        </x-header>
+        <com-header>采购报价</com-header>
         <filter-bar @on-selected="selected" :screen="screen"></filter-bar>
 
         <scrollList ref="sScroller" @on-pull-down="reflash" @on-pull-up="loadMore" :height="'-110'" backShow>
@@ -36,15 +33,16 @@
 </template>
 
 <script>
-    import { ViewBox, XHeader, Clocker }  from 'vux'
+    import { ViewBox, Clocker }  from 'vux'
     import filterBar from '@/components/business/filterBar.vue'
     import bottomMenu from '@/components/business/bottomMenu'
     import scrollList from '@/components/business/scrollList'
+    import comHeader from '@/components/business/commonHead'
     export default {
         components: {
             ViewBox,
             bottomMenu,
-            XHeader,
+            comHeader,
             filterBar,
             scrollList,
             Clocker
@@ -123,32 +121,17 @@
                     })
                 }
                 this.$refs.sScroller.donePu();
-            },
+            }
         },
         created () {
-             this.getData(()=>{
+            this.getData(()=>{
                 this.$refs.sScroller.reset();
             })
         }
     }
 </script>
 
-<style lang="less">
-    .vux-header{
-        background-color: #007de4!important;
-        .iconfont{
-            font-size: .3rem;
-            color: #fff;
-        }
-        .vux-header-left a{
-            color: #fff!important;
-        }
-        .left-arrow:before{
-            border-color: #fff!important;
-        }
-    }
-
-
+<style lang="less" scoped>
     .item {
         position: relative;
         width: 100%;
@@ -176,9 +159,6 @@
             color: red;
             line-height: .24rem;
         }
-        .gray{
-            background-color: #bababa;
-        }
         .action-btn {
             display: block;
             position: absolute;
@@ -191,6 +171,9 @@
             font-size: .14rem;
             line-height: .3rem;
             background-color: #FF6537;
+        }
+        .gray{
+            background-color: #bababa!important;
         }
     }
 </style>

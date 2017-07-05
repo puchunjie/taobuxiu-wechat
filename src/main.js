@@ -9,12 +9,13 @@ import qs from 'qs'
 import * as api from './api'
 import VueLocalStorage from 'vue-localstorage'
 
-import { AlertPlugin, ToastPlugin, WechatPlugin } from 'vux'
+import { AlertPlugin, ToastPlugin, WechatPlugin, LoadingPlugin } from 'vux'
 
 Vue.use(VueLocalStorage)
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
 Vue.use(WechatPlugin)
+Vue.use(LoadingPlugin)
 
 FastClick.attach(document.body)
 
@@ -30,16 +31,21 @@ axios.defaults.withCredentials = true;
 
 // post传参序列化
 axios.interceptors.request.use((config) => {
+    // Vue.$vux.loading.show({
+    //     text: 'Loading'
+    // });
     //发送请求前处理
     if (config.method === 'post' && !config.pic) {
         config.data = qs.stringify(config.data);
     }
     return config;
 }, (error) => {
+    // Vue.$vux.loading.hide()
     return Promise.reject(error)
 })
 
 axios.interceptors.response.use((response) => {
+    // Vue.$vux.loading.hide()
     if (response.data.status === 0) {
         return response.data;
     } else {
@@ -51,6 +57,7 @@ axios.interceptors.response.use((response) => {
         return Promise.reject(response.data.errorMsg)
     }
 }, (error) => {
+    // Vue.$vux.loading.hide()
     console.log("服务器异常")
     return Promise.reject(error)
 });

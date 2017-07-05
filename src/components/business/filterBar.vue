@@ -96,12 +96,20 @@
                     proPlace: this.filterItems[3].active
                 }
                 this.$emit('on-selected',request)
+            },
+            reset(){
+                this.filterItems.map((el,index) => {
+                    el.active = this.screen[index]
+                });
             }
         },
         mounted () {
-            this.filterItems.map((el,index) => {
-                el.active = this.screen[index]
-            });
+            this.reset();
+        },
+        watch: {
+            'screen':function(){
+                this.reset();
+            }
         }
     }
 </script>

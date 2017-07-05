@@ -47,3 +47,50 @@ export const indexBuy = 'iron/buyRecommend'
  * 申请物流
  */
 export const logistics = 'logistics/logisticsRequest'
+
+
+//==================现货市场====================
+/**
+ *  现货市场数据
+ * currentPage:0
+    pageCount:16
+    maxCount:0
+    totalPage:1
+    cityId:
+    cityLevel1Id:
+    cityLevel2Id:
+    keyword:
+    default:true    //关键字属性
+    order:default   //过滤关键字
+    limit:4
+    material:
+    surface:
+    ironType:
+    proPlace:
+ */
+export const irons = 'iron/irons'
+
+//==================资讯中心====================
+/**
+ * 平台快讯
+ */
+export const innerNews = 'innerNews'
+
+export const innerNewsDetail = 'innerNewsDetail'
+
+
+/**
+ * 行业新闻
+ */
+export const allNews = 'news'
+
+export const allNewsDetail = 'newsDetail'
+
+/**
+ * 行业招聘
+ * currentPage:0
+    pageCount:14
+ */
+export const recruits = 'recruits'
+
+export const recruitDetail = 'recruitDetail'
