@@ -20,6 +20,11 @@
     animation-duration: .3s;
 }
 
+.animated.fast-5 {
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s;
+}
+
 .animated.infinite {
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;

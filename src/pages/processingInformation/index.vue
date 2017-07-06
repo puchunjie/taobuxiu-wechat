@@ -11,7 +11,7 @@
                 <filter-bar @on-selected="selected" :screen="screen" isMach onBorder icon="icon-xia"></filter-bar>
             </div>
             <div class="filter-item" @click="adShow.show = true">
-                加工所在地<span class="iconfont icon-xia"></span>
+                {{ place === '' ? '加工所在地' : place }}<span class="iconfont icon-xia"></span>
             </div>
         </div>
 
@@ -90,6 +90,7 @@
                         sortKey: 'monthSellCount'
                     }
                 ],
+                place: '',
                 sortActive:NaN,
                 maxCount: 0,
                 list: []
@@ -186,6 +187,7 @@
                 this.apiData.order = 'default';
                 this.apiData.handingType = '';
                 this.apiData.cityId = '';
+                this.place = '';
                 this.apiData.cityLevel1Id = '';
                 this.apiData.cityLevel2Id = '';
                 this.apiData.keyword = '';
@@ -193,6 +195,7 @@
                 this.reloadList();
             },
             selectedAdress(data){
+                this.place = data.str;
                 this.apiData.cityId = data.id2;
                 this.apiData.cityLevel1Id = data.id1;
                 this.apiData.cityLevel2Id = data.id2;
