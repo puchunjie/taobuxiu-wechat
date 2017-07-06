@@ -70,6 +70,12 @@ export const logistics = 'logistics/logisticsRequest'
  */
 export const irons = 'iron/irons'
 
+//==================加工信息====================
+/**
+ * 加工信息列表
+ */
+export const handings = 'handing/handing'
+
 //==================资讯中心====================
 /**
  * 平台快讯

@@ -8,6 +8,7 @@ const logistics = resolve => require(['@/pages/logistics/index.vue'], resolve);
 const goodsInStock = resolve => require(['@/pages/goodsInStock/index.vue'], resolve);
 const informationCenter = resolve => require(['@/pages/informationCenter/index.vue'], resolve);
 const informationDetail = resolve => require(['@/pages/informationCenter/detail.vue'], resolve);
+const processingInformation = resolve => require(['@/pages/processingInformation/index.vue'], resolve);
 
 Vue.use(Router)
 
@@ -51,6 +52,11 @@ export default new Router({
             path: '/informationDetail-:id-:apiKey',
             name: 'informationDetail',
             component: informationDetail
-        }
+        },
+        {
+            path: '/processingInformation',
+            name: 'processingInformation',
+            component: processingInformation
+        },
     ]
 })

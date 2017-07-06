@@ -48,7 +48,7 @@
                 cellOptions:[
                     {label:"现货市场",link:"goodsInStock",icon:"icon-yishouhuo"},
                     {label:"特价资源",link:"special",icon:"icon-tejiashangpin"},
-                    {label:"加工定制",link:"",icon:"icon-jiagonghuanjie"},
+                    {label:"加工定制",link:"processingInformation",icon:"icon-jiagonghuanjie"},
                     {label:"上门质检",link:"",icon:"icon-zhijianfuwu"},
                     {label:"货运物流",link:"logistics",icon:"icon-shouyewuliu"},
                     {label:"采购报价",link:"purchase",icon:"icon-cai"}

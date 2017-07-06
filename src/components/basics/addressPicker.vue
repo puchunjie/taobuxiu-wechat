@@ -71,8 +71,11 @@
                 activeIndex2: NaN,
                 activeIndex3: NaN,
                 requestData:{
-                    str:'',
-                    id:''
+                    str: '',
+                    id: '',
+                    id1: '',
+                    id2: '',
+                    id3: ''
                 }
             }
         },
@@ -104,16 +107,19 @@
                 }else{
                     this.requestData.str = this.level1.name + this.level2.name;
                     this.requestData.id = this.level2.id;
-                    this.closed();
-                    this.$emit('on-seleted',this.requestData);
+                    this.requestData.id1 = this.level1.id;
+                    this.requestData.id2 = this.level2.id;
+                    this.finish(this.requestData);
                 }
             },
             selectItem3(index){
                 this.activeIndex3 = index;
                 this.requestData.str = this.level1.name + this.level2.name + this.level3.name;
                 this.requestData.id = this.level3.id;
-                this.closed();
-                this.$emit('on-seleted',this.requestData);
+                this.requestData.id1 = this.level1.id;
+                this.requestData.id2 = this.level2.id;
+                this.requestData.id3 = this.level3.id;
+                this.finish(this.requestData);
             },
             setLevel(i){
                 this.step = i;
@@ -124,6 +130,10 @@
                 this.activeIndex1 = NaN;
                 this.activeIndex2 = NaN;
                 this.activeIndex3 = NaN;
+            },
+            finish(data){
+                this.closed();
+                this.$emit('on-seleted',data);
             }
         }
     }

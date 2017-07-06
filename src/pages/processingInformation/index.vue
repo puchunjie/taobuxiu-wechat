@@ -5,7 +5,18 @@
             <input ref="search" class="search-input" placeholder="请输入要查找的现货关键字" v-model="apiData.keyword">
             <a class="search-btn" @click="search">搜索</a>
         </header>
-        <filter-bar @on-selected="selected" :screen="screen"></filter-bar>
+
+        <div class="inner-filter vux-1px-b">
+            <div class="filter-item vux-1px-r">
+                <filter-bar @on-selected="selected" :screen="screen" isMach onBorder icon="icon-xia"></filter-bar>
+            </div>
+            <div class="filter-item" @click="adShow.show = true">
+                加工所在地<span class="iconfont icon-xia"></span>
+            </div>
+        </div>
+
+        
+
         <section class="sort-bar vux-1px-b">
             <a v-for="(sort,index) in sorts" :key="index"
             @click="doSort(sort,index)" 
@@ -16,19 +27,24 @@
         </section>
 
         <scrollList ref="sScroller" @on-pull-down="reflash" @on-pull-up="loadMore" :height="'-143'" backShow>
-            <div class="item vux-1px-b" v-for="(item,index) in list" :key="index">
-                <div class="tit">
-                    <span>{{ item.ironType }}</span>
-                    {{ item.material }} {{ item.surface }}
-                    <span class="price">&yen;{{ item.price }}/{{ item.unit }}</span>
+            <div class="item vux-1px" v-for="(item,index) in list" :key="index">
+                <div class="img">
+                    <img :src="'http://www.itaobuxiu.com/'+item.cover">
                 </div>
-                <p>{{ item.title }}</p>
-                <p>{{ item.sourceCity }}</p>
-                <a class="show-detail">查看</a>
+                <h3 class="tit">{{ item.title != '' ? item.title : '未知标题' }}</h3>
+                <p class="price">
+                    &yen;{{ item.price }}
+                    <span>/{{ item.unit }}</span>
+                </p>
+                <p class="type">
+                    {{ item.type }}
+                    <span class="ad">{{ item.sourceCity }}</span>
+                </p>
             </div>
         </scrollList>
 
         <bottom-menu slot="bottom"></bottom-menu>
+        <address-picker :showChose="adShow" @on-seleted="selectedAdress"></address-picker>
     </view-box>
 </template>
 
@@ -37,23 +53,26 @@
     import filterBar from '@/components/business/filterBar.vue'
     import bottomMenu from '@/components/business/bottomMenu'
     import scrollList from '@/components/business/scrollList'
+    import addressPicker from '@/components/basics/addressPicker.vue'
     export default {
         components: {
             ViewBox,
             bottomMenu,
+            scrollList,
             filterBar,
-            scrollList
+            addressPicker
         },
         data () {
             return {
+                adShow:{show:false},
                 apiData:{
                     currentPage: 0,
                     pageCount: 10,
-                    ironType: '',
-                    material: '',
-                    surface: '',
-                    proPlace: '',
                     keyword:'',
+                    cityId: '',
+                    cityLevel1Id: '',
+                    cityLevel2Id: '',
+                    handingType: '',
                     default:true,
                     order:'default'
                 },
@@ -81,7 +100,7 @@
                 return Math.ceil(this.maxCount/this.apiData.pageCount)// 计算总页数
             },
             screen(){
-                return [this.apiData.ironType,this.apiData.surface,this.apiData.material,this.apiData.proPlace]
+                return [this.apiData.handingType]
             }
         },
         methods: {
@@ -90,20 +109,17 @@
             },
             // 筛选选择完毕事件
             selected(request){
-                this.apiData.ironType = request.ironType;
-                this.apiData.material = request.material;
-                this.apiData.surface = request.surface;
-                this.apiData.proPlace = request.proPlace;
+                this.apiData.handingType = request.handingType;
                 this.reloadList();
             },
             getData(callback){
-                this.$http.get(this.api.irons,{
+                this.$http.get(this.api.handings,{
                     params: this.apiData
                 }).then(res => {
                     if(this.apiData.currentPage === 0){
-                        this.list = res.data.irons;
+                        this.list = res.data.handingProducts;
                     }else{
-                        this.list.push(...res.data.irons);
+                        this.list.push(...res.data.handingProducts);
                     }
                     this.maxCount = res.data.maxCount;
                     callback();
@@ -145,7 +161,7 @@
                     this.$refs.search.focus();
                 }else{
                     this.reloadList();
-                } 
+                }
             },
             resetSort(){
                 this.$delete(this.apiData,'default');
@@ -154,7 +170,7 @@
                 this.$delete(this.apiData,'monthSellCount');
                 this.apiData.order = '';
             },
-            doSort(sort,index){
+             doSort(sort,index){
                 // 判断一下是否选中，避免多次重复请求
                 if(this.sortActive != index){
                     this.sortActive = index;
@@ -168,14 +184,20 @@
                 this.resetSort();
                 this.$set(this.apiData,'default',true);
                 this.apiData.order = 'default';
-                this.apiData.ironType = '';
-                this.apiData.material = '';
-                this.apiData.surface = '';
-                this.apiData.proPlace = '';
+                this.apiData.handingType = '';
+                this.apiData.cityId = '';
+                this.apiData.cityLevel1Id = '';
+                this.apiData.cityLevel2Id = '';
                 this.apiData.keyword = '';
                 this.sortActive = NaN;
                 this.reloadList();
-            }
+            },
+            selectedAdress(data){
+                this.apiData.cityId = data.id2;
+                this.apiData.cityLevel1Id = data.id1;
+                this.apiData.cityLevel2Id = data.id2;
+                this.reloadList();
+            },
         },
         created () {
              this.getData(()=>{
@@ -184,6 +206,7 @@
         }
     }
 </script>
+
 
 <style lang="less" scoped>
     .header{
@@ -229,40 +252,24 @@
         }
     }
 
-    .item{
-        position: relative;
+    .inner-filter{
         width: 100%;
-        padding: .1rem;
-        color: #999;
-        .tit{
-            font-size: .14rem;
-            line-height: .24rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            span{
-                color: #000;
-                font-weight: 500;
-                margin-right: .1rem;
+        background-color: #fff;
+        height: .44rem;
+        text-align: center;
+        overflow: hidden;
+        .filter-item{
+            position: relative;
+            width: 50%;
+            height: .44rem;
+            line-height: .44rem;
+            float: left;
+            .iconfont{
+                position: absolute;
+                right: .05rem;
+                top: 0;
+                font-size: .1rem;
             }
-            .price{
-                float: right;
-            }
-        }
-        p{
-            line-height: .24rem; 
-        }
-        .show-detail{
-            position: absolute;
-            display: black;
-            width: .8rem;
-            height: .3rem;
-            right: .1rem;
-            bottom: .1rem;
-            border: 1px solid #007de4;
-            color: #007de4;
-            text-align: center;
-            line-height: .28rem;
         }
     }
 
@@ -280,6 +287,56 @@
         }
         .active{
             color: #007de4;
+        }
+    }
+
+    .item{
+        width: 1.85rem;
+        margin-bottom: .05rem;
+        background: #fff;
+        float: left;
+        margin: 0.0125rem;
+        .img{
+            width: 100%;
+            height: 1.85rem;
+            overflow: hidden;
+            img{
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .tit{
+            font-size: .14rem;
+            line-height: .24rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-indent: .05rem;
+        }
+        .price{
+            color: red;
+            font-size: .15rem;
+            line-height: .3rem;
+            text-indent: .05rem;
+            span{
+                color: #333;
+                font-size: .12rem;
+                margin-left: -3px;
+            }
+        }
+        .type{
+            position: relative;
+            font-size: .12rem;
+            line-height: .24rem;
+            text-indent: .05rem;
+            color: #999;
+            .ad{
+                position: absolute;
+                right: .05rem;
+                top: 0;
+            }
         }
     }
 </style>

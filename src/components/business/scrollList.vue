@@ -9,7 +9,7 @@
         @on-pulldown-loading="onPullDown"
         @on-pullup-loading="onPullUp"
         :scrollbarY="true">
-            <div>
+            <div class="clearfix">
                 <slot>
                     <img class="no-data" :src="notFound">
                 </slot>
