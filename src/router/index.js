@@ -6,9 +6,11 @@ const specialDetail = resolve => require(['@/pages/special/detail.vue'], resolve
 const purchase = resolve => require(['@/pages/purchase/index.vue'], resolve);
 const logistics = resolve => require(['@/pages/logistics/index.vue'], resolve);
 const goodsInStock = resolve => require(['@/pages/goodsInStock/index.vue'], resolve);
+const goodsInStockDetail = resolve => require(['@/pages/goodsInStock/detail.vue'], resolve);
 const informationCenter = resolve => require(['@/pages/informationCenter/index.vue'], resolve);
 const informationDetail = resolve => require(['@/pages/informationCenter/detail.vue'], resolve);
 const processingInformation = resolve => require(['@/pages/processingInformation/index.vue'], resolve);
+const processingInformationDetail = resolve => require(['@/pages/processingInformation/detail.vue'], resolve);
 
 Vue.use(Router)
 
@@ -44,6 +46,11 @@ export default new Router({
             component: goodsInStock
         },
         {
+            path: '/goodsInStockDetail-:ironId',
+            name: 'goodsInStockDetail',
+            component: goodsInStockDetail
+        },
+        {
             path: '/informationCenter',
             name: 'informationCenter',
             component: informationCenter
@@ -58,5 +65,10 @@ export default new Router({
             name: 'processingInformation',
             component: processingInformation
         },
+        {
+            path: '/processingInformationDetail-:handingId',
+            name: 'processingInformationDetail',
+            component: processingInformationDetail
+        }
     ]
 })

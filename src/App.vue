@@ -42,6 +42,7 @@
       height: 100%;
       max-width: 640px;
       margin: 0 auto;
+      overflow-x: hidden;
     }
 
     #app{

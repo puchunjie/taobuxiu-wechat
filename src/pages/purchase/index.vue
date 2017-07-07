@@ -1,5 +1,5 @@
 <template>
-    <view-box>
+    <div>
         <com-header>采购报价</com-header>
         <filter-bar @on-selected="selected" :screen="screen"></filter-bar>
 
@@ -29,18 +29,17 @@
         </scrollList>
 
         <bottom-menu  slot="bottom"></bottom-menu>
-    </view-box>
+    </div>
 </template>
 
 <script>
-    import { ViewBox, Clocker }  from 'vux'
+    import { Clocker }  from 'vux'
     import filterBar from '@/components/business/filterBar.vue'
     import bottomMenu from '@/components/business/bottomMenu'
     import scrollList from '@/components/business/scrollList'
     import comHeader from '@/components/business/commonHead'
     export default {
         components: {
-            ViewBox,
             bottomMenu,
             comHeader,
             filterBar,

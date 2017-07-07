@@ -3,17 +3,25 @@
  * url 当前链接
  */
 export const wxConfig = 'weixin_access_token'
-    // =================特价资源页面====================
-    /**
-     * 特价资源列表  GET
-     * params:key:'',
-     *        currentPage: 0,
-     *        pageCount: 15,
-     *        type: '',
-     *        material: '',
-     *        surface: '',
-     *        proPlace: ''
-     */
+
+/**
+ * 店铺信息
+ * sellerId
+ * 
+ */
+export const shopInfo = 'product/shopBrief'
+
+// =================特价资源页面====================
+/**
+ * 特价资源列表  GET
+ * params:key:'',
+ *        currentPage: 0,
+ *        pageCount: 15,
+ *        type: '',
+ *        material: '',
+ *        surface: '',
+ *        proPlace: ''
+ */
 export const specoffers = 'specoffer/specoffers';
 
 /**
@@ -70,11 +78,26 @@ export const logistics = 'logistics/logisticsRequest'
  */
 export const irons = 'iron/irons'
 
+
+/**
+ * 现货详情
+ * ironId
+ */
+export const ironDetail = 'iron/ironDetail'
+
+
+
 //==================加工信息====================
 /**
  * 加工信息列表
  */
 export const handings = 'handing/handing'
+
+/**
+ * 加工详情
+ * handingId
+ */
+export const handingDetail = 'handing/handingDetail'
 
 //==================资讯中心====================
 /**

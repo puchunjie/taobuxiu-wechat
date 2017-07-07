@@ -1,5 +1,5 @@
 <template>
-    <view-box>
+    <div>
         <header slot="header" class="header">
             <a class="back" @click="goBack"><span class="iconfont icon-fanhui"></span></a>
             <input ref="search" class="search-input" placeholder="请输入要查找的现货关键字" v-model="apiData.keyword">
@@ -24,22 +24,20 @@
                 </div>
                 <p>{{ item.title }}</p>
                 <p>{{ item.sourceCity }}</p>
-                <a class="show-detail">查看</a>
+                <a class="show-detail" @click="jumpToDetail(item.proId)">查看</a>
             </div>
         </scrollList>
 
         <bottom-menu slot="bottom"></bottom-menu>
-    </view-box>
+    </div>
 </template>
 
 <script>
-    import { ViewBox }  from 'vux'
     import filterBar from '@/components/business/filterBar.vue'
     import bottomMenu from '@/components/business/bottomMenu'
     import scrollList from '@/components/business/scrollList'
     export default {
         components: {
-            ViewBox,
             bottomMenu,
             filterBar,
             scrollList
@@ -175,6 +173,9 @@
                 this.apiData.keyword = '';
                 this.sortActive = NaN;
                 this.reloadList();
+            },
+            jumpToDetail(id){
+                this.$router.push({ name: 'goodsInStockDetail', params: { ironId: id } })
             }
         },
         created () {

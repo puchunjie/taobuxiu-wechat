@@ -1,6 +1,6 @@
 <template>
-    <view-box>
-        <header slot="header" class="header">
+    <div>
+        <header class="header">
             <a class="back" @click="goBack"><span class="iconfont icon-fanhui"></span></a>
             <input ref="search" class="search-input" placeholder="请输入要查找的现货关键字" v-model="apiData.keyword">
             <a class="search-btn" @click="search">搜索</a>
@@ -27,7 +27,7 @@
         </section>
 
         <scrollList ref="sScroller" @on-pull-down="reflash" @on-pull-up="loadMore" :height="'-143'" backShow>
-            <div class="item vux-1px" v-for="(item,index) in list" :key="index">
+            <div class="item vux-1px" v-for="(item,index) in list" :key="index"  @click="jumpToDetail(item.id)">
                 <div class="img">
                     <img :src="'http://www.itaobuxiu.com/'+item.cover">
                 </div>
@@ -45,18 +45,16 @@
 
         <bottom-menu slot="bottom"></bottom-menu>
         <address-picker :showChose="adShow" @on-seleted="selectedAdress"></address-picker>
-    </view-box>
+    </div>
 </template>
 
 <script>
-    import { ViewBox }  from 'vux'
     import filterBar from '@/components/business/filterBar.vue'
     import bottomMenu from '@/components/business/bottomMenu'
     import scrollList from '@/components/business/scrollList'
     import addressPicker from '@/components/basics/addressPicker.vue'
     export default {
         components: {
-            ViewBox,
             bottomMenu,
             scrollList,
             filterBar,
@@ -201,6 +199,9 @@
                 this.apiData.cityLevel2Id = data.id2;
                 this.reloadList();
             },
+            jumpToDetail(id){
+                this.$router.push({ name: 'processingInformationDetail', params: { handingId: id } })
+            }
         },
         created () {
              this.getData(()=>{
