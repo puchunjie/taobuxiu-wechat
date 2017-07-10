@@ -5,6 +5,15 @@
 export const wxConfig = 'weixin_access_token'
 
 /**
+ * 登录，注册,获取短信验证码
+ */
+export const login = '/member/login'
+
+export const register = '/member/registerMobile'
+
+export const msgCode = 'msgCode'
+
+/**
  * 店铺信息
  * sellerId
  * 
@@ -123,3 +132,11 @@ export const allNewsDetail = 'newsDetail'
 export const recruits = 'recruits'
 
 export const recruitDetail = 'recruitDetail'
+
+
+
+//==================会员中心====================
+/**
+ * 用户信息
+ */
+export const userInfo = '/member/profile'

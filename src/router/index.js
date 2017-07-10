@@ -11,6 +11,11 @@ const informationCenter = resolve => require(['@/pages/informationCenter/index.v
 const informationDetail = resolve => require(['@/pages/informationCenter/detail.vue'], resolve);
 const processingInformation = resolve => require(['@/pages/processingInformation/index.vue'], resolve);
 const processingInformationDetail = resolve => require(['@/pages/processingInformation/detail.vue'], resolve);
+const login = resolve => require(['@/pages/login/index.vue'], resolve);
+const register = resolve => require(['@/pages/register/index.vue'], resolve);
+
+// 用户中心
+const userCenter = resolve => require(['@/pages/userCenter/index/index.vue'], resolve);
 
 Vue.use(Router)
 
@@ -19,6 +24,16 @@ export default new Router({
             path: '/',
             name: 'index',
             component: index
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: login
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: register
         },
         {
             path: '/special',
@@ -69,6 +84,11 @@ export default new Router({
             path: '/processingInformationDetail-:handingId',
             name: 'processingInformationDetail',
             component: processingInformationDetail
+        },
+        {
+            path: '/userCenter',
+            name: 'userCenter',
+            component: userCenter
         }
     ]
 })

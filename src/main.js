@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import FastClick from 'fastclick'
 import App from './App'
+import store from './store'
 import router from './router/index'
 import axios from 'axios'
 import qs from 'qs'
@@ -66,5 +67,6 @@ axios.interceptors.response.use((response) => {
 /* eslint-disable no-new */
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount('#app-box')
