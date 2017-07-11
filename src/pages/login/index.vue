@@ -66,6 +66,15 @@
                         password: this.password
                     }).then(res => {
                         //跳转到个人中心
+                        if(res.status === 0){
+                            this.$router.push({name:'userCenter'})
+                        }else{
+                            Vue.$vux.toast.show({
+                                text: res.errorMsg,
+                                type: 'warn',
+                                width: '2rem'
+                            });
+                        }
                     })
                 }
             }

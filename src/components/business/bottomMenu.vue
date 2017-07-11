@@ -21,7 +21,7 @@
                     {title:"现货",link:"goodsInStock",icon:"icon-dahuo"},
                     {title:"采购",link:"purchase",icon:"icon-gou"},
                     {title:"物流",link:"logistics",icon:"icon-wuliu"},
-                    {title:"我",link:"",icon:"icon-iconfontwohover"}
+                    {title:"我",link:"userCenter",icon:"icon-iconfontwohover"}
                     ]
             }
         },

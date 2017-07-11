@@ -47,16 +47,17 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use((response) => {
     // Vue.$vux.loading.hide()
-    if (response.data.status === 0) {
-        return response.data;
-    } else {
-        Vue.$vux.toast.show({
-            text: response.data.errorMsg,
-            type: 'warn',
-            width: '2rem'
-        })
-        return Promise.reject(response.data.errorMsg)
-    }
+    return response.data;
+    // if (response.data.status === 0) {
+    //     
+    // } else {
+    //     Vue.$vux.toast.show({
+    //         text: response.data.errorMsg,
+    //         type: 'warn',
+    //         width: '2rem'
+    //     });
+    //     return Promise.reject(response.data.errorMsg)
+    // }
 }, (error) => {
     // Vue.$vux.loading.hide()
     console.log("服务器异常")
