@@ -5,13 +5,17 @@
 export const wxConfig = 'weixin_access_token'
 
 /**
- * 登录，注册,获取短信验证码
+ * 登录，退出，注册,获取短信验证码
  */
 export const login = '/member/login'
+
+export const loginOut = '/member/quit'
 
 export const register = '/member/registerMobile'
 
 export const msgCode = 'msgCode'
+
+
 
 /**
  * 店铺信息
@@ -140,3 +144,17 @@ export const recruitDetail = 'recruitDetail'
  * 用户信息
  */
 export const userInfo = '/member/profile'
+
+/**
+ * 绑定专员
+ * salesmanId
+ */
+export const bindSalesman = 'member/bindSalesman';
+
+/**
+ * 修改密码
+ * oldPassword:'',
+ * newPassword:'',
+ * newPasswordConfirm:''
+ */
+export const changePassword = 'member/changePassword';

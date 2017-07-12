@@ -4,7 +4,34 @@ import * as types from '../mutation-types'
 // shape: [{ id, quantity }]
 const state = {
     userInfo: {
-        userId: 123
+        avator: "",
+        becomeStatus: 0,
+        mobile: "",
+        name: "",
+        salesMan: {
+            id: 0,
+            name: "",
+            tel: ""
+        },
+        sellerData: {
+            biddingSupplyCount: 0,
+            buys: 0,
+            integral: 0,
+            irons: 0,
+            orders: 0,
+            supplyPendingCount: 0,
+            supplySuccessCount: 0
+        },
+        userData: {
+            biddingSupplyCount: 0,
+            buys: 0,
+            integral: 0.0,
+            irons: 0,
+            orders: 0,
+            supplyPendingCount: 0,
+            supplySuccessCount: 0
+        },
+        userId: ""
     }
 }
 

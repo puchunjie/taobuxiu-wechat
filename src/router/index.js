@@ -14,8 +14,12 @@ const processingInformationDetail = resolve => require(['@/pages/processingInfor
 const login = resolve => require(['@/pages/login/index.vue'], resolve);
 const register = resolve => require(['@/pages/register/index.vue'], resolve);
 
+
 // 用户中心
-const userCenter = resolve => require(['@/pages/userCenter/index/index.vue'], resolve);
+const userCenter = resolve => require(['@/pages/userCenter/index.vue'], resolve);
+const userIndex = resolve => require(['@/pages/userCenter/index/index.vue'], resolve);
+const bindingOfficer = resolve => require(['@/pages/userCenter/index/children/bindingOfficer.vue'], resolve);
+const userInfo = resolve => require(['@/pages/userCenter/index/children/userInfo.vue'], resolve);
 
 Vue.use(Router)
 
@@ -88,7 +92,23 @@ export default new Router({
         {
             path: '/userCenter',
             name: 'userCenter',
+            children: [{
+                    path: '',
+                    name: 'userIndex',
+                    component: userIndex
+                }, {
+                    path: 'bindingOfficer',
+                    name: 'bindingOfficer',
+                    component: bindingOfficer
+                },
+                {
+                    path: 'userInfo',
+                    name: 'userInfo',
+                    component: userInfo
+                },
+            ],
             component: userCenter
-        }
+        },
+
     ]
 })

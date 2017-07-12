@@ -1,6 +1,6 @@
 <template>
     <x-header slot="header" :left-options="{backText:''}">
-        <router-link slot="right" :to="{name:'index'}">
+        <router-link v-show="!hideRight" slot="right" :to="{name:'index'}">
             <span class="iconfont icon-shouye"></span>
         </router-link>
         <slot></slot>
@@ -13,6 +13,12 @@
     export default {
         components: {
             XHeader
+        },
+        props:{
+            hideRight:{
+                type: Boolean,
+                default: false
+            }
         }
     }
 </script>
