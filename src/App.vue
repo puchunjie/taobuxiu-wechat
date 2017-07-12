@@ -16,7 +16,6 @@
       let _this = this;
       this.resizeWindow();
       window.onresize = function() {
-        console.log(1)
           _this.resizeWindow();
       };
       // 设置微信分享

@@ -93,7 +93,7 @@ export default new Router({
             path: '/userCenter',
             name: 'userCenter',
             children: [{
-                    path: '',
+                    path: 'index',
                     name: 'userIndex',
                     component: userIndex
                 }, {

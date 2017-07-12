@@ -10,7 +10,7 @@
                 <a class="phone" v-else @click.self="bindingShow = true"><span class="iconfont icon-kefu"></span></a>
             </header>
             <div class="content" @click="$router.push({name:'userInfo'})">
-                <img class="head-pic" :src="'http://118.178.17.15:9090/' + userInfo.avator">
+                <img class="head-pic" :src="userInfo.avator">
                 <div class="panel">
                     <h3>{{ userInfo.name }}</h3>
                     <p><span class="iconfont icon-zhongqingdianxinicon15"></span>{{ userInfo.mobile }}</p>

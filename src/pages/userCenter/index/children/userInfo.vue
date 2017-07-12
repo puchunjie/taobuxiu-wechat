@@ -3,7 +3,7 @@
         <com-header hideRight>账户信息</com-header>
         <group>
             <cell title="头像">
-                <img class="user-pic" slot="child" :src="'http://118.178.17.15:9090/'+userInfo.avator"></img>
+                <img class="user-pic" slot="child" :src="userInfo.avator"></img>
             </cell>
             <cell title="真实姓名" :value="userInfo.name"></cell>
         </group>

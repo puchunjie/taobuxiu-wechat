@@ -7,7 +7,7 @@
                 <span slot="right" class="pwd-icon iconfont" :class="eyes" @click="hidePwd = !hidePwd"></span>
             </x-input>
         </group>
-        <a class="login-btn" @click="login">登录</a>
+        <div class="login-btn" @click="login">登录</div>
         <div class="login-register">
             <flexbox>
                 <flexbox-item>
@@ -69,13 +69,19 @@
                         if(res.status === 0){
                             this.$router.push({name:'userCenter'})
                         }else{
-                            Vue.$vux.toast.show({
+                            this.$vux.toast.show({
                                 text: res.errorMsg,
                                 type: 'warn',
                                 width: '2rem'
                             });
                         }
                     })
+                }else{
+                    this.$vux.toast.show({
+                        text: '请输入正确的账号密码',
+                        type: 'warn',
+                        width: '2rem'
+                    });
                 }
             }
         }
@@ -89,7 +95,6 @@
     }
 
     .login-btn{
-        display: block;
         width: 3.6rem;
         height: .44rem;
         line-height: .44rem;

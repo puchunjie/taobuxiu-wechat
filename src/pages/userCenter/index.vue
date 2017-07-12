@@ -34,6 +34,7 @@
                     // 判断是否登录 
                     if(res.status === 0){
                         this.setUserInfo(res.data)
+                        this.$router.push({name:'userIndex'})
                     }else{
                         this.confirmShow = true
                     }
