@@ -21,9 +21,9 @@
         <popup v-model="editPassword" is-transparent>
             <div class="warp">
                 <group>
-                    <x-input ref="old" required placeholder="旧密码" v-model="apiData.oldPassword"></x-input>
-                    <x-input ref="new" required placeholder="新密码" v-model="apiData.newPassword"></x-input>
-                    <x-input ref="newConf" required placeholder="确认密码" v-model="apiData.newPasswordConfirm"></x-input>
+                    <x-input ref="old" type="password" required placeholder="旧密码" v-model="apiData.oldPassword"></x-input>
+                    <x-input ref="new" type="password" required placeholder="新密码" v-model="apiData.newPassword"></x-input>
+                    <x-input ref="newConf" type="password" required placeholder="确认密码" v-model="apiData.newPasswordConfirm"></x-input>
                 </group>
                 <div style="padding:20px 15px;">
                     <x-button type="primary" @click.native="reset">确认修改</x-button>

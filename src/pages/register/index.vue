@@ -13,7 +13,7 @@
             </x-input>
             <x-input ref="password" v-model="password" placeholder="请输入您的密码" required></x-input>
         </group>
-        <div class="agree">继续操作及视为同意 <a>《淘不锈用户注册协议》</a></div>
+        <div class="agree">继续操作即视为同意 <a>《淘不锈用户注册协议》</a></div>
         <div class="register-btn" @click="register">注册</div>
         <div class="login-register">
             <flexbox>

@@ -65,7 +65,6 @@
                 return dateFormat(new Date(time*1), 'YYYY-MM-DD')
             },
             switchKey(index){
-                console.log(index);
                 this.activeTab = index;
                 this.resetList();
             },

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-    import { ironTypes, surfaces, materials, proPlaces, machiningTypes } from '../../assets/resouseData.js'
+    import { ironTypes, surfaces, materials, proPlaces, machiningTypes } from '@/assets/resouseData.js'
     import { Scroller } from 'vux'
     let products =  [
                     {

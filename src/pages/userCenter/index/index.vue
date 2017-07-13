@@ -7,7 +7,7 @@
                 <a class="phone" :href="'tel:'+ userInfo.salesMan.tel" v-if="userInfo.salesMan.name != ''">
                     <span class="iconfont icon-kefu"></span>
                 </a>
-                <a class="phone" v-else @click.self="bindingShow = true"><span class="iconfont icon-kefu"></span></a>
+                <a class="phone" v-else @click="bindingShow = true"><span class="iconfont icon-kefu"></span></a>
             </header>
             <div class="content" @click="$router.push({name:'userInfo'})">
                 <img class="head-pic" :src="userInfo.avator">
@@ -21,7 +21,7 @@
 
         <user-panel :data="buyer"></user-panel>
 
-        <user-panel v-if="userInfo.becomeStatus === 2" :data="seller"></user-panel>
+        <user-panel v-if="isSeller" :data="seller"></user-panel>
         
         <div v-else class="authentication">
             您暂未认证企业账号
@@ -37,11 +37,20 @@
             @on-confirm="bOnConfirm">
             </confirm>
         </transition>
+
+        <transition enter-active-class="animated fadeIn">
+            <confirm v-model="confirmShow"
+            show-input
+            title="您还没有登录，是否前往登录？"
+            @on-cancel="onCancel"
+            @on-confirm="onConfirm">
+            </confirm>
+        </transition>
     </view-box>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
     import { ViewBox, Confirm } from 'vux'
     import bottomMenu from '@/components/business/bottomMenu'
     import userPanel from '@/components/business/userPanel'
@@ -54,6 +63,7 @@
         },
         data () {
             return {
+                confirmShow: false, 
                 bindingShow: false,
                 buyer: {
                     title:{
@@ -98,13 +108,20 @@
                             title:'发布求购',
                             icon:'icon-fabu',
                             color: '#007de4',
-                            link: ''
+                            link: {
+                                name: 'bPublishProduct',
+                                params:{
+                                    id: false
+                                }
+                            }
                         },
                         {
                             title:'现货求购',
                             icon:'icon-qiugou',
                             color: '#fb893f',
-                            link: ''
+                            link: {
+                                name: 'buyerBuys'
+                            }
                         },
                         {
                             title:'加工求购',
@@ -190,20 +207,44 @@
         computed: {
             ...mapGetters([
                 'userInfo',
-            ])
+            ]),
+            //是否是卖家
+            isSeller(){
+                return this.userInfo.becomeStatus === 2
+            }
         },
         methods: {
+            ...mapActions([
+                'setUserInfo'
+            ]),
+            getUserData(){
+                this.$http.get(this.api.userInfo).then(res => {
+                    // 判断是否登录 
+                    if(res.status === 0){
+                        this.setUserInfo(res.data)
+                        this.buyer.info.orders.count = this.userInfo.userData.orders;
+                        this.buyer.info.integral.count = this.userInfo.userData.integral;
+                        this.buyer.info.buys.count = this.userInfo.userData.buys;
+                        this.seller.info.orders.count = this.userInfo.sellerData.orders;
+                        this.seller.info.integral.count = this.userInfo.sellerData.integral;
+                        this.seller.info.buys.count = this.userInfo.sellerData.buys;
+                    }else{
+                        this.confirmShow = true
+                    }
+                }) 
+            },
+            onCancel(){
+                this.$router.push({name:'index'})
+            },
+            onConfirm(){
+                this.$router.push({name:'login'})
+            },
             bOnConfirm(){
                 this.$router.push({name:'bindingOfficer'})
             }
         },
         created () {
-            this.buyer.info.orders.count = this.userInfo.userData.orders;
-            this.buyer.info.integral.count = this.userInfo.userData.integral;
-            this.buyer.info.buys.count = this.userInfo.userData.buys;
-            this.seller.info.orders.count = this.userInfo.sellerData.orders;
-            this.seller.info.integral.count = this.userInfo.sellerData.integral;
-            this.seller.info.buys.count = this.userInfo.sellerData.buys;
+            this.getUserData();
         }
     }
 </script>

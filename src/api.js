@@ -158,3 +158,19 @@ export const bindSalesman = 'member/bindSalesman';
  * newPasswordConfirm:''
  */
 export const changePassword = 'member/changePassword';
+
+
+//==================买家====================
+/**
+ * 买家不锈钢求购列表
+ * currentPage   //当前页面
+ * pageCount     //每页个数
+ * status // 0 进行中  1 已确认  2 已取消  -1 所有
+ */
+export const myBuyList = 'iron/myBuy';
+
+/**
+ * 买家不锈钢求购详情
+ * ironId   //id
+ */
+export const myBuyDetail = 'iron/myBuyDetail';

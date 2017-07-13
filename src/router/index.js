@@ -20,6 +20,8 @@ const userCenter = resolve => require(['@/pages/userCenter/index.vue'], resolve)
 const userIndex = resolve => require(['@/pages/userCenter/index/index.vue'], resolve);
 const bindingOfficer = resolve => require(['@/pages/userCenter/index/children/bindingOfficer.vue'], resolve);
 const userInfo = resolve => require(['@/pages/userCenter/index/children/userInfo.vue'], resolve);
+const buyerBuys = resolve => require(['@/pages/userCenter/buyer/buys/index.vue'], resolve);
+const bPublishProduct = resolve => require(['@/pages/userCenter/buyer/publish/product.vue'], resolve);
 
 Vue.use(Router)
 
@@ -93,7 +95,7 @@ export default new Router({
             path: '/userCenter',
             name: 'userCenter',
             children: [{
-                    path: 'index',
+                    path: '',
                     name: 'userIndex',
                     component: userIndex
                 }, {
@@ -106,6 +108,16 @@ export default new Router({
                     name: 'userInfo',
                     component: userInfo
                 },
+                {
+                    path: 'buyer/buys',
+                    name: 'buyerBuys',
+                    component: buyerBuys
+                },
+                {
+                    path: 'buyer/publishProduct-:id',
+                    name: 'bPublishProduct',
+                    component: bPublishProduct
+                }
             ],
             component: userCenter
         },

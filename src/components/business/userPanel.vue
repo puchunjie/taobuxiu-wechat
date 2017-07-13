@@ -6,12 +6,12 @@
         </div>
         <div class="info vux-1px-b">
             <div class="cell vux-1px-r" v-for="(val,key) in data.info" :key="key">
-                <p class="count">{{ val.count }}</p>
+                <countup :start-val="0" :end-val="val.count" :decimals="key==='integral' ? 1 : 0"></countup>
                 <p>{{ val.name }}</p>
             </div>
         </div>
         <div class="links">
-            <div class="cell" v-for="(item,index) in data.links" :key="index">
+            <div class="cell" v-for="(item,index) in data.links" :key="index" @click="linkTo(item.link)">
                 <span class="iconfont" :class="item.icon" :style="{'color': item.color}"></span>
                 <p>{{ item.title }}</p>
             </div>
@@ -20,10 +20,19 @@
 </template>
 
 <script>
+    import { Countup } from 'vux'
     export default {
+        components: {
+            Countup    
+        },
         props:{
             data:{
                 type:Object
+            }
+        },
+        methods: {
+            linkTo(link){
+                this.$router.push(link)
             }
         }
     }
