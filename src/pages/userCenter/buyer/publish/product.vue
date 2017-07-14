@@ -235,10 +235,9 @@
             }
         },
         created () {
+            // 如果是求购列表点击再发一次过来的就获取数据进行填充
             if(this.id != 'false'){
                 this.getDetail();
-            }else{
-               
             }
         }
     }

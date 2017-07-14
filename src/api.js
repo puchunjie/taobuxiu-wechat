@@ -180,3 +180,12 @@ export const myBuyDetail = 'iron/myBuyDetail';
  * post
  */
 export const publishIron = 'iron/buy'
+
+//==================卖家====================
+/**
+ * 卖家不锈钢求购列表
+ * currentPage   //当前页面
+ * pageCount     //每页个数
+ * status // 0 进行中  1 已确认  2 已取消  -1 所有
+ */
+export const myIronBuys = 'seller/myIronBuys';

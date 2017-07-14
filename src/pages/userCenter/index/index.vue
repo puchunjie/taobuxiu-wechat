@@ -111,7 +111,7 @@
                             link: {
                                 name: 'bPublishProduct',
                                 params:{
-                                    id: false
+                                    id: 'false'
                                 }
                             }
                         },
@@ -192,7 +192,9 @@
                             title:'现货报价',
                             icon:'icon-canyujingbiaotubiao',
                             color: '#007de4',
-                            link: ''
+                            link: {
+                                name: 'sellerBuys'
+                            }
                         },
                         {
                             title:'加工报价',

@@ -23,6 +23,8 @@ const userInfo = resolve => require(['@/pages/userCenter/index/children/userInfo
 const buyerBuys = resolve => require(['@/pages/userCenter/buyer/buys/index.vue'], resolve);
 const bPublishProduct = resolve => require(['@/pages/userCenter/buyer/publish/product.vue'], resolve);
 
+const sellerBuys = resolve => require(['@/pages/userCenter/seller/buys/index.vue'], resolve);
+
 Vue.use(Router)
 
 export default new Router({
@@ -117,7 +119,12 @@ export default new Router({
                     path: 'buyer/publishProduct-:id',
                     name: 'bPublishProduct',
                     component: bPublishProduct
-                }
+                },
+                {
+                    path: 'seller/buys',
+                    name: 'sellerBuys',
+                    component: sellerBuys
+                },
             ],
             component: userCenter
         },
