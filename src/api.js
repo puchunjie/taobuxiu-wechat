@@ -174,3 +174,9 @@ export const myBuyList = 'iron/myBuy';
  * ironId   //id
  */
 export const myBuyDetail = 'iron/myBuyDetail';
+
+/**
+ * 买家不锈钢求购发布
+ * post
+ */
+export const publishIron = 'iron/buy'
