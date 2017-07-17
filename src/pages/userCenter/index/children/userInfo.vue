@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters,mapActions } from 'vuex'
     import comHeader from '@/components/business/commonHead'
     import phone from '@/assets/Phone.png'
     import { Cell, Group, XButton, Popup, XInput } from 'vux'
@@ -68,6 +68,7 @@
             }
         },
         methods: {
+            ...mapActions(['resetUserInfo']),
             close(){
                 this.editPassword = false;
                 this.resetApidata();
@@ -80,6 +81,11 @@
                             this.$vux.alert.show({
                                 title: '修改成功！',
                                 content: '您的账户密码已经修改成功。'
+                            })
+                        }else{
+                            this.$vux.alert.show({
+                                title: '修改失败！',
+                                content: res.errorMsg
                             })
                         }
                     })
@@ -100,6 +106,8 @@
                 this.$http.post(this.api.loginOut).then(res =>{
                     if(res.status === 0){
                         this.$router.push({name:'index'});
+                        this.resetUserInfo();
+                        console.log(1)
                     }
                 });
             }

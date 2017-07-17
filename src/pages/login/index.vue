@@ -14,7 +14,7 @@
                     <router-link :to="{name:'register'}" tag="span">快速注册</router-link>
                 </flexbox-item>
                 <flexbox-item>
-                    <router-link class="r" :to="{name:'register'}" tag="span">忘记密码?</router-link>
+                    <router-link class="r" :to="{name:'retrieval'}" tag="span">忘记密码?</router-link>
                 </flexbox-item>
             </flexbox>
         </div>

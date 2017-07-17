@@ -17,7 +17,9 @@
                 <p class="dead-time">
                     报价期限：
                     <clocker :time="item.pushTime + item.timeLimit" v-if="timeOver(item.pushTime + item.timeLimit)" slot="value">
-                        <span v-if="dayShow(item.pushTime + item.timeLimit)" class="day">%_D1%_D2</span>天
+                        <template v-if="dayShow(item.pushTime + item.timeLimit)">
+                            <span class="day">%_D1%_D2</span>天
+                        </template>
                         <span class="day">%_H1%_H2</span>时
                         <span class="day">%_M1%_M2</span>分
                         <span class="day">%_S1%_S2</span>秒

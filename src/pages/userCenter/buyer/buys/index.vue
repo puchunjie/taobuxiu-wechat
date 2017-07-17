@@ -8,7 +8,7 @@
         </tab>
          <div class="tab-swiper">
             <scrollList ref="sScroller" style="background-color:#efeff4" @on-pull-down="reflash" @on-pull-up="loadMore" :height="'-55'" backShow>
-                <div class="item" v-for="(item,index) in list" :key="item.id" @click="jumpToDetail(item.id)">
+                <div class="item" v-for="(item,index) in list" :key="item.id">
                     <div class="info vux-1px-b">
                         <h3 class="tit">
                             {{ `${ item.ironType } | ${ item.material } | ${ item.surface } | ${ item.proPlace } (${ item.sourceCity })` }}
@@ -28,9 +28,9 @@
                             </clocker>
                         </p>
                          <p v-else>{{ formateDate(item.pushTime)}}</p> 
-                        <a :style="{backgroundColor:statusColor}">再发一次</a>
+                        <a @click="jumpToPublish(item.id)" :style="{backgroundColor:statusColor}">再发一次</a>
                     </div>
-                    <div class="count" :class="statusClass">
+                    <div class="count" :class="statusClass" @click="jumpToDetail(item.id)">
                         （{{ item.supplyCount }}）<span class="iconfont icon-arrow-right"></span>
                     </div>
                 </div>
@@ -156,8 +156,11 @@
                 }
                 this.$refs.sScroller.donePu();
             },
-            jumpToDetail(id){
+            jumpToPublish(id){
                 this.$router.push({ name: 'bPublishProduct', params: { id: id}})
+            },
+            jumpToDetail(ironId){
+                this.$router.push({ name: 'buyerBuysDetail', params: { ironId: ironId}})
             },
             // 是否显示天数
             dayShow(time){

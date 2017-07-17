@@ -13,6 +13,7 @@ const processingInformation = resolve => require(['@/pages/processingInformation
 const processingInformationDetail = resolve => require(['@/pages/processingInformation/detail.vue'], resolve);
 const login = resolve => require(['@/pages/login/index.vue'], resolve);
 const register = resolve => require(['@/pages/register/index.vue'], resolve);
+const retrieval = resolve => require(['@/pages/register/retrieval.vue'], resolve);
 
 
 // 用户中心
@@ -21,6 +22,7 @@ const userIndex = resolve => require(['@/pages/userCenter/index/index.vue'], res
 const bindingOfficer = resolve => require(['@/pages/userCenter/index/children/bindingOfficer.vue'], resolve);
 const userInfo = resolve => require(['@/pages/userCenter/index/children/userInfo.vue'], resolve);
 const buyerBuys = resolve => require(['@/pages/userCenter/buyer/buys/index.vue'], resolve);
+const buyerBuysDetail = resolve => require(['@/pages/userCenter/buyer/buys/detail.vue'], resolve);
 const bPublishProduct = resolve => require(['@/pages/userCenter/buyer/publish/product.vue'], resolve);
 
 const sellerBuys = resolve => require(['@/pages/userCenter/seller/buys/index.vue'], resolve);
@@ -42,6 +44,11 @@ export default new Router({
             path: '/register',
             name: 'register',
             component: register
+        },
+        {
+            path: '/retrieval',
+            name: 'retrieval',
+            component: retrieval
         },
         {
             path: '/special',
@@ -114,6 +121,11 @@ export default new Router({
                     path: 'buyer/buys',
                     name: 'buyerBuys',
                     component: buyerBuys
+                },
+                {
+                    path: 'buyer/buysDetail-:ironId',
+                    name: 'buyerBuysDetail',
+                    component: buyerBuysDetail
                 },
                 {
                     path: 'buyer/publishProduct-:id',

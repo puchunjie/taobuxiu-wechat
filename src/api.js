@@ -5,13 +5,15 @@
 export const wxConfig = 'weixin_access_token'
 
 /**
- * 登录，退出，注册,获取短信验证码
+ * 登录，退出，注册,忘记密码,获取短信验证码
  */
 export const login = '/member/login'
 
 export const loginOut = '/member/quit'
 
 export const register = '/member/registerMobile'
+
+export const forgetPassword = 'member/forgetPassword'
 
 export const msgCode = 'msgCode'
 

@@ -5,8 +5,8 @@
             {{ data.title.name }}
         </div>
         <div class="info vux-1px-b">
-            <div class="cell vux-1px-r" v-for="(val,key) in data.info" :key="key">
-                <countup :start-val="0" :end-val="val.count" :decimals="key==='integral' ? 1 : 0"></countup>
+            <div class="cell vux-1px-r" v-for="(val,key) in data.info" :key="key" @click="linkTo(val.link)">
+                <p>{{ val.count }}</p>
                 <p>{{ val.name }}</p>
             </div>
         </div>
@@ -20,11 +20,7 @@
 </template>
 
 <script>
-    import { Countup } from 'vux'
     export default {
-        components: {
-            Countup    
-        },
         props:{
             data:{
                 type:Object

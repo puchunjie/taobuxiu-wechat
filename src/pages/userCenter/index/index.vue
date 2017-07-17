@@ -74,15 +74,18 @@
                     info:{
                         orders:{
                             count: 0,
-                            name: '待处理订单'
+                            name: '待处理订单',
+                            link: ''
                         },
                         integral:{
                             count: 0,
-                            name: '积分'
+                            name: '积分',
+                            link: ''
                         },
                         buys: {
                             count: 0,
-                            name: '待处理求购'
+                            name: '待处理求购',
+                            link: { name: 'buyerBuys' }
                         }
                     },
                     links:[
@@ -140,15 +143,18 @@
                     info:{
                         orders:{
                             count: 0,
-                            name: '待确认订单'
+                            name: '待确认订单',
+                            link: ''
                         },
                         integral:{
                             count: 0,
-                            name: '积分'
+                            name: '积分',
+                            link: ''
                         },
                         buys: {
                             count: 0,
-                            name: '待报价求购'
+                            name: '待报价求购',
+                            link: { name: 'sellerBuys' }
                         }
                     },
                     links:[
@@ -229,7 +235,7 @@
                         this.buyer.info.buys.count = this.userInfo.userData.buys;
                         this.seller.info.orders.count = this.userInfo.sellerData.orders;
                         this.seller.info.integral.count = this.userInfo.sellerData.integral;
-                        this.seller.info.buys.count = this.userInfo.sellerData.buys;
+                        this.seller.info.buys.count = this.userInfo.sellerData.supplyPendingCount;
                     }else{
                         this.confirmShow = true
                     }

@@ -1,6 +1,6 @@
 <template>
     <view-box>
-        <com-header>现货求购管理</com-header>
+        <com-header>发布现货需求</com-header>
         <group>
             <popup-picker v-for="(val,key) in picterList" :key="key" @on-hide="syncValue(key)"
             :title="val.title" :data="val.arr" v-model="val.value" placeholder="请选择(必填)"></popup-picker>

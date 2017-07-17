@@ -1,6 +1,6 @@
 <template>
-<view-box>
-        <com-header>用户注册</com-header>
+    <view-box>
+        <com-header>忘记密码</com-header>
         <group gutter="0">
             <x-input ref="mobile" v-model="mobile" placeholder="请输入您的手机号码" is-type="china-mobile" type="text" required></x-input>
             <x-input ref="pin" v-model="pin" placeholder="请输入短信验证码" required>
@@ -11,17 +11,10 @@
                     </span>
                 </span>
             </x-input>
-            <x-input ref="password" v-model="password" type="password" placeholder="请输入您的密码" required></x-input>
+            <x-input ref="password" v-model="password" type="password" placeholder="请设置您的新密码" required></x-input>
         </group>
-        <div class="agree">继续操作即视为同意 <a>《淘不锈用户注册协议》</a></div>
-        <div class="register-btn" @click="register">注册</div>
-        <div class="login-register">
-            <flexbox>
-                <flexbox-item>
-                    <router-link class="r" :to="{name:'login'}" tag="span">去登录</router-link>
-                </flexbox-item>
-            </flexbox>
-        </div>
+        <div class="agree">请获取短信验证码，并设置您的新登录密码</div>
+        <div class="register-btn" @click="register">确认更改</div>
         
         <div class="contact">
             服务咨询热线：<a href="tel:0510-81812186">0510-81812186</a>
@@ -88,7 +81,7 @@
             register(){
                 if(this.$refs.mobile.valid && this.$refs.pin.valid && this.$refs.password.valid){
                     //注册
-                    this.$http.post(this.api.register,{
+                    this.$http.post(this.api.forgetPassword,{
                         mobile: this.mobile,
                         password: this.password,
                         passwordConfirm: this.password,
