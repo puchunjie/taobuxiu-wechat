@@ -26,6 +26,7 @@ const buyerBuysDetail = resolve => require(['@/pages/userCenter/buyer/buys/detai
 const bPublishProduct = resolve => require(['@/pages/userCenter/buyer/publish/product.vue'], resolve);
 
 const sellerBuys = resolve => require(['@/pages/userCenter/seller/buys/index.vue'], resolve);
+const sellerBuysDetail = resolve => require(['@/pages/userCenter/seller/buys/detail.vue'], resolve);
 
 Vue.use(Router)
 
@@ -137,6 +138,11 @@ export default new Router({
                     name: 'sellerBuys',
                     component: sellerBuys
                 },
+                {
+                    path: 'seller/buysDetail-:ironId',
+                    name: 'sellerBuysDetail',
+                    component: sellerBuysDetail
+                }
             ],
             component: userCenter
         },

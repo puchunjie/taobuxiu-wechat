@@ -36,7 +36,7 @@
                 <span class="r">{{ supplies.length }}家有效报价</span>
             </div>
             <p class="totle vux-1px-b" v-if="buy.status === 1">
-                总成交额：&yen;
+                总成交额：&yen;{{ totlePrice }}
             </p>
             <div class="list">
                 <div class="company vux-1px-b" v-for="(item,index) in supplies" :key="index">
@@ -44,7 +44,8 @@
                     <p class="price">&yen;{{ item.supplyPrice }}/{{ item.unit }}</p>
                     <p class="">备注：{{ item.supplyMsg }}</p>
                     <p class="">抢单成功：{{ item.winningTimes }}次    联系人：{{ item.contact }}</p>
-                    <a class="contact" :style="{top: item.isWinner ? '.6rem' : '.4rem' }" :href="'tel:'+ item.mobile">联系对方</a>
+                    <a v-if="buy.status === 0" @click="showComf(item.sellerId)" class="btna select">选他中标</a>
+                    <a class="btna contact" :style="{top: item.isWinner ? '.6rem' : '.5rem' }" :href="'tel:'+ item.mobile">联系对方</a>
                     <span v-if="item.isWinner" class="iconfont icon-zhongbiao win"></span>
                 </div>
                 <div class="company vux-1px-b" v-for="(item,index) in missSupplies" :key="index">
@@ -53,11 +54,15 @@
                 </div>
             </div>
         </div>
+        <confirm v-model="showSelect"
+            title="选择此家中标？"
+            @on-confirm="select">
+        </confirm>
     </view-box>
 </template>
 
 <script>
-    import { ViewBox, dateFormat, Clocker } from 'vux'
+    import { ViewBox, dateFormat, Clocker, Confirm } from 'vux'
     import comHeader from '@/components/business/commonHead'
 
     export default {
@@ -65,13 +70,16 @@
             ViewBox,
             comHeader,
             dateFormat, 
-            Clocker
+            Clocker,
+            Confirm
         },
         data () {
             return {
                 buy:{},
                 missSupplies: [],
-                supplies: []    
+                supplies: [],
+                showSelect: false,
+                supplyId: ''    
             }
         },
         computed: {
@@ -96,7 +104,7 @@
             statusIcon(){
                 switch (this.buy.status) {
                     case 0:
-                        return 'icon-lajixiang status0'
+                        return 'icon-lajitong status0'
                         break;
                     case 1:
                         return 'icon-yichengjiao status1'
@@ -107,6 +115,15 @@
                     default:
                         break;
                 }
+            },
+            totlePrice(){
+                let totle = 0;
+                this.supplies.forEach(el => {
+                    if(el.isWinner){
+                        totle =  el.supplyPrice * this.buy.numbers
+                    }
+                })
+                return totle;
             }
         },
         methods: {
@@ -130,6 +147,30 @@
                     }
                 })
             },
+            showComf(supplyId){
+                this.showSelect = true;
+                this.supplyId = supplyId;
+            },
+            select(){
+                this.$http.post(this.api.selectSupply,{
+                    ironBuyId: this.ironId,
+                    supplyId: this.supplyId
+                }).then(res => {
+                    if(res.status === 0){
+                        this.getDetail();
+                        this.$vux.alert.show({
+                            title: '恭喜成交！',
+                            content: '交易成功！'
+                        })
+                    }else{
+                        this.$vux.toast.show({
+                            text: res.errorMsg,
+                            type: 'warn',
+                            width: '2rem'
+                        });
+                    }
+                });
+            }
         },
         created () {
             this.getDetail()
@@ -203,6 +244,17 @@
         }
     }
 
+    .btna{
+        position: absolute;
+        display: block;
+        right: 0;
+        width: .8rem;
+        height: .3rem;
+        line-height: .3rem;
+        text-align: center;
+        color: #fff;
+    }
+
     .detail{
         width: 100%;
         background-color: #fff;
@@ -254,15 +306,13 @@
                     color: red;
                 }
                 .contact{
-                    position: absolute;
-                    display: block;
-                    right: 0;
-                    width: .8rem;
-                    height: .3rem;
-                    line-height: .3rem;
-                    text-align: center;
                     background-color: #007de4;
-                    color: #fff;
+                    .btna
+                }
+                .select{
+                    top: .1rem;
+                    background-color: #ff8d00;
+                    .btna
                 }
                 .win{
                     position: absolute;

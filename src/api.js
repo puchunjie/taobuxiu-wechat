@@ -183,6 +183,13 @@ export const myBuyDetail = 'iron/myBuyDetail';
  */
 export const publishIron = 'iron/buy'
 
+/**
+ * 点击中标
+ * ironBuyId  
+ * supplyId
+ */
+export const selectSupply = 'iron/selectSupply';
+
 //==================卖家====================
 /**
  * 卖家不锈钢求购列表
@@ -191,3 +198,23 @@ export const publishIron = 'iron/buy'
  * status // 0 进行中  1 已确认  2 已取消  -1 所有
  */
 export const myIronBuys = 'seller/myIronBuys';
+
+/**
+ * 卖家不锈钢求购详情
+ * ironId   //id
+ */
+export const sMyBuyDetail = 'seller/myIronBuyDetail';
+
+/**
+ * 卖家点击报价
+ * ironId:PmPNOklFbltl
+ * price:123123
+ * msg:123123123
+ */
+export const offerIronBuy = 'seller/offerIronBuy';
+
+/**
+ * 卖家点击忽略报价
+ * Ironid
+ */
+export const missIronBuyOffer = 'seller/missIronBuyOffer';

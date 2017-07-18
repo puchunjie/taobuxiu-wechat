@@ -106,7 +106,7 @@
                 units: [units],
                 location:'请选择（必填)',
                 time:[days,hours,minutes],
-                pickerTime:[[1],[0],[0]],
+                pickerTime:['1','0','0'],
                 apiData:{
                     ironType: '不锈钢卷',//品类
                     surface: 'No.1',//表面

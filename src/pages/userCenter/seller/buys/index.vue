@@ -161,8 +161,8 @@
                 }
                 this.$refs.sScroller.donePu();
             },
-            jumpToDetail(id){
-                this.$router.push({ name: 'bPublishProduct', params: { id: id}})
+            jumpToDetail(ironId){
+                this.$router.push({ name: 'sellerBuysDetail', params: { ironId: ironId}})
             },
             // 是否显示天数
             dayShow(time){
