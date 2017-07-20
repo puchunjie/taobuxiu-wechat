@@ -1,5 +1,5 @@
 <template>
-    <view-box>
+    <div class="container">
         <com-header hideRight>现货报价管理</com-header>
         <tab :active-color="statusColor" v-model="activeTab">
             <tab-item v-for="(tab,index) in tabs" :key="index" @on-item-click="switchKey">
@@ -8,10 +8,10 @@
         </tab>
          <div class="tab-swiper">
             <scrollList ref="sScroller" style="background-color:#efeff4" @on-pull-down="reflash" @on-pull-up="loadMore" :height="'-55'" backShow>
-                <div class="item" v-for="(item,index) in list" :key="item.id" @click="jumpToDetail(item.id)">
+                <div class="item" v-for="(item,index) in list" :key="item.id" @click="showDetail(item.id)">
                     <div class="info vux-1px-b">
                         <h3 class="tit">
-                            {{ `${ item.ironType } | ${ item.material } | ${ item.surface } | ${ item.proPlace } (${ item.sourceCity })` }}
+                            {{ `${ item.ironType } | ${ item.material } | ${ item.surface } | ${ item.proPlace }` }}
                         </h3>
                         <p>{{ `${ item.height }*${ item.width }*${ item.length } | 公差：${ item.tolerance } | ${ item.numbers }${ item.unit }` }}</p>
                         <p>备注：{{ item.message }}</p>
@@ -34,13 +34,18 @@
                 </div>
             </scrollList>  
         </div>
-    </view-box>
+
+        <div class="detail-container" v-show="detailShow.do">
+            <detail-part @on-back="detailShow.do = false" v-if="detailIronId != ''" :ironId="detailIronId" :show="detailShow"></detail-part>
+        </div>
+    </div>
 </template>
 
 <script>
     import { ViewBox, Tab, TabItem, dateFormat, Clocker } from 'vux'
     import scrollList from '@/components/business/scrollList'
     import comHeader from '@/components/business/commonHead'
+    import detailPart from './detail.vue'
     export default {
         components: {
             ViewBox, 
@@ -48,7 +53,8 @@
             Tab, 
             TabItem,
             scrollList,
-            Clocker
+            Clocker,
+            detailPart
         },
         data () {
             return {
@@ -65,7 +71,11 @@
                     currentPage: 0,
                     pageCount: 15
                 },
-                maxCount: 0
+                maxCount: 0,
+                detailIronId:'',
+                detailShow: {
+                    do: false
+                }
             }
         },
         computed: {
@@ -161,8 +171,9 @@
                 }
                 this.$refs.sScroller.donePu();
             },
-            jumpToDetail(ironId){
-                this.$router.push({ name: 'sellerBuysDetail', params: { ironId: ironId}})
+           showDetail(ironId){
+                this.detailIronId = ironId;
+                this.detailShow.do = true;
             },
             // 是否显示天数
             dayShow(time){
@@ -178,6 +189,10 @@
 </script>
 
 <style lang="less" scoped>
+    .container{
+        width: 100%;
+        height: 100%;
+    }
     .same{
         width: 3rem;
         line-height: .3rem;
@@ -235,5 +250,15 @@
     }
     .pass{
         color: red
+    }
+
+    .detail-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background-color: #efeff4;
     }
 </style>

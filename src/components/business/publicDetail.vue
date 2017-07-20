@@ -1,6 +1,12 @@
 <template>
-    <view-box>
-        <com-header>{{ pageTitle }}</com-header>
+    <view-box body-padding-bottom="1rem">
+        <x-header slot="header" :left-options="{showBack:false}">
+            <router-link slot="right" :to="{name:'index'}">
+                <span class="iconfont icon-shouye"></span>
+            </router-link>
+            {{ pageTitle }}
+            <span class="iconfont icon-fanhui" slot="left" @click="onBack"></span>
+        </x-header>
         <section class="head-img">
             <swiper :height="'3.75rem'">
                 <swiper-item v-for="(el,index) in swiperImgs" :key="index">
@@ -53,14 +59,15 @@
 </template>
 
 <script>
-    import { ViewBox, Swiper, SwiperItem } from 'vux'
+    import { ViewBox, Swiper, SwiperItem, XHeader } from 'vux'
     import comHeader from '@/components/business/commonHead'
     export default {
         components: {
             ViewBox,
             Swiper,
             SwiperItem,
-            comHeader
+            comHeader,
+            XHeader
         },
         props:{
             pageTitle:{
@@ -126,6 +133,11 @@
                         }
                     ] 
                 }
+            }
+        },
+        methods: {
+            onBack(){
+                this.$emit('on-back')
             }
         }
     }

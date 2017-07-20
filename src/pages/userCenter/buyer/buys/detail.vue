@@ -1,6 +1,12 @@
 <template>
     <view-box>
-        <com-header>报价状态({{ statusStr }})</com-header>
+        <x-header slot="header" :left-options="{showBack:false}">
+            <a slot="right" :href="'tel:'+salesManPhone">
+                <span class="iconfont icon-kefu"></span>
+            </a>
+            报价状态({{ statusStr }})
+            <span class="iconfont icon-fanhui" slot="left" @click="onBack"></span>
+        </x-header>
         <div class="info">
             <div class="number vux-1px-b">
                 求购单号：{{ buy.id }}
@@ -8,7 +14,7 @@
             </div>
             <div class="item">
                 <h3 class="tit">
-                {{ `${ buy.ironType } | ${ buy.material } | ${ buy.surface } | ${ buy.proPlace } (${ buy.sourceCity })` }}
+                {{ `${ buy.ironType } | ${ buy.material } | ${ buy.surface } | ${ buy.proPlace }` }}
                 </h3>
                 <p>{{ `${ buy.height }*${ buy.width }*${ buy.length } | 公差：${ buy.tolerance } | ${ buy.numbers }${ buy.unit }` }}</p>
                 <p class="vux-1px-b">备注：{{ buy.message }}</p>
@@ -45,11 +51,12 @@
                     <p class="">备注：{{ item.supplyMsg }}</p>
                     <p class="">抢单成功：{{ item.winningTimes }}次    联系人：{{ item.contact }}</p>
                     <a v-if="buy.status === 0" @click="showComf(item.sellerId)" class="btna select">选他中标</a>
-                    <a class="btna contact" :style="{top: item.isWinner ? '.6rem' : '.5rem' }" :href="'tel:'+ item.mobile">联系对方</a>
+                    <a class="btna contact" :href="'tel:'+ item.mobile">联系对方</a>
                     <span v-if="item.isWinner" class="iconfont icon-zhongbiao win"></span>
                 </div>
                 <div class="company vux-1px-b" v-for="(item,index) in missSupplies" :key="index">
                     <h3 class="name">{{ item.companyName }}</h3>
+                    <a class="btna contact" :href="'tel:'+ item.mobile">联系对方</a>
                     <p class="price">忽略（无计划或无货）</p>
                 </div>
             </div>
@@ -62,16 +69,26 @@
 </template>
 
 <script>
-    import { ViewBox, dateFormat, Clocker, Confirm } from 'vux'
-    import comHeader from '@/components/business/commonHead'
+    import { ViewBox, dateFormat, Clocker, Confirm, XHeader } from 'vux'
 
     export default {
         components: {
             ViewBox,
-            comHeader,
             dateFormat, 
             Clocker,
-            Confirm
+            Confirm,
+            XHeader
+        },
+        props:{
+            ironId:{
+                type: String
+            },
+            show:{
+                type: Object,
+                default:{
+                    do:false
+                }
+            }
         },
         data () {
             return {
@@ -79,13 +96,11 @@
                 missSupplies: [],
                 supplies: [],
                 showSelect: false,
+                salesManPhone: '',
                 supplyId: ''    
             }
         },
         computed: {
-            ironId(){
-                return this.$route.params.ironId
-            },
             statusStr(){
                 switch (this.buy.status) {
                     case 0:
@@ -144,6 +159,7 @@
                         this.buy = res.data.buy;
                         this.supplies = res.data.supplies;
                         this.missSupplies = res.data.missSupplies;
+                        this.salesManPhone = res.data.salesManPhone;
                     }
                 })
             },
@@ -170,10 +186,18 @@
                         });
                     }
                 });
+            },
+            onBack(){
+                this.$emit('on-back')
             }
         },
         created () {
             this.getDetail()
+        },
+        watch: {
+            'ironId': function(){
+                this.getDetail()
+            }
         }
     }
 </script>
@@ -181,7 +205,6 @@
 
 <style lang="less" scoped>
     .same{
-        width: 3rem;
         line-height: .3rem;
         white-space: nowrap;
         overflow: hidden;
@@ -248,10 +271,11 @@
         position: absolute;
         display: block;
         right: 0;
-        width: .8rem;
-        height: .3rem;
-        line-height: .3rem;
+        width: .7rem;
+        height: .26rem;
+        line-height: .26rem;
         text-align: center;
+        font-size: .13rem;
         color: #fff;
     }
 
@@ -287,15 +311,14 @@
                 position: relative;
                 width: 100%;
                 color: #999;
-                padding-bottom: .1rem;
+                padding: .1rem 0;
+                line-height: .24rem;
                 p{
-                    line-height: .24rem;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
                 .name{
-                    line-height: .4rem;
                     color: #333;
                     font-weight: 500;
                     white-space: nowrap;
@@ -306,6 +329,7 @@
                     color: red;
                 }
                 .contact{
+                    bottom: .1rem;
                     background-color: #007de4;
                     .btna
                 }
@@ -316,8 +340,8 @@
                 }
                 .win{
                     position: absolute;
-                    right: .3rem;
-                    top: .1rem;
+                    right: .15rem;
+                    top: .2rem;
                     color: green;
                     font-size: .4rem;
                 }

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <header class="header">
             <a class="back" @click="goBack"><span class="iconfont icon-fanhui"></span></a>
             <input ref="search" class="search-input" placeholder="请输入要查找的现货关键字" v-model="apiData.keyword">
@@ -27,7 +27,7 @@
         </section>
 
         <scrollList ref="sScroller" @on-pull-down="reflash" @on-pull-up="loadMore" :height="'-143'" backShow>
-            <div class="item vux-1px" v-for="(item,index) in list" :key="index"  @click="jumpToDetail(item.id)">
+            <div class="item vux-1px" v-for="(item,index) in list" :key="index"  @click="showDetail(item.id)">
                 <div class="img">
                     <img :src="'http://www.itaobuxiu.com/'+item.cover">
                 </div>
@@ -45,6 +45,10 @@
 
         <bottom-menu slot="bottom"></bottom-menu>
         <address-picker :showChose="adShow" @on-seleted="selectedAdress"></address-picker>
+
+        <div class="detail-container" v-show="detailShow.do">
+            <detail-part v-if="detailHandingId != ''" :handingId="detailHandingId" :show="detailShow"></detail-part>
+        </div>
     </div>
 </template>
 
@@ -53,12 +57,14 @@
     import bottomMenu from '@/components/business/bottomMenu'
     import scrollList from '@/components/business/scrollList'
     import addressPicker from '@/components/basics/addressPicker.vue'
+    import detailPart from './detail.vue'
     export default {
         components: {
             bottomMenu,
             scrollList,
             filterBar,
-            addressPicker
+            addressPicker,
+            detailPart
         },
         data () {
             return {
@@ -91,7 +97,11 @@
                 place: '',
                 sortActive:NaN,
                 maxCount: 0,
-                list: []
+                list: [],
+                detailHandingId:'',
+                detailShow: {
+                    do: false
+                }
             }
         },
         computed: {
@@ -199,8 +209,9 @@
                 this.apiData.cityLevel2Id = data.id2;
                 this.reloadList();
             },
-            jumpToDetail(id){
-                this.$router.push({ name: 'processingInformationDetail', params: { handingId: id } })
+            showDetail(id){
+                this.detailHandingId = id;
+                this.detailShow.do = true;
             }
         },
         created () {
@@ -213,6 +224,10 @@
 
 
 <style lang="less" scoped>
+    .container{
+        width: 100%;
+        height: 100%;
+    }
     .header{
         position: relative;
         width: 100%;
@@ -342,5 +357,14 @@
                 top: 0;
             }
         }
+    }
+    .detail-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background-color: #efeff4;
     }
 </style>

@@ -1,11 +1,22 @@
 <template>
-  <common-detail pageTitle="加工详情" :swiperImgs="swiperImgs" :baseInfo="baseInfo"
-  :detailInfo="detailInfo" :shopInfo="shopInfo"></common-detail>
+  <common-detail v-show="show.do" pageTitle="加工详情" :swiperImgs="swiperImgs" :baseInfo="baseInfo"
+  :detailInfo="detailInfo" :shopInfo="shopInfo" @on-back="show.do = false"></common-detail>
 </template>
 
 <script>
     import commonDetail from '@/components/business/publicDetail.vue'
     export default {
+        props:{
+            ironId:{
+                type: String
+            },
+            show:{
+                type: Object,
+                default:{
+                    do:false
+                }
+            }
+        },
         components: {
             commonDetail
         },
@@ -40,11 +51,6 @@
                         }
                     ],
                 shopInfo:{}
-            }
-        },
-        computed: {
-            ironId(){
-                return this.$route.params.ironId;
             }
         },
         methods: {
@@ -98,6 +104,11 @@
         },
         created () {
             this.getDetail()
+        },
+        watch: {
+            'ironId': function(){
+                this.getDetail()
+            }
         }
     }
 </script>

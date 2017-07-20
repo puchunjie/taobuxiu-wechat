@@ -1,5 +1,5 @@
 <template>
-    <view-box>
+    <div class="container">
         <com-header hideRight>现货求购管理</com-header>
         <tab :active-color="statusColor" v-model="activeTab">
             <tab-item v-for="(tab,index) in tabs" :key="index" @on-item-click="switchKey">
@@ -30,19 +30,24 @@
                          <p v-else>{{ formateDate(item.pushTime)}}</p> 
                         <a @click="jumpToPublish(item.id)" :style="{backgroundColor:statusColor}">再发一次</a>
                     </div>
-                    <div class="count" :class="statusClass" @click="jumpToDetail(item.id)">
+                    <div class="count" :class="statusClass" @click="showDetail(item.id)">
                         （{{ item.supplyCount }}）<span class="iconfont icon-arrow-right"></span>
                     </div>
                 </div>
             </scrollList>  
         </div>
-    </view-box>
+
+        <div class="detail-container" v-show="detailShow.do">
+            <detail-part @on-back="detailShow.do = false" v-if="detailIronId != ''" :ironId="detailIronId" :show="detailShow"></detail-part>
+        </div>
+    </div>
 </template>
 
 <script>
     import { ViewBox, Tab, TabItem, dateFormat, Clocker } from 'vux'
     import scrollList from '@/components/business/scrollList'
     import comHeader from '@/components/business/commonHead'
+    import detailPart from './detail.vue'
     export default {
         components: {
             ViewBox, 
@@ -50,7 +55,8 @@
             Tab, 
             TabItem,
             scrollList,
-            Clocker
+            Clocker,
+            detailPart
         },
         data () {
             return {
@@ -66,7 +72,11 @@
                     currentPage: 0,
                     pageCount: 15
                 },
-                maxCount: 0
+                maxCount: 0,
+                detailIronId:'',
+                detailShow: {
+                    do: false
+                }
             }
         },
         computed: {
@@ -159,8 +169,9 @@
             jumpToPublish(id){
                 this.$router.push({ name: 'bPublishProduct', params: { id: id}})
             },
-            jumpToDetail(ironId){
-                this.$router.push({ name: 'buyerBuysDetail', params: { ironId: ironId}})
+            showDetail(ironId){
+                this.detailIronId = ironId;
+                this.detailShow.do = true;
             },
             // 是否显示天数
             dayShow(time){
@@ -176,6 +187,10 @@
 </script>
 
 <style lang="less" scoped>
+    .container{
+        width: 100%;
+        height: 100%;
+    }
     .same{
         width: 3rem;
         line-height: .3rem;
@@ -239,5 +254,15 @@
     }
     .expired{
         color: red
+    }
+
+    .detail-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background-color: #efeff4;
     }
 </style>

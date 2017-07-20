@@ -1,11 +1,14 @@
 <template>
     <view-box>
-        <com-header>{{ offerShow ? '抢单' : '报价细节' }}</com-header>
+        <x-header slot="header" :left-options="{showBack:false}">
+            {{ offerShow ? '抢单' : '报价细节' }}
+            <span class="iconfont icon-fanhui" slot="left" @click="onBack"></span>
+        </x-header>
 
         <div class="panel">
             <div class="title">
                 求购信息
-                <clocker v-if="buy.pushTime" style="float:right;margin-right:.1rem;color:#007de4" :time="buy.pushTime + buy.timeLimit">
+                <clocker v-if="offerShow || buy.status === 3" style="float:right;margin-right:.1rem;color:#007de4" :time="buy.pushTime + buy.timeLimit">
                     <template v-if="dayShow(buy.pushTime + buy.timeLimit)">
                         <span class="day">%_D1%_D2</span>天
                     </template>
@@ -13,6 +16,9 @@
                     <span class="day">%_M1%_M2</span>分
                     <span class="day">%_S1%_S2</span>秒
                 </clocker>
+                <span v-else style="float:right;margin-right:.1rem;">
+                    {{ formateDate(buy.pushTime)}}
+                </span>
             </div>
             <div class="content">
                 <h3 class="tit">
@@ -43,7 +49,7 @@
                     <div class="group">
                         <label>采购联系人：</label>
                         <span>{{ buyerSeller.contact }}</span>
-                        <a class="contact" :href="'tel'+ buyerMobile">联系对方</a>
+                        <a class="contact" :href="'tel:'+ buyerMobile">联系对方</a>
                     </div>
                 </template>
             </div>
@@ -54,7 +60,7 @@
             <div class="left">
                 <group gutter="0">
                     <x-input placeholder="请输入您的报价" v-model="price" required ref="price">
-                        <span slot="right">元/单位</span>
+                        <span slot="right">元/{{ buy.unit }}</span>
                     </x-input>
                 </group>
                 <group gutter=".05rem">
@@ -97,17 +103,27 @@
 
 
 <script>
-    import { ViewBox, dateFormat, Clocker, XInput, Group, XTextarea, Confirm } from 'vux'
-    import comHeader from '@/components/business/commonHead'
+    import { ViewBox, dateFormat, Clocker, XInput, Group, XTextarea, Confirm, XHeader } from 'vux'
     export default {
         components: {
             ViewBox,
             Clocker,
-            comHeader,
+            XHeader,
             XInput, 
             Group,
             XTextarea,
             Confirm
+        },
+         props:{
+            ironId:{
+                type: String
+            },
+            show:{
+                type: Object,
+                default:{
+                    do:false
+                }
+            }
         },
         data () {
             return {
@@ -125,9 +141,6 @@
             }
         },
         computed: {
-            ironId(){
-                return this.$route.params.ironId
-            },
             statusIcon(){
                 switch (this.buy.status) {
                     case 3:
@@ -242,10 +255,18 @@
                 }else{
                     console.log(222)
                 }
+            },
+            onBack(){
+                this.$emit('on-back')
             }
         },
         created () {
             this.getDetail()
+        },
+        watch: {
+            'ironId': function(){
+                this.getDetail()
+            }
         }
     }
 </script>
@@ -268,7 +289,7 @@
                 position: absolute;
                 right: .1rem;
                 bottom: -.1rem;
-                font-size: .4rem;
+                font-size: .46rem;
             }
         }
         .content{
@@ -368,7 +389,6 @@
 
     .suggest{
         line-height: .3rem;
-        font-size: .12rem;
         color: #999;
         text-indent: .1rem;
     }

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <header slot="header" class="header">
             <a class="back" @click="goBack"><span class="iconfont icon-fanhui"></span></a>
             <input ref="search" class="search-input" placeholder="请输入要查找的现货关键字" v-model="apiData.keyword">
@@ -24,23 +24,31 @@
                 </div>
                 <p>{{ item.title }}</p>
                 <p>{{ item.sourceCity }}</p>
-                <a class="show-detail" @click="jumpToDetail(item.proId)">查看</a>
+                <a class="show-detail" @click="showDetail(item.proId)">查看</a>
             </div>
         </scrollList>
 
         <bottom-menu slot="bottom"></bottom-menu>
+
+        <div class="detail-container" v-show="detailShow.do">
+            <detail-part v-if="detailIronId != ''" :ironId="detailIronId" :show="detailShow"></detail-part>
+        </div>
     </div>
 </template>
 
 <script>
+    import { XDialog } from 'vux'
     import filterBar from '@/components/business/filterBar.vue'
     import bottomMenu from '@/components/business/bottomMenu'
     import scrollList from '@/components/business/scrollList'
+    import detailPart from './detail.vue'
     export default {
         components: {
+            XDialog,
             bottomMenu,
             filterBar,
-            scrollList
+            scrollList,
+            detailPart
         },
         data () {
             return {
@@ -71,7 +79,11 @@
                 ],
                 sortActive:NaN,
                 maxCount: 0,
-                list: []
+                list: [],
+                detailIronId:'',
+                detailShow: {
+                    do: false
+                }
             }
         },
         computed: {
@@ -174,8 +186,10 @@
                 this.sortActive = NaN;
                 this.reloadList();
             },
-            jumpToDetail(id){
-                this.$router.push({ name: 'goodsInStockDetail', params: { ironId: id } })
+            showDetail(id){
+                // this.$router.push({ name: 'goodsInStockDetail', params: { ironId: id } })
+                this.detailIronId = id;
+                this.detailShow.do = true;
             }
         },
         created () {
@@ -187,6 +201,10 @@
 </script>
 
 <style lang="less" scoped>
+    .container{
+        width: 100%;
+        height: 100%;
+    }
     .header{
         position: relative;
         width: 100%;
@@ -282,5 +300,15 @@
         .active{
             color: #007de4;
         }
+    }
+
+    .detail-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background-color: #efeff4;
     }
 </style>

@@ -96,7 +96,7 @@
                     }).then(res => {
                         //跳转到个人中心
                         if(res.status === 0){
-                            this.$router.push({name:'login'})
+                            this.login();
                         }else{
                             this.$vux.alert.show({
                                 title: 'error！',
@@ -105,6 +105,23 @@
                         }
                     })
                 }
+            },
+            login(){
+                this.$http.post(this.api.login,{
+                        mobile: this.mobile,
+                        password: this.password
+                }).then(res => {
+                    //跳转到个人中心
+                    if(res.status === 0){
+                        this.$router.push({name:'userCenter'})
+                    }else{
+                        this.$vux.toast.show({
+                            text: res.errorMsg,
+                            type: 'warn',
+                            width: '2rem'
+                        });
+                    }
+                })
             }
         }
     }
