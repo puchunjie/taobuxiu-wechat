@@ -1,3 +1,7 @@
 export const GET_USER_INFO = 'GET_USER_INFO'
 
 export const RESET_USER_INFO = 'RESET_USER_INFO'
+
+export const SET_ORDER_DATA = 'SET_ORDER_DATA'
+
+export const RESET_ORDER_DATA = 'RESET_ORDER_DATA'

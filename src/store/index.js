@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import * as actions from './actions'
 import * as getters from './getters'
 import user from './modules/user'
+import orderConfirm from './modules/orderConfirmData'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     actions,
     getters,
     modules: {
-        user
+        user,
+        orderConfirm
     }
 })

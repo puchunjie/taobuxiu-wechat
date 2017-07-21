@@ -12,6 +12,7 @@
     "axios": "^0.16.2",
     "fastclick": "^1.0.6",
     "vue": "^2.2.2",
+    "vue-checkbox-radio": "^0.5.1",
     "vue-localstorage": "^0.3.0",
     "vue-ls": "^2.2.16",
     "vue-router": "^2.2.0",

@@ -34,7 +34,8 @@
                         value: ''
                     }
                 ],
-                shopInfo:{}
+                shopInfo:{},
+                sellerId: ''
             }
         },
         methods: {
@@ -47,6 +48,7 @@
                     let data = res.data;
                     //获取店铺信息
                     this.getShopInfo(data.userId);
+                    this.sellerId = data.userId;
                     ['cover','image1','image2','image3'].forEach(el => {
                         let img = data[el];
                         if( img != ''){
@@ -67,7 +69,7 @@
                 })
             },
             getShopInfo(id){
-                return this.$http.get(this.api.shopInfo,{
+                this.$http.get(this.api.shopInfo,{
                     params:{
                         sellerId: id 
                     }
@@ -77,7 +79,8 @@
                         cover: data.cover,
                         name: data.companyName,
                         desc: data.handingTypeDesc,
-                        adress: data.officeAddress
+                        adress: data.officeAddress,
+                        sellerId:this.sellerId
                     }
                 })
             }

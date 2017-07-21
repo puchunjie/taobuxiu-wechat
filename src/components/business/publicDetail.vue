@@ -48,7 +48,7 @@
             </div>
             <div class="adress">{{ shopInfo.adress }}</div>
 
-             <a class="btn">进入店铺</a>
+             <router-link :to="{name:'shop',params:{sellerId:shopInfo.sellerId}}" class="btn">进入店铺</router-link>
         </section>    
         
         <div class="btns" slot="bottom">

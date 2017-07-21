@@ -20,11 +20,18 @@ export const msgCode = 'msgCode'
 
 
 /**
- * 店铺信息
+ * 店铺信息-简单
  * sellerId
  * 
  */
 export const shopInfo = 'product/shopBrief'
+
+/**
+ * 店铺信息-详细
+ * sellerId
+ * 
+ */
+export const shopDetail = 'product/shopDetail'
 
 // =================特价资源页面====================
 /**
@@ -189,6 +196,25 @@ export const publishIron = 'iron/buy'
  * supplyId
  */
 export const selectSupply = 'iron/selectSupply';
+
+/**
+ * 我的购物车
+ * currentPage   //当前页面
+ * pageCount     //每页个数
+ */
+export const myCarts = 'order/myCars';
+
+/**
+ * 删除购物车
+ * carId
+ */
+export const deleteCart = 'order/deleteCar';
+
+/**
+ * 购物车批量下单
+ * carId
+ */
+export const translateAllCart = 'order/translateAll';
 
 //==================卖家====================
 /**

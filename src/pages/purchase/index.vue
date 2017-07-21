@@ -136,7 +136,6 @@
     .item {
         position: relative;
         width: 100%;
-        margin-bottom: .2rem;
         padding: .1rem;
         .title{
             color: #007de4;
@@ -165,8 +164,8 @@
             position: absolute;
             width: 1rem;
             height: .3rem;
+            bottom: .05rem;
             right: 0;
-            bottom: .1rem;
             text-align: center;
             color: #fff;
             font-size: .14rem;

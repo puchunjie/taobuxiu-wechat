@@ -46,9 +46,7 @@
     import { ViewBox, PopupPicker, Group, Cell, XInput, XNumber, XTextarea, XButton } from 'vux'
     import comHeader from '@/components/business/commonHead'
     import addressPicker from '@/components/basics/addressPicker.vue'
-    let days = [0,1,2,3,4,5,6,7,8,9,10],
-        hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
-        minutes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+    import { days, hours, minutes } from '@/assets/resouseData.js'
     export default {
         components: {
             ViewBox,

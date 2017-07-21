@@ -10,13 +10,14 @@ import qs from 'qs'
 import * as api from './api'
 import VueLocalStorage from 'vue-localstorage'
 
-import { AlertPlugin, ToastPlugin, WechatPlugin, LoadingPlugin } from 'vux'
+import { AlertPlugin, ToastPlugin, WechatPlugin, LoadingPlugin, ConfirmPlugin } from 'vux'
 
 Vue.use(VueLocalStorage)
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
 Vue.use(WechatPlugin)
 Vue.use(LoadingPlugin)
+Vue.use(ConfirmPlugin)
 
 FastClick.attach(document.body)
 

@@ -93,7 +93,9 @@
                             title:'购物车',
                             icon:'icon-icon',
                             color: '#06bb06',
-                            link: ''
+                            link: {
+                                name: 'shopCart'
+                            }
                         },
                         {
                             title:'订单',

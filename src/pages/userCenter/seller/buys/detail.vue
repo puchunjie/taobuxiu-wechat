@@ -381,8 +381,8 @@
                 margin-top: .01rem;
                 background-color: #ececec;
                 color: #848484;
-                height: .32rem;
-                line-height: .32rem;
+                height: .31rem;
+                line-height: .31rem;
             }
         }
     }
