@@ -17,6 +17,8 @@ const retrieval = resolve => require(['@/pages/register/retrieval.vue'], resolve
 const shop = resolve => require(['@/pages/shop/index.vue'], resolve);
 const shopCart = resolve => require(['@/pages/shopCart/index.vue'], resolve);
 const confirmOrder = resolve => require(['@/pages/shopCart/confirmOrder.vue'], resolve);
+const shopProduct = resolve => require(['@/pages/shop/productList.vue'], resolve);
+const shopMachining = resolve => require(['@/pages/shop/machiningList.vue'], resolve);
 
 
 // 用户中心
@@ -105,6 +107,21 @@ export default new Router({
             component: processingInformationDetail
         },
         {
+            path: '/shop-:sellerId',
+            name: 'shop',
+            component: shop
+        },
+        {
+            path: '/shopProduct-:sellerId',
+            name: 'shopProduct',
+            component: shopProduct
+        },
+        {
+            path: '/shopMachining-:sellerId',
+            name: 'shopMachining',
+            component: shopMachining
+        },
+        {
             path: '/userCenter',
             name: 'userCenter',
             children: [{
@@ -120,11 +137,6 @@ export default new Router({
                     path: 'userInfo',
                     name: 'userInfo',
                     component: userInfo
-                },
-                {
-                    path: 'shop-:sellerId',
-                    name: 'shop',
-                    component: shop
                 },
                 {
                     path: 'shopCart',

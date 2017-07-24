@@ -149,16 +149,21 @@
         background-color: #fff;
         color: #999;
         .info{
+            position: relative;
             padding: .1rem;
             h3{
                 display: inline-block;
                 width: 2.8rem;
                 color: #333;
+                height: .56rem;
             }
             .price{
-                display: inline-block;
+                position: absolute;
+                display: block;
                 width: .7rem;
                 text-align: right;
+                right: .1rem;
+                top: .3rem;
             }
         }
         .adress{

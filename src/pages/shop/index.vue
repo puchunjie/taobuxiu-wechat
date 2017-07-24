@@ -8,28 +8,22 @@
                  <p>{{ shopInfo.officeAddress }}</p>
              </div>
         </div>
-        <tab active-color="#007de4" v-model="activeTab">
-            <tab-item v-for="(tab,index) in tabs" :key="index">
-                {{ tab.title }}
-            </tab-item>
-        </tab>
+        <div class="link-btns">
+            <router-link :to="{name:'shopProduct',params:{sellerId:sellerId}}" class="vux-1px-r">现货资源</router-link>
+            <router-link :to="{name:'shopMachining',params:{sellerId:sellerId}}">加工定制</router-link>
+        </div>
         <div class="tab-swiper">
+            <h3 class="vux-1px-b">公司简介</h3>
             <p class="desc" v-if="activeTab === 0">{{ shopInfo.shopProfile }}</p>
-            <template v-else>
-                    ssss
-            </template>
         </div>
     </div>
 </template>
 
 <script>
-    import { Tab, TabItem, dateFormat } from 'vux'
     import comHeader from '@/components/business/commonHead'
     export default {
         components: {
-            comHeader,
-            Tab, 
-            TabItem
+            comHeader
         },
         computed: {
             sellerId(){
@@ -99,54 +93,41 @@
                 }
             }
         }
+
+        .link-btns{
+            width: 100%;
+            background-color: #fff;
+            border-bottom: .2rem solid #efeff4;
+            overflow: hidden;
+            padding: .05rem 0;
+            a{
+                display: block;
+                width: 50%;
+                height: .3rem;
+                float: left;
+                line-height: .3rem;
+                text-align: center;
+                color: #333;
+            }
+        }
+
         .tab-swiper{
             width: 100%;
             border-top: .05rem solid #efeff4;
-            padding: .1rem;
+            padding: 0 .15rem;
+            h3{
+                text-align: center;
+                font-size: .18rem;
+                font-weight: 500;
+                margin-bottom: .1rem;
+            }
             .desc{
+                font-size: .16rem;
                 line-height: .24rem;
                 text-indent: .1rem;
             }
         }
     }
-
-    .item{
-        position: relative;
-        width: 100%;
-        padding: .1rem;
-        color: #999;
-        .tit{
-            font-size: .14rem;
-            line-height: .24rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            span{
-                color: #000;
-                font-weight: 500;
-                margin-right: .1rem;
-            }
-            .price{
-                float: right;
-            }
-        }
-        p{
-            line-height: .24rem; 
-        }
-        .show-detail{
-            position: absolute;
-            display: black;
-            width: .8rem;
-            height: .3rem;
-            right: .1rem;
-            bottom: .1rem;
-            border: 1px solid #007de4;
-            color: #007de4;
-            text-align: center;
-            line-height: .28rem;
-        }
-    }
-
     .vux-header{
         padding: 0;
     }
