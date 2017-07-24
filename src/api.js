@@ -197,6 +197,13 @@ export const publishIron = 'iron/buy'
  */
 export const selectSupply = 'iron/selectSupply';
 
+
+/**
+ * 取消求购
+ * ironId
+ */
+export const deleteIronBuy = 'iron/deleteIronBuy';
+
 /**
  * 我的购物车
  * currentPage   //当前页面

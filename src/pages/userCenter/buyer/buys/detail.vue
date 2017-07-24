@@ -10,7 +10,7 @@
         <div class="info">
             <div class="number vux-1px-b">
                 求购单号：{{ buy.id }}
-                <span class="iconfont" :class="statusIcon"></span>
+                <span class="iconfont" :class="statusIcon" @click="deletConfirm"></span>
             </div>
             <div class="item">
                 <h3 class="tit">
@@ -20,7 +20,7 @@
                 <p class="vux-1px-b">备注：{{ buy.message }}</p>
             </div>
             <div class="time">
-                <p v-if="buy.status === 0 || buy.status === 3">
+                <p v-if="buy.status === 0 || buy.status === 3" :class="statusColor">
                     <clocker :time="buy.pushTime + buy.timeLimit" slot="value">
                         <template v-if="dayShow(buy.pushTime + buy.timeLimit)">
                             <span class="day">%_D1%_D2</span>天
@@ -30,7 +30,7 @@
                         <span class="day">%_S1%_S2</span>秒
                     </clocker>
                 </p>
-                <p v-else>{{ formateDate(buy.pushTime)}}</p> 
+                <p v-else :class="statusColor">{{ formateDate(buy.pushTime)}}</p> 
                 <span class="city">{{ buy.sourceCity }}</span>
             </div>
         </div>
@@ -58,6 +58,7 @@
                     <h3 class="name">{{ item.companyName }}</h3>
                     <a class="btna contact" :href="'tel:'+ item.mobile">联系对方</a>
                     <p class="price">忽略（无计划或无货）</p>
+                    <p class="">抢单成功：{{ item.winningTimes }}次    联系人：{{ item.contact }}</p>
                 </div>
             </div>
         </div>
@@ -111,6 +112,21 @@
                         break;
                     case 2:
                         return '已失效'
+                        break;    
+                    default:
+                        break;
+                }
+            },
+            statusColor(){
+                switch (this.buy.status) {
+                    case 0:
+                        return 'ing'
+                        break;
+                    case 1:
+                        return 'completed'
+                        break;
+                    case 2:
+                        return 'expired'
                         break;    
                     default:
                         break;
@@ -189,6 +205,41 @@
             },
             onBack(){
                 this.$emit('on-back')
+            },
+            //删除求购确认
+            deletConfirm(){
+                let _this = this;
+                if(this.buy.status === 0){
+                    this.$vux.confirm.show({
+                        title:'确定取消求购？',
+                        content: '此操作无法撤销，确定请继续！',
+                        onConfirm () {
+                            _this.deleteIron();
+                        }
+                    })
+                }   
+            },
+            deleteIron(){
+                let _this = this;
+                this.$http.post(this.api.deleteIronBuy,{
+                    ironId: this.ironId
+                }).then(res => {
+                    if(res.status === 0){
+                        this.$vux.alert.show({
+                            title: '取消成功！',
+                            content: '您已成功取消次求购！',
+                            onHide () {
+                                _this.$emit('on-delete-buy')
+                            }
+                        })
+                    }else{
+                        this.$vux.toast.show({
+                            text: res.errorMsg,
+                            type: 'warn',
+                            width: '2rem'
+                        });
+                    }
+                })
             }
         },
         created () {
@@ -225,7 +276,7 @@
             .iconfont{
                 position: absolute;
                 font-size: .4rem;
-                right:.1rem;
+                right: 0;
             }
         }
 
@@ -347,5 +398,15 @@
                 }
             }
         }
+    }
+
+     .ing{
+        color: #ff8d00
+    }
+    .completed{
+        color: #007de4
+    }
+    .expired{
+        color: red
     }
 </style>

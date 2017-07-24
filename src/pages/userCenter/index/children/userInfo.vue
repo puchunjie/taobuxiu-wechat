@@ -107,7 +107,6 @@
                     if(res.status === 0){
                         this.$router.push({name:'index'});
                         this.resetUserInfo();
-                        console.log(1)
                     }
                 });
             }

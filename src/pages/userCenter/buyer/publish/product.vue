@@ -186,7 +186,6 @@
                 return `${value[0]}天${value[1]}时${value[2]}分`
             },
             syncValue(key){
-                console.log(this.picterList[key].value[0]);
                 this.apiData[key] = this.picterList[key].value[0]
             },
             syncValue2(key){

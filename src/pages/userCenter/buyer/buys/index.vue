@@ -38,7 +38,7 @@
         </div>
 
         <div class="detail-container" v-show="detailShow.do">
-            <detail-part @on-back="detailShow.do = false" v-if="detailIronId != ''" :ironId="detailIronId" :show="detailShow"></detail-part>
+            <detail-part @on-back="detailShow.do = false" v-if="detailIronId != ''" :ironId="detailIronId" :show="detailShow" @on-delete-buy="deleteBuy"></detail-part>
         </div>
     </div>
 </template>
@@ -176,6 +176,12 @@
             // 是否显示天数
             dayShow(time){
                 return (time - new Date().getTime()) > 86400000
+            },
+            deleteBuy(){
+                this.detailShow.do = false;
+                this.getData(()=>{
+                    this.$refs.sScroller.reset();
+                })
             }
         },
         created () {
