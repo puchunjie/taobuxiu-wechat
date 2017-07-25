@@ -32,6 +32,7 @@ const buyerOrder = resolve => require(['@/pages/userCenter/buyer/orders/index.vu
 
 const sellerBuys = resolve => require(['@/pages/userCenter/seller/buys/index.vue'], resolve);
 const sellerBuysDetail = resolve => require(['@/pages/userCenter/seller/buys/detail.vue'], resolve);
+const sellerOrder = resolve => require(['@/pages/userCenter/seller/orders/index.vue'], resolve);
 
 Vue.use(Router)
 
@@ -174,6 +175,11 @@ export default new Router({
             path: '/userCenter/buyer/buyerOrder',
             name: 'buyerOrder',
             component: buyerOrder
+        },
+        {
+            path: '/userCenter/seller/sellerOrder',
+            name: 'sellerOrder',
+            component: sellerOrder
         }
     ]
 })

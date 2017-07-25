@@ -272,3 +272,28 @@ export const offerIronBuy = 'seller/offerIronBuy';
  * Ironid
  */
 export const missIronBuyOffer = 'seller/missIronBuyOffer';
+
+/**
+ * 我的订单
+ * currentPage   //当前页面
+ * pageCount     //每页个数
+ */
+export const commingOrders = 'seller/commingOrders';
+
+/**
+ * 忽略订单
+ * orderId   
+ */
+export const scelOrder = 'seller/cancelOrder';
+
+/**
+ * 删除订单
+ * orderId   
+ */
+export const sdelOrder = 'seller/deleteOrder';
+
+/**
+ * 确认订单
+ * orderId   
+ */
+export const sconfOrder = 'seller/confirmOrder';

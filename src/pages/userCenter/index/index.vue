@@ -148,7 +148,9 @@
                         orders:{
                             count: 0,
                             name: '待确认订单',
-                            link: ''
+                            link: {
+                                name: 'sellerOrder'
+                            }
                         },
                         integral:{
                             count: 0,
@@ -172,7 +174,9 @@
                             title:'订单',
                             icon:'icon-dingdan',
                             color: '#ff3c3c',
-                            link: ''
+                            link: {
+                                name: 'sellerOrder'
+                            }
                         },
                         {
                             title:'积分',

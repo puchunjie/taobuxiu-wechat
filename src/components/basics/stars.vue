@@ -16,6 +16,11 @@
             value:{
                 type: Number,
                 default: 3
+            },
+            // 作为展示，不可点击
+            disable:{
+                type:Boolean,
+                default: false
             }
         },
         data(){
@@ -25,8 +30,10 @@
         },
         methods:{
             pickStar(el){
-                this.pickerData = el;
-                this.$emit('on-pick',el)
+                if(!this.disable){
+                    this.pickerData = el;
+                    this.$emit('on-pick',el)
+                }
             }
         },
          watch:{

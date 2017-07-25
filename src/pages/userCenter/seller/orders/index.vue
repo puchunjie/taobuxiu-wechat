@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <com-header hideRight>订单管理</com-header>
+        <com-header hideRight>卖家_订单管理</com-header>
          <tab active-color="#007de4" v-model="activeTab">
             <tab-item v-for="(tab,index) in tabs" :key="index" @on-item-click="switchKey">
                 {{ tab.title }}
@@ -32,26 +32,23 @@
                                     <span class="day">%_S1%_S2</span>秒
                                 </clocker>
                             </template>
-                            <template v-else-if="item.status === 1 || item.status === 2">
-                                 <a class="contant" :href="'tel:' + item.sellerMobile">联系卖家</a> 
+                            <template v-else-if="item.status === 1">
+                                 买家暂未评价 
                             </template>
-                            <template v-else-if="item.status === 3">
-                                卖方未接单
+                            <template v-else-if="item.status === 2">
+                                 <a class="contant" @click="showRate(item.score)">查看评分</a> 
                             </template>
                         </div>
                     </div>
                     <div class="totle">
                         合计:<span>&yen;{{ accMul(item.price,item.count) }}</span>
                         <div class="btns">
-                            <a v-if="item.message" @click="showDesc(item.message)">查看备注</a>
                             <template v-if="item.status === 0">
-                                <a @click="confimDelete(item.id)">取消订单</a>
+                                <a class="blue" @click="doConfim(item.id,index)">确认订单</a>
+                                <a @click="confimDelete(item.id,true)">取消订单</a>
                             </template>
-                            <template v-else-if="item.status === 1">
-                                <a class="blue" @click="showRateBox(item.id,index)">去评价</a>
-                                <a>删除订单</a>
-                            </template>
-                            <template v-else-if="item.status === 2 || item.status === 3">
+                            <template v-else-if="item.status === 1 || item.status === 2">
+                                <a class="blue" :href="'tel:'+item.buyerMobile">联系买家</a>
                                 <a @click="confimDelete(item.id)">删除订单</a>
                             </template>
                         </div>
@@ -60,14 +57,13 @@
             </scrollList>  
         </div> 
 
-        <x-dialog v-model="rateShow" class="dialog-demo" :scroll="false">
+         <x-dialog v-model="rateShow" class="dialog-demo" :scroll="false">
             <div class="rate-box">
-                <h3>评价此单</h3>
-                <stars v-model="rate"></stars>
-                <a class="btn" @click="voteOrder">评价</a>
+                <h3>评分：{{ rate }}分</h3>
+                <stars v-model="rate" disable></stars>
                 <span class="iconfont icon-closecircled" @click="rateShow = false"></span>
             </div>
-        </x-dialog>
+        </x-dialog> 
     </div>
 </template>
 
@@ -102,10 +98,8 @@
                     pageCount: 15
                 },
                 maxCount: 0,
-                rate:5,
                 rateShow: false,
-                rateId:'',
-                rateIndex:''
+                rate:0
             }
         },
         computed: {
@@ -121,7 +115,7 @@
             statusStr(status){
                 switch (status) {
                     case 0:
-                        return '等待卖家确认'
+                        return '等待我确认'
                         break;
                     case 1:
                         return '交易成功'
@@ -130,7 +124,7 @@
                         return '交易成功'
                         break;
                     case 3:
-                        return '交易已关闭'
+                        return '已取消'
                         break;
                     default:
                         break;
@@ -169,7 +163,7 @@
                 })
             },
             getData(callback,count){
-                this.$http.get(this.api.myOrders,{
+                this.$http.get(this.api.commingOrders,{
                     params: this.apiData
                 }).then(res => {
                     if(this.apiData.currentPage === 0){
@@ -217,20 +211,54 @@
             dayShow(time){
                 return (time - new Date().getTime()) > 86400000
             },
+            //接单确认
+            doConfim(id,index){
+                let _this = this;
+                this.$vux.confirm.show({
+                    title:'删除接单？',
+                    content:'此操作不可撤销，是否继续？',
+                    onConfirm () {
+                        _this.doOrder(id,index)
+                    }
+                })
+            },
+            doOrder(id,index){
+                let _this = this;
+                this.$http.post(this.api.sconfOrder,{
+                    orderId: id
+                }).then(res => {
+                    if(res.status === 0){
+                       this.$vux.alert.show({
+                            title: '接单成功！',
+                            content: '您已成功接下此单。',
+                            onHide () {
+                                _this.list[index].status = 1;
+                            }
+                        })
+                    }else{
+                        this.$vux.toast.show({
+                            text: res.errorMsg,
+                            type: 'warn',
+                            width: '2rem'
+                        });
+                    }
+                })
+            },
             //删除订单确认
-            confimDelete(id){
+            confimDelete(id,type){
                 let _this = this;
                 this.$vux.confirm.show({
                     title:'删除确认',
                     content:'此操作不可撤销，是否继续？',
                     onConfirm () {
-                        _this.deleteOrder(id)
+                        _this.deleteOrder(id,type)
                     }
                 })
             },
             //删除订单
-            deleteOrder(id){
-                this.$http.post(this.api.deleteOrder,{
+            deleteOrder(id,type){
+                let deleteUrl = type ? this.api.scelOrder : this.api.sdelOrder;
+                this.$http.post(deleteUrl,{
                     orderId: id
                 }).then(res => {
                     if(res.status === 0){
@@ -246,44 +274,10 @@
                     }
                 });
             },
-            // 评价
-            showRateBox(id,index){
+            // 查看评分
+            showRate(val){
                 this.rateShow = true;
-                this.rateId = id;
-                this.rateIndex = index;
-            },
-            voteOrder(){
-                let _this = this;
-                this.$http.post(this.api.voteOrder,{
-                    orderId: this.rateId,
-                    vote: this.rate
-                }).then(res => {
-                    if(res.status === 0){
-                        this.$vux.alert.show({
-                            title: '评价成功！',
-                            content: '您已评价已提交。',
-                            onHide () {
-                                _this.list[_this.rateIndex].status = 2;
-                            }
-                        })
-                    }else{
-                        this.$vux.toast.show({
-                            text: res.errorMsg,
-                            type: 'warn',
-                            width: '2rem'
-                        });
-                    }
-                    this.rateShow = false;
-                    this.rateId = '';
-                    this.rate = 5;
-                });
-            },
-            // 查看备注
-            showDesc(text){
-                this.$vux.alert.show({
-                    title: '用户备注',
-                    content: text
-                })
+                this.rate = val;
             }
         },
         created () {
@@ -376,8 +370,8 @@
                     line-height: .24rem;
                     text-indent: 0;
                     padding: 0 .03rem;
-                    border: 1px solid #007de4;
-                    color: #007de4;
+                    border: 1px solid #333;
+                    color: #333;
                     font-size: .12rem;
                 }
             }
