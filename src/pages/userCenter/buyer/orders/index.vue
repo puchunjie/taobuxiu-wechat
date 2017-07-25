@@ -322,6 +322,7 @@
             width: 100%;
             height: 1rem;
             overflow: hidden;
+            background-color: #efeff4;
             .pro-img{
                 display: block;
                 float: left;

@@ -43,6 +43,7 @@
                     <div class="totle">
                         合计:<span>&yen;{{ accMul(item.price,item.count) }}</span>
                         <div class="btns">
+                            <a v-if="item.message" @click="showDesc(item.message)">查看备注</a>
                             <template v-if="item.status === 0">
                                 <a class="blue" @click="doConfim(item.id,index)">确认订单</a>
                                 <a @click="confimDelete(item.id,true)">取消订单</a>
@@ -278,6 +279,13 @@
             showRate(val){
                 this.rateShow = true;
                 this.rate = val;
+            },
+            // 查看备注
+            showDesc(text){
+                this.$vux.alert.show({
+                    title: '用户备注',
+                    content: text
+                })
             }
         },
         created () {
@@ -316,6 +324,7 @@
             width: 100%;
             height: 1rem;
             overflow: hidden;
+            background-color: #efeff4;
             .pro-img{
                 display: block;
                 float: left;
@@ -361,7 +370,7 @@
             text-indent: .1rem;
             .right-show{
                 position: absolute;
-                top: 0;
+                top: .05rem;
                 right: .1rem;
                 .contant{
                     display: block;
