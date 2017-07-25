@@ -43,12 +43,12 @@
                     <div class="totle">
                         合计:<span>&yen;{{ accMul(item.price,item.count) }}</span>
                         <div class="btns">
-                            <a v-if="item.message">查看备注</a>
+                            <a v-if="item.message" @click="showDesc(item.message)">查看备注</a>
                             <template v-if="item.status === 0">
                                 <a @click="confimDelete(item.id)">取消订单</a>
                             </template>
                             <template v-else-if="item.status === 1">
-                                <a class="blue" @click="showRateBox(item.id)">去评价</a>
+                                <a class="blue" @click="showRateBox(item.id,index)">去评价</a>
                                 <a>删除订单</a>
                             </template>
                             <template v-else-if="item.status === 2 || item.status === 3">
@@ -108,7 +108,8 @@
                 },
                 rate:5,
                 rateShow: false,
-                rateId:''
+                rateId:'',
+                rateIndex:''
             }
         },
         computed: {
@@ -202,10 +203,6 @@
                 }
                 this.$refs.sScroller.donePu();
             },
-            showDetail(ironId){
-                this.detailIronId = ironId;
-                this.detailShow.do = true;
-            },
              // js浮点运算乘法
             accMul(arg1,arg2) { 
                 let m=0; 
@@ -254,9 +251,10 @@
                 });
             },
             // 评价
-            showRateBox(id){
+            showRateBox(id,index){
                 this.rateShow = true;
                 this.rateId = id;
+                this.rateIndex = index;
             },
             voteOrder(){
                 let _this = this;
@@ -269,9 +267,7 @@
                             title: '评价成功！',
                             content: '您已评价已提交。',
                             onHide () {
-                                _this.getData(()=>{
-                                    _this.$refs.sScroller.reset();
-                                })
+                                _this.list[_this.rateIndex].status = 2;
                             }
                         })
                     }else{
@@ -285,6 +281,13 @@
                     this.rateId = '';
                     this.rate = 5;
                 });
+            },
+            // 查看备注
+            showDesc(text){
+                this.$vux.alert.show({
+                    title: '用户备注',
+                    content: text
+                })
             }
         },
         created () {
@@ -368,7 +371,7 @@
             text-indent: .1rem;
             .right-show{
                 position: absolute;
-                top: .05rem;
+                top: 0;
                 right: .1rem;
                 .contant{
                     display: block;
