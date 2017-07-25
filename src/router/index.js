@@ -22,13 +22,13 @@ const shopMachining = resolve => require(['@/pages/shop/machiningList.vue'], res
 
 
 // 用户中心
-const userCenter = resolve => require(['@/pages/userCenter/index.vue'], resolve);
 const userIndex = resolve => require(['@/pages/userCenter/index/index.vue'], resolve);
 const bindingOfficer = resolve => require(['@/pages/userCenter/index/children/bindingOfficer.vue'], resolve);
 const userInfo = resolve => require(['@/pages/userCenter/index/children/userInfo.vue'], resolve);
 const buyerBuys = resolve => require(['@/pages/userCenter/buyer/buys/index.vue'], resolve);
 const buyerBuysDetail = resolve => require(['@/pages/userCenter/buyer/buys/detail.vue'], resolve);
 const bPublishProduct = resolve => require(['@/pages/userCenter/buyer/publish/product.vue'], resolve);
+const buyerOrder = resolve => require(['@/pages/userCenter/buyer/orders/index.vue'], resolve);
 
 const sellerBuys = resolve => require(['@/pages/userCenter/seller/buys/index.vue'], resolve);
 const sellerBuysDetail = resolve => require(['@/pages/userCenter/seller/buys/detail.vue'], resolve);
@@ -123,59 +123,57 @@ export default new Router({
         },
         {
             path: '/userCenter',
-            name: 'userCenter',
-            children: [{
-                    path: '',
-                    name: 'userIndex',
-                    component: userIndex
-                }, {
-                    path: 'bindingOfficer',
-                    name: 'bindingOfficer',
-                    component: bindingOfficer
-                },
-                {
-                    path: 'userInfo',
-                    name: 'userInfo',
-                    component: userInfo
-                },
-                {
-                    path: 'shopCart',
-                    name: 'shopCart',
-                    component: shopCart
-                },
-                {
-                    path: 'confirmOrder',
-                    name: 'confirmOrder',
-                    component: confirmOrder
-                },
-                {
-                    path: 'buyer/buys',
-                    name: 'buyerBuys',
-                    component: buyerBuys
-                },
-                {
-                    path: 'buyer/buysDetail-:ironId',
-                    name: 'buyerBuysDetail',
-                    component: buyerBuysDetail
-                },
-                {
-                    path: 'buyer/publishProduct-:id',
-                    name: 'bPublishProduct',
-                    component: bPublishProduct
-                },
-                {
-                    path: 'seller/buys',
-                    name: 'sellerBuys',
-                    component: sellerBuys
-                },
-                {
-                    path: 'seller/buysDetail-:ironId',
-                    name: 'sellerBuysDetail',
-                    component: sellerBuysDetail
-                }
-            ],
-            component: userCenter
+            name: 'userIndex',
+            component: userIndex
+        }, {
+            path: '/userCenter/bindingOfficer',
+            name: 'bindingOfficer',
+            component: bindingOfficer
         },
-
+        {
+            path: '/userCenter/userInfo',
+            name: 'userInfo',
+            component: userInfo
+        },
+        {
+            path: '/shopCart',
+            name: 'shopCart',
+            component: shopCart
+        },
+        {
+            path: '/confirmOrder',
+            name: 'confirmOrder',
+            component: confirmOrder
+        },
+        {
+            path: '/userCenter/buyer/buys',
+            name: 'buyerBuys',
+            component: buyerBuys
+        },
+        {
+            path: '/userCenter/buyer/buysDetail-:ironId',
+            name: 'buyerBuysDetail',
+            component: buyerBuysDetail
+        },
+        {
+            path: '/userCenter/buyer/publishProduct-:id',
+            name: 'bPublishProduct',
+            component: bPublishProduct
+        },
+        {
+            path: '/userCenter/seller/buys',
+            name: 'sellerBuys',
+            component: sellerBuys
+        },
+        {
+            path: '/userCenter/seller/buysDetail-:ironId',
+            name: 'sellerBuysDetail',
+            component: sellerBuysDetail
+        },
+        {
+            path: '/userCenter/buyer/buyerOrder',
+            name: 'buyerOrder',
+            component: buyerOrder
+        }
     ]
 })

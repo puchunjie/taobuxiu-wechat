@@ -67,7 +67,7 @@
                     }).then(res => {
                         //跳转到个人中心
                         if(res.status === 0){
-                            this.$router.push({name:'userCenter'})
+                            this.$router.push({name:'userIndex'})
                         }else{
                             this.$vux.toast.show({
                                 text: res.errorMsg,

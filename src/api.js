@@ -223,6 +223,27 @@ export const deleteCart = 'order/deleteCar';
  */
 export const translateAllCart = 'order/translateAll';
 
+
+/**
+ * 我的订单
+ * currentPage   //当前页面
+ * pageCount     //每页个数
+ */
+export const myOrders = 'order/myOrders';
+
+/**
+ * 取消订单
+ * orderId   
+ */
+export const deleteOrder = 'order/delete';
+
+/**
+ * 评价订单
+ * orderId:12016062603  id
+ * vote:4.3    评分
+ */
+export const voteOrder = 'order/vote';
+
 //==================卖家====================
 /**
  * 卖家不锈钢求购列表

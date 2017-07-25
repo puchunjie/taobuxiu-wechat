@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <com-header>店铺加工资源</com-header>
-        <scrollList ref="sScroller" @on-pull-down="reflash" @on-pull-up="loadMore" :height="'-143'" backShow>
+        <scrollList ref="sScroller" @on-pull-down="reflash" @on-pull-up="loadMore" backShow>
             <div class="item vux-1px" v-for="(item,index) in list" :key="index"  @click="showDetail(item.id)">
                 <div class="img">
                     <img :src="'http://www.itaobuxiu.com/'+item.cover">

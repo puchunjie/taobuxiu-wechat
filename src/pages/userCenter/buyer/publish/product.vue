@@ -156,10 +156,10 @@
                     this.location = data.sourceCity;
                     // 同步时间
                     let allTime = data.timeLimit/86400000; 
-                    let day = parseInt(allTime);
-                    let hour = parseInt(data.timeLimit%86400000/1000/3600);
-                    let minute = data.timeLimit%86400000%3600000/1000/60;
-                    this.pickerTime = [[day],[hour],[minute]];
+                    let day = parseInt(allTime)+'';
+                    let hour = parseInt(data.timeLimit%86400000/1000/3600);+''
+                    let minute = data.timeLimit%86400000%3600000/1000/60+'';
+                    this.pickerTime = [day,hour,minute];
                     this.apiData = {
                         ironType: data.ironType,
                         surface: data.surface,

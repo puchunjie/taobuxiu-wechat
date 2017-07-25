@@ -49,7 +49,7 @@
                                 title: '绑定成功！',
                                 content: '已经为您绑定专属客服。',
                                 onHide () {
-                                    _this.$router.push('userCenter')
+                                    _this.$router.push('userIndex')
                                 }
                             })
                         }else{

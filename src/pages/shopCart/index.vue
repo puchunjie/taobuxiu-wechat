@@ -6,7 +6,7 @@
                 <checker-item :value="item.carId">
                      <span class="check-box iconfont"></span> 
                 </checker-item>
-                <img class="product-pic" :src="item.cover">
+                <img class="product-pic" :src="'http://www.itaobuxiu.com'+item.cover">
                 <div class="right">
                     <h3>{{ item.desc }}</h3>
                     <p class="ad">{{ item.sourceCity }}</p>
