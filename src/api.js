@@ -246,6 +246,11 @@ export const voteOrder = 'order/vote';
 
 //==================卖家====================
 /**
+ * 获取个卖家人信息资料(企业资料)
+ */
+export const sprofile = 'seller/profile';
+
+/**
  * 卖家不锈钢求购列表
  * currentPage   //当前页面
  * pageCount     //每页个数

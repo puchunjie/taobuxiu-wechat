@@ -25,6 +25,8 @@ const shopMachining = resolve => require(['@/pages/shop/machiningList.vue'], res
 const userIndex = resolve => require(['@/pages/userCenter/index/index.vue'], resolve);
 const bindingOfficer = resolve => require(['@/pages/userCenter/index/children/bindingOfficer.vue'], resolve);
 const userInfo = resolve => require(['@/pages/userCenter/index/children/userInfo.vue'], resolve);
+const integral = resolve => require(['@/pages/userCenter/common/integral/index.vue'], resolve);
+
 const buyerBuys = resolve => require(['@/pages/userCenter/buyer/buys/index.vue'], resolve);
 const buyerBuysDetail = resolve => require(['@/pages/userCenter/buyer/buys/detail.vue'], resolve);
 const bPublishProduct = resolve => require(['@/pages/userCenter/buyer/publish/product.vue'], resolve);
@@ -33,6 +35,7 @@ const buyerOrder = resolve => require(['@/pages/userCenter/buyer/orders/index.vu
 const sellerBuys = resolve => require(['@/pages/userCenter/seller/buys/index.vue'], resolve);
 const sellerBuysDetail = resolve => require(['@/pages/userCenter/seller/buys/detail.vue'], resolve);
 const sellerOrder = resolve => require(['@/pages/userCenter/seller/orders/index.vue'], resolve);
+const enterpriseInfo = resolve => require(['@/pages/userCenter/seller/enterpriseInfo/index.vue'], resolve);
 
 Vue.use(Router)
 
@@ -180,6 +183,16 @@ export default new Router({
             path: '/userCenter/seller/sellerOrder',
             name: 'sellerOrder',
             component: sellerOrder
+        },
+        {
+            path: '/userCenter/seller/enterpriseInfo',
+            name: 'enterpriseInfo',
+            component: enterpriseInfo
+        },
+        {
+            path: '/userCenter/integral',
+            name: 'integral',
+            component: integral
         }
     ]
 })

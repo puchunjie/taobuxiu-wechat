@@ -80,7 +80,7 @@
                         integral:{
                             count: 0,
                             name: '积分',
-                            link: ''
+                            link: { name: 'integral' }
                         },
                         buys: {
                             count: 0,
@@ -109,7 +109,7 @@
                             title:'积分',
                             icon:'icon-jifen',
                             color: '#fb893f',
-                            link: ''
+                            link: { name: 'integral' }
                         },
                         {
                             title:'发布求购',
@@ -155,7 +155,7 @@
                         integral:{
                             count: 0,
                             name: '积分',
-                            link: ''
+                            link: { name: 'integral' }
                         },
                         buys: {
                             count: 0,
@@ -182,7 +182,7 @@
                             title:'积分',
                             icon:'icon-jifen',
                             color: '#fb893f',
-                            link: ''
+                            link: { name: 'integral' }
                         },
                         {
                             title:'上架货源',
@@ -200,7 +200,7 @@
                             title:'企业资料',
                             icon:'icon-dianpu',
                             color: '#06bb06',
-                            link: ''
+                            link: { name: 'enterpriseInfo' }
                         },
                         {
                             title:'现货报价',
