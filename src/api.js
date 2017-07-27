@@ -302,3 +302,22 @@ export const sdelOrder = 'seller/deleteOrder';
  * orderId   
  */
 export const sconfOrder = 'seller/confirmOrder';
+
+//==================商品，加工下单,加入购物车 ====================
+/**
+ * 下单
+ * timeLimit:86400000
+ * productType:0    0商品1加工
+ * productId:0szw4LSCqkrt
+ * count:1
+ * message:
+ * sFromCar:false  
+ */
+export const doOrder = '/order/translate';
+
+/**
+ * 加入购物车
+ * productType:0
+ * proId:T4b5ZhYfSYpl
+ */
+export const addCart = 'order/addToCar'

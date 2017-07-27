@@ -34,15 +34,14 @@
                 </div>
             </scrollList>  
         </div>
-
-        <div class="detail-container" v-show="detailShow.do">
-            <detail-part @on-back="detailShow.do = false" v-if="detailIronId != ''" :ironId="detailIronId" :show="detailShow"></detail-part>
-        </div>
+        <popup v-model="detailShow" position="right" width="100%" style="z-index:1000">
+            <detail-part @on-back="detailHide" v-if="detailIronId != ''" :ironId="detailIronId"></detail-part>
+        </popup>
     </div>
 </template>
 
 <script>
-    import { ViewBox, Tab, TabItem, dateFormat, Clocker } from 'vux'
+    import { ViewBox, Tab, TabItem, dateFormat, Clocker, Popup } from 'vux'
     import scrollList from '@/components/business/scrollList'
     import comHeader from '@/components/business/commonHead'
     import detailPart from './detail.vue'
@@ -54,7 +53,8 @@
             TabItem,
             scrollList,
             Clocker,
-            detailPart
+            detailPart,
+            Popup
         },
         data () {
             return {
@@ -73,9 +73,7 @@
                 },
                 maxCount: 0,
                 detailIronId:'',
-                detailShow: {
-                    do: false
-                }
+                detailShow: false
             }
         },
         computed: {
@@ -173,7 +171,11 @@
             },
            showDetail(ironId){
                 this.detailIronId = ironId;
-                this.detailShow.do = true;
+                this.detailShow = true;
+            },
+            detailHide(){
+                this.detailShow = false;
+                this.detailIronId = '';
             },
             // 是否显示天数
             dayShow(time){

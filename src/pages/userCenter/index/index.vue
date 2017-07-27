@@ -90,6 +90,7 @@
                     },
                     links:[
                         {
+                            count: 0,
                             title:'购物车',
                             icon:'icon-icon',
                             color: '#06bb06',
@@ -98,6 +99,7 @@
                             }
                         },
                         {
+                            count: 0,
                             title:'订单',
                             icon:'icon-dingdan',
                             color: '#ff3c3c',
@@ -123,6 +125,7 @@
                             }
                         },
                         {
+                            count: 0,
                             title:'现货求购',
                             icon:'icon-qiugou',
                             color: '#fb893f',
@@ -130,12 +133,12 @@
                                 name: 'buyerBuys'
                             }
                         },
-                        {
-                            title:'加工求购',
-                            icon:'icon-qiugou',
-                            color: '#06bb06',
-                            link: ''
-                        }
+                        // {
+                        //     title:'加工求购',
+                        //     icon:'icon-qiugou',
+                        //     color: '#06bb06',
+                        //     link: ''
+                        // }
                     ]
                 },
                 seller: {
@@ -171,6 +174,7 @@
                             link: ''
                         },
                         {
+                            count: 0,
                             title:'订单',
                             icon:'icon-dingdan',
                             color: '#ff3c3c',
@@ -203,6 +207,7 @@
                             link: { name: 'enterpriseInfo' }
                         },
                         {
+                            count: 0,
                             title:'现货报价',
                             icon:'icon-canyujingbiaotubiao',
                             color: '#007de4',
@@ -239,15 +244,33 @@
                     if(res.status === 0){
                         this.setUserInfo(res.data)
                         this.buyer.info.orders.count = this.userInfo.userData.orders;
+                        this.buyer.links[1].count = this.userInfo.userData.orders;
                         this.buyer.info.integral.count = this.userInfo.userData.integral;
                         this.buyer.info.buys.count = this.userInfo.userData.buys;
+                        this.buyer.links[4].count = this.userInfo.userData.buys;
                         this.seller.info.orders.count = this.userInfo.sellerData.orders;
+                        this.seller.links[1].count = this.userInfo.sellerData.orders;
                         this.seller.info.integral.count = this.userInfo.sellerData.integral;
                         this.seller.info.buys.count = this.userInfo.sellerData.supplyPendingCount;
+                        this.seller.links[6].count = this.userInfo.sellerData.supplyPendingCount;
+                        this.getCartData();//暂时处理获取购物车数量^_^
                     }else{
                         this.confirmShow = true
                     }
                 }) 
+            },
+            getCartData(){
+                this.$http.get(this.api.myCarts,{
+                    params:{
+                        currentPage: 0,
+                        pageCount:0
+                    }
+                }).then(res => {
+                    let data = res.data;
+                    if(res.status === 0){
+                        this.buyer.links[0].count = data.maxCount;
+                    }
+                })
             },
             onCancel(){
                 this.$router.push({name:'index'})

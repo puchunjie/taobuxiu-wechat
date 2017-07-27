@@ -7,7 +7,7 @@
                 <label>公司全称</label>
                 <p>{{ info.companyName }}</p>
             </div>
-            <div class="item vux-1px-b">
+            <div class="item">
                 <label>注册资金</label>
                 <p>{{ info.regMoney }}万元</p>
             </div>
@@ -29,19 +29,19 @@
                 <label>办公地址</label>
                 <p>{{ info.officeAddress }}</p>
             </div>
-            <div class="item vux-1px-b">
+            <div class="item">
                 <label>QQ</label>
                 <p>{{ info.qq }}</p>
             </div>
         </div>
         <div class="group">
-            <div class="item vux-1px-b">
-                <label>企业封面</label> <img class="pic" :src="info.cover">
+            <div class="item">
+                <label>企业封面</label> <img class="pic" :src="'http://www.itaobuxiu.com/'+info.cover">
             </div>
         </div>
 
         <div class="group">
-            <div class="item vux-1px-b">
+            <div class="item">
                 <label>企业简介</label> 
                 <p>{{ info.shopProfile }}</p>
             </div>

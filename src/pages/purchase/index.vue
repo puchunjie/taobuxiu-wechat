@@ -26,27 +26,34 @@
                     </clocker>
                     <template v-else>已结束</template>
                 </p> 
-                <a class="action-btn" :class="{'gray':item.status != 0}">我要供货</a>
+                <a class="action-btn" :class="{'gray':item.status != 0}" @click="doOffer(item.id)">我要供货</a>
             </div>
         </scrollList>
 
         <bottom-menu  slot="bottom"></bottom-menu>
+        
+        <popup v-model="detailShow" position="right" width="100%" style="z-index:1000">
+            <detail-part @on-back="detailHide" v-if="detailIronId != ''" :ironId="detailIronId"></detail-part>
+        </popup>
     </div>
 </template>
 
 <script>
-    import { Clocker }  from 'vux'
+    import { Clocker, Popup }  from 'vux'
     import filterBar from '@/components/business/filterBar.vue'
     import bottomMenu from '@/components/business/bottomMenu'
     import scrollList from '@/components/business/scrollList'
     import comHeader from '@/components/business/commonHead'
+    import detailPart from './detail.vue'
     export default {
         components: {
             bottomMenu,
             comHeader,
             filterBar,
             scrollList,
-            Clocker
+            Clocker,
+            Popup,
+            detailPart
         },
         data () {
             return {
@@ -59,7 +66,9 @@
                     proPlace: ''
                 },
                 maxCount: 0,
-                list: []
+                list: [],
+                detailShow: false,//显示报价页面
+                detailIronId:''
             }
         },
         computed: {
@@ -122,6 +131,15 @@
                     })
                 }
                 this.$refs.sScroller.donePu();
+            },
+            // 报价
+            doOffer(id){
+                this.detailIronId = id;
+                this.detailShow = true;
+            },
+            detailHide(){
+                this.detailShow = false;
+                this.detailIronId = '';
             }
         },
         created () {

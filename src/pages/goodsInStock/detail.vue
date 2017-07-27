@@ -50,7 +50,13 @@
                             value: '江苏 无锡'
                         }
                     ],
-                shopInfo:{},
+                shopInfo:{
+                    cover: '',
+                    name: '公司名称',
+                    desc: '主营业务描述',
+                    adress: '公司地址',
+                    sellerId: 'sss'
+                },
                 sellerId: ''
             }
         },
@@ -77,7 +83,8 @@
                         price: data.price,
                         unit: data.unit,
                         numbers: data.numbers,
-                        place: data.cityName
+                        place: data.cityName,
+                        id: data.proId
                     }
 
                     this.detailInfo[0].value = data.ironType;

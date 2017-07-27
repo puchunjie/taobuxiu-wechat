@@ -18,7 +18,7 @@
         <section class="base-info">
             <h3>{{ baseInfo.title }}</h3>
             <p class="price">&yen;{{ baseInfo.price }}<span>/{{ baseInfo.unit }}</span></p>
-            <p class="stock"  v-if="baseInfo.numbers">库存：{{ baseInfo.numbers }}{{ baseInfo.unit }}</p>
+            <p class="stock"  v-if="isGoods">库存：{{ baseInfo.numbers }}{{ baseInfo.unit }}</p>
             <span class="place">{{ baseInfo.place }}</span>
         </section>
         
@@ -48,26 +48,52 @@
             </div>
             <div class="adress">{{ shopInfo.adress }}</div>
 
-             <router-link :to="{name:'shop',params:{sellerId:shopInfo.sellerId}}" class="btn">进入店铺</router-link>
+             <router-link :to="{name:'shop',params:{sellerId: shopInfo.sellerId}}" class="btn">进入店铺</router-link>
         </section>    
         
         <div class="btns" slot="bottom">
-            <a class="add-cart">加入购物车</a>
-            <a class="buy-now">立即购买</a>
+            <a class="add-cart" @click="showPop(false)">加入购物车</a>
+            <a class="buy-now" @click="showPop(true)">立即购买</a>
         </div>
+
+        <popup v-model="addCartShow" :showMask="false">
+            <div class="pop-contnet vux-1px-t">
+                <div class="b-info">
+                    <h3>&yen;{{ baseInfo.price }}/{{ baseInfo.unit }}<span>(不含运费)</span></h3>
+                    <p v-if="isGoods">库存：{{ baseInfo.numbers }}{{ baseInfo.unit }}</p>
+                    <p>{{ baseInfo.place }}</p>
+                </div>
+                <div class="detail vux-1px-t">
+                    <label>数量</label>
+                    <p><count v-model="count"></count></p>
+                    <label>备注</label>
+                    <group :gutter="0" class="texta" v-if="modelType">
+                        <x-textarea style="font-size:.14rem;" v-model="message" :max="35" placeholder="请输入下单备注(选填)"></x-textarea>
+                    </group>
+                </div>
+                <a class="do-btn" @click="action" :class="{'orange':!modelType}">{{ modelType ? '提交订单' : '确认添加' }}</a>
+            </div>
+        </popup>
+        <div class="mask" v-show="addCartShow" @click="hidePop"></div>
     </view-box>
 </template>
 
 <script>
-    import { ViewBox, Swiper, SwiperItem, XHeader } from 'vux'
+    import { ViewBox, Swiper, SwiperItem, XHeader, Popup, Group, XTextarea } from 'vux'
+    import { days, hours, minutes } from '@/assets/resouseData.js'
     import comHeader from '@/components/business/commonHead'
+    import count from '@/components/basics/count'
     export default {
         components: {
             ViewBox,
             Swiper,
             SwiperItem,
             comHeader,
-            XHeader
+            XHeader,
+            Popup,
+            count,
+            Group,
+            XTextarea
         },
         props:{
             pageTitle:{
@@ -81,7 +107,8 @@
                         cover: '',
                         name: '公司名称',
                         desc: '主营业务描述',
-                        adress: '公司地址'
+                        adress: '公司地址',
+                        sellerId: ''
                     }
                 }
             },
@@ -135,9 +162,103 @@
                 }
             }
         },
+        data () {
+            return {
+                addCartShow: false,
+                count: 1,
+                message: '',
+                timeLimit: 86400000,
+                modelType: false ,//模式，true购买false添加购物车  
+            }
+        },
+        computed: {
+            // 通过商品有没有数量来判断是不是加工
+            productType(){
+                return this.baseInfo.numbers != undefined ? 0 : 1
+            },
+            isGoods(){
+                return this.baseInfo.numbers != undefined
+            }  
+        },
         methods: {
             onBack(){
                 this.$emit('on-back')
+            },
+            showPop(type){
+                this.modelType = type;
+                this.addCartShow = true;
+            },
+            hidePop(){
+                this.addCartShow = false;
+                this.count = 1;
+                this.message = '';
+            },
+            //提交、加入购物车
+            action(){
+                let _this = this;
+                this.$vux.confirm.show({
+                    content: this.modelType ? '确认提交订单？' : '确认加入购物车？',
+                    onConfirm () {
+                        if(_this.modelType){
+                            _this.submitGoods()
+                        }else{
+                            _this.addToCart()
+                        }
+                        _this.$vux.loading.show({
+                            text: _this.modelType ? '下单中...' : '正在加入...'
+                        })
+                    }
+                })
+            },
+            addToCart(){
+                let _this = this;
+                this.$http.post(this.api.addCart,{
+                    productType: this.productType,
+                    proId: this.baseInfo.id
+                }).then(res => {
+                    if(res.status === 0){
+                        this.$vux.alert.show({
+                            content: '成功加入购物车',
+                            onHide () {
+                                _this.hidePop();
+                            }
+                        })
+                    }else{
+                        this.$vux.toast.show({
+                            text: res.errorMsg,
+                            type: 'warn',
+                            width: '2rem'
+                        });
+                    }
+                    this.$vux.loading.hide()
+                })
+            },
+            submitGoods(){
+                let _this = this;
+                this.$http.post(this.api.doOrder,{
+                    timeLimit: this.timeLimit,
+                    productType: this.productType,
+                    productId: this.baseInfo.id,
+                    count: this.count,
+                    message: this.message,
+                    isFromCar:false,
+                }).then(res => {
+                    if(res.status === 0){
+                        this.$vux.alert.show({
+                            content: '下单成功！',
+                            onHide () {
+                                _this.hidePop();
+                            }
+                        })
+                    }else{
+                        this.$vux.toast.show({
+                            text: res.errorMsg,
+                            type: 'warn',
+                            width: '2rem'
+                        });
+                    }
+                    this.$vux.loading.hide()
+                })
             }
         }
     }
@@ -275,5 +396,63 @@
         .buy-now {
             background-color: #007de4;
         }
+    }
+
+    .vux-popup-dialog{
+        z-index: 1002;
+    }
+
+    .pop-contnet{
+        width: 100%;
+        background-color: #fff;
+        .b-info{
+            width: 100%;
+            padding: .1rem;
+            h3{
+                font-size: .24rem;
+                color: red;
+                line-height: .3rem;
+                span{
+                    color: #333;
+                    font-size: .14rem;
+                }
+            }
+        }
+        .detail{
+            width: 100%;
+            padding: .1rem;
+            label{
+                color: #999;
+                line-height: .3rem;
+            }
+            .texta{
+                border: 1px solid #999;
+            }
+            .texta:before{
+                border: 0!important;
+            }
+        }
+
+        .do-btn{
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            height: .4rem;
+            line-height: .4rem;
+            font-size: .16rem;
+            background-color: #007de4;
+        }
+        .orange{
+            background-color: #ff7600;
+        }
+    }
+    .mask{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
     }
 </style>

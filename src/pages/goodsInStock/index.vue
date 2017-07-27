@@ -30,14 +30,14 @@
 
         <bottom-menu slot="bottom"></bottom-menu>
 
-        <div class="detail-container" v-show="detailShow.do">
+         <div class="detail-container" v-show="detailShow.do">
             <detail-part v-if="detailIronId != ''" :ironId="detailIronId" :show="detailShow"></detail-part>
-        </div>
+        </div> 
     </div>
 </template>
 
 <script>
-    import { XDialog } from 'vux'
+    import { XDialog, Popup } from 'vux'
     import filterBar from '@/components/business/filterBar.vue'
     import bottomMenu from '@/components/business/bottomMenu'
     import scrollList from '@/components/business/scrollList'
@@ -48,7 +48,8 @@
             bottomMenu,
             filterBar,
             scrollList,
-            detailPart
+            detailPart,
+            Popup
         },
         data () {
             return {
@@ -81,9 +82,7 @@
                 maxCount: 0,
                 list: [],
                 detailIronId:'',
-                detailShow: {
-                    do: false
-                }
+                detailShow: {do:false}
             }
         },
         computed: {
@@ -187,7 +186,6 @@
                 this.reloadList();
             },
             showDetail(id){
-                // this.$router.push({ name: 'goodsInStockDetail', params: { ironId: id } })
                 this.detailIronId = id;
                 this.detailShow.do = true;
             }

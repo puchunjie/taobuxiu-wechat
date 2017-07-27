@@ -35,6 +35,11 @@ export default {
                 this.$emit('input', this.val)
             }
         }
+    },
+    watch: {
+        value(val){
+            this.val = val
+        }
     }
 }
 </script>

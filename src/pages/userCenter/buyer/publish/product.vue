@@ -42,11 +42,10 @@
 </template>
 
 <script>
-    import { sironTypes, ssurfaces, smaterials, sproPlaces, units } from '@/assets/resouseData.js'
+    import { sironTypes, ssurfaces, smaterials, sproPlaces, units, days, hours, minutes } from '@/assets/resouseData.js'
     import { ViewBox, PopupPicker, Group, Cell, XInput, XNumber, XTextarea, XButton } from 'vux'
     import comHeader from '@/components/business/commonHead'
     import addressPicker from '@/components/basics/addressPicker.vue'
-    import { days, hours, minutes } from '@/assets/resouseData.js'
     export default {
         components: {
             ViewBox,

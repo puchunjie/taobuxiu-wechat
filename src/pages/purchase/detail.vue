@@ -1,7 +1,7 @@
 <template>
     <view-box>
         <x-header slot="header" :left-options="{showBack:false}">
-            {{ offerShow ? '抢单' : '报价细节' }}
+            抢单
             <span class="iconfont icon-fanhui" slot="left" @click="onBack"></span>
         </x-header>
 
@@ -68,7 +68,7 @@
                 </group>
             </div>
             <div class="right">
-                <a class="btn ignore" @click="showIgnore = true">忽&nbsp;略</a>
+                <a class="btn ignore"></a>
                 <a class="btn offer" @click="offer">立&nbsp;即报&nbsp;价</a>
             </div>
         </div>
@@ -88,16 +88,10 @@
                     <span>{{ myOffer.supplyMsg }}</span>
                 </div>
                 <div class="group" v-if="buy.status === 4">
-                    <label>总额：</label>
                     <span style="color:green">&yen;{{ accMul(buy.numbers,myOffer.price) }}</span>
                 </div>
             </div>
         </div>
-
-        <confirm v-model="showIgnore"
-            title="确定要忽略此单么？"
-            @on-confirm="ignore">
-        </confirm>
     </view-box>  
 </template>
 
@@ -129,9 +123,7 @@
                 },
                 buyerMobile: '',
                 price: '',
-                msg: '',
-                showIgnore: false,
-                   
+                msg: ''
             }
         },
         computed: {
@@ -195,29 +187,6 @@
                 }catch(e){} 
 
                 return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m) 
-            },
-            // 忽略
-            ignore(){
-                let _this = this;
-                this.$http.post(this.api.missIronBuyOffer,{
-                    ironId: this.ironId
-                }).then(res =>{
-                    if(res.status === 0){
-                        this.$vux.alert.show({
-                            title: '忽略成功！',
-                            content: '点击确定跳转到列表页',
-                            onHide () {
-                                _this.$router.go(-1)
-                            }
-                        })
-                    }else{
-                        this.$vux.toast.show({
-                            text: res.errorMsg,
-                            type: 'warn',
-                            width: '2rem'
-                        });
-                    }
-                })
             },
             //报价
             offer(){
@@ -373,16 +342,9 @@
             .offer{
                 background-color: #ff8d00;
                 color: #fff;
-                margin-top: .05rem;
-                height: .69rem;
-                line-height: .35rem;
-            }
-            .ignore{
-                margin-top: .01rem;
-                background-color: #ececec;
-                color: #848484;
-                height: .31rem;
-                line-height: .31rem;
+                height: 1.06rem;
+                line-height: .53rem;
+                font-size: .18rem;
             }
         }
     }

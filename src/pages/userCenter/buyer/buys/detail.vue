@@ -83,12 +83,6 @@
         props:{
             ironId:{
                 type: String
-            },
-            show:{
-                type: Object,
-                default:{
-                    do:false
-                }
             }
         },
         data () {

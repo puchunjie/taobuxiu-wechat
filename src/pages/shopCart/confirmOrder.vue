@@ -109,7 +109,7 @@
                             title: '订单提交成功！',
                             content: '您已成功下单。',
                             onHide () {
-                                // _this.$router.push({})
+                                _this.$router.push({name:'buyerOrder'})
                             }
                         })
                     }else{
@@ -120,6 +120,11 @@
                         });
                     }
                 })
+            }
+        },
+        created () {
+            if(this.orderConfirmData.length === 0){
+                this.$router.replace({name:'shopCart'})
             }
         }
     }

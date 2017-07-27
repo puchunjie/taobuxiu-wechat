@@ -34,7 +34,13 @@
                         value: ''
                     }
                 ],
-                shopInfo:{},
+                shopInfo:{
+                    cover: '',
+                    name: '公司名称',
+                    desc: '主营业务描述',
+                    adress: '公司地址',
+                    sellerId: 'sss'
+                },
                 sellerId: ''
             }
         },
@@ -60,7 +66,8 @@
                         title: data.title,
                         price: data.price,
                         unit: data.unit,
-                        place: data.cityName
+                        place: data.cityName,
+                        id: data.id
                     }
 
                     this.detailInfo[0].value = data.type;
