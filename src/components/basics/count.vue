@@ -7,14 +7,13 @@
         <a class="count-btn vux-1px-l plus" @click="plus">
             <span class="iconfont icon-iconjia"></span>
         </a>
-        
     </div>
 </template>
 
 
 <script>
 export default {
-    props:['value'],
+    props:['value','max','min'],
     data () {
         return {
             val: this.value
@@ -26,8 +25,16 @@ export default {
             this.$emit('input', value);
         },
         plus() {
-            this.val++
-            this.$emit('input', this.val)
+            if(this.max){
+                if(this.val < this.max){
+                    this.val++
+                    this.$emit('input', this.val)
+                }  
+            }else{
+                this.val++
+                this.$emit('input', this.val)
+            }
+            
         },
         minu() {
             if(this.val>0){

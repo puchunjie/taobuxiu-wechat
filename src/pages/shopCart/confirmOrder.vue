@@ -64,6 +64,7 @@
                     item.productType = el.productType;
                     item.productId = el.proId;
                     item.count = el.count;
+                    item.carId = el.carId;
                     arr.push(item) 
                 })
                 return arr

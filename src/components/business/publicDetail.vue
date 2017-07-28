@@ -58,6 +58,7 @@
 
         <popup v-model="addCartShow" :showMask="false">
             <div class="pop-contnet vux-1px-t">
+                <span class="close iconfont icon-closecircled" @click="hidePop"></span>
                 <div class="b-info">
                     <h3>&yen;{{ baseInfo.price }}/{{ baseInfo.unit }}<span>(不含运费)</span></h3>
                     <p v-if="isGoods">库存：{{ baseInfo.numbers }}{{ baseInfo.unit }}</p>
@@ -65,11 +66,18 @@
                 </div>
                 <div class="detail vux-1px-t">
                     <label>数量</label>
-                    <p><count v-model="count"></count></p>
+                    <p><count v-model="count"></count><span style="font-size:.2rem;margin-left:.1rem">{{ baseInfo.unit }}</span></p>
                     <label>备注</label>
                     <group :gutter="0" class="texta" v-if="modelType">
                         <x-textarea style="font-size:.14rem;" v-model="message" :max="35" placeholder="请输入下单备注(选填)"></x-textarea>
                     </group>
+                    
+                </div>
+                <div class="time vux-1px-t" v-if="modelType">
+                    <label>有效期限</label>
+                    <p><count v-model="day" :max="30"></count><span>天</span></p>
+                    <p><count v-model="hour" :max="23"></count><span>时</span></p>
+                    <p><count v-model="minute" :max="59"></count><span>分</span></p>
                 </div>
                 <a class="do-btn" @click="action" :class="{'orange':!modelType}">{{ modelType ? '提交订单' : '确认添加' }}</a>
             </div>
@@ -169,6 +177,9 @@
                 message: '',
                 timeLimit: 86400000,
                 modelType: false ,//模式，true购买false添加购物车  
+                day:1,
+                hour:0,
+                minute:0
             }
         },
         computed: {
@@ -192,6 +203,13 @@
                 this.addCartShow = false;
                 this.count = 1;
                 this.message = '';
+                this.day = 1;
+                this.hour = 0;
+                this.minute = 0;
+            },
+            syncTime(){
+                let limit = (this.day*24*3600 + this.hour*3600 + this.minute*60) * 1000;
+                this.timeLimit = limit;
             },
             //提交、加入购物车
             action(){
@@ -259,6 +277,17 @@
                     }
                     this.$vux.loading.hide()
                 })
+            }
+        },
+        watch: {
+            day(){
+                this.syncTime()
+            },
+            hour(){
+                this.syncTime()
+            },
+            minute(){
+                this.syncTime()
             }
         }
     }
@@ -403,8 +432,15 @@
     }
 
     .pop-contnet{
+        position: relative;
         width: 100%;
         background-color: #fff;
+        .close{
+            position: absolute;
+            right: .1rem;
+            top: 0;
+            font-size: .3rem;
+        }
         .b-info{
             width: 100%;
             padding: .1rem;
@@ -430,6 +466,26 @@
             }
             .texta:before{
                 border: 0!important;
+            }
+        }
+
+        .time{
+            width: 100%;
+            font-size: .14rem;
+            overflow: hidden;
+            padding: .1rem;
+            label{
+                color: #999;
+                line-height: .3rem;
+            }
+            p{
+                line-height: .3rem;
+                .count-container{
+                    margin-right: .1rem;
+                }
+                span{
+                    font-size: .16rem;
+                }
             }
         }
 

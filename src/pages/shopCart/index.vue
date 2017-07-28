@@ -213,6 +213,7 @@
                     width: 2.2rem;
                     color: #333;
                     line-height: .2rem;
+                    height: .4rem;
                 }
                 .ad{
                     color: #999;
@@ -233,7 +234,7 @@
                 .count-r{
                     position: absolute;
                     bottom: .05rem;
-                    right: .4rem;
+                    right: .65rem;
                 }
             }
         }
