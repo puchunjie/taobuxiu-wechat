@@ -215,12 +215,12 @@
                                 name: 'sellerBuys'
                             }
                         },
-                        {
-                            title:'加工报价',
-                            icon:'icon-canyujingbiaotubiao',
-                            color: '#ff3c3c',
-                            link: ''
-                        }
+                        // {
+                        //     title:'加工报价',
+                        //     icon:'icon-canyujingbiaotubiao',
+                        //     color: '#ff3c3c',
+                        //     link: ''
+                        // }
                     ]
                 }     
             }

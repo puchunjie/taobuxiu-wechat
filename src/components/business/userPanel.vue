@@ -14,7 +14,7 @@
             <div class="cell" v-for="(item,index) in data.links" :key="index" @click="linkTo(item.link)">
                 <span class="iconfont" :class="item.icon" :style="{'color': item.color}"></span>
                 <p>{{ item.title }}</p>
-                <span class="badge" v-if="item.count != undefined">{{ item.count }}</span>
+                <span class="badge" v-if="item.count != undefined && item.count != 0">{{ item.count }}</span>
             </div>
         </div>
     </section>
@@ -92,7 +92,7 @@
                     left: 45%;
                     top: .04rem;
                     background-color: #fff;
-                    transform:scale(.6);
+                    transform:scale(.75);
                 }
             }
             .iconfont{

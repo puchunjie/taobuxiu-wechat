@@ -75,9 +75,11 @@
                 </div>
                 <div class="time vux-1px-t" v-if="modelType">
                     <label>有效期限</label>
-                    <p><count v-model="day" :max="30"></count><span>天</span></p>
-                    <p><count v-model="hour" :max="23"></count><span>时</span></p>
-                    <p><count v-model="minute" :max="59"></count><span>分</span></p>
+                    <div class="label-content">
+                        <span :class="{'active': activeTime === index}" v-for="(el,index) in pickeTime" :key="index" @click="pick(index)">
+                            {{ el < 1 ? el*60 + '分钟' : el + '小时' }}
+                        </span>
+                    </div>
                 </div>
                 <a class="do-btn" @click="action" :class="{'orange':!modelType}">{{ modelType ? '提交订单' : '确认添加' }}</a>
             </div>
@@ -88,7 +90,6 @@
 
 <script>
     import { ViewBox, Swiper, SwiperItem, XHeader, Popup, Group, XTextarea } from 'vux'
-    import { days, hours, minutes } from '@/assets/resouseData.js'
     import comHeader from '@/components/business/commonHead'
     import count from '@/components/basics/count'
     export default {
@@ -175,11 +176,9 @@
                 addCartShow: false,
                 count: 1,
                 message: '',
-                timeLimit: 86400000,
                 modelType: false ,//模式，true购买false添加购物车  
-                day:1,
-                hour:0,
-                minute:0
+                pickeTime:[.5,1,2,4,8,24,48],
+                activeTime: 5
             }
         },
         computed: {
@@ -189,7 +188,10 @@
             },
             isGoods(){
                 return this.baseInfo.numbers != undefined
-            }  
+            },
+            timeLimit(){
+                return this.pickeTime[this.activeTime]*3600000
+            }
         },
         methods: {
             onBack(){
@@ -203,13 +205,10 @@
                 this.addCartShow = false;
                 this.count = 1;
                 this.message = '';
-                this.day = 1;
-                this.hour = 0;
-                this.minute = 0;
             },
-            syncTime(){
-                let limit = (this.day*24*3600 + this.hour*3600 + this.minute*60) * 1000;
-                this.timeLimit = limit;
+            //选择有效期
+            pick(index){
+                this.activeTime = index;
             },
             //提交、加入购物车
             action(){
@@ -277,17 +276,6 @@
                     }
                     this.$vux.loading.hide()
                 })
-            }
-        },
-        watch: {
-            day(){
-                this.syncTime()
-            },
-            hour(){
-                this.syncTime()
-            },
-            minute(){
-                this.syncTime()
             }
         }
     }
@@ -478,13 +466,21 @@
                 color: #999;
                 line-height: .3rem;
             }
-            p{
-                line-height: .3rem;
-                .count-container{
-                    margin-right: .1rem;
-                }
+            .label-content{
+                width: 100%;
                 span{
-                    font-size: .16rem;
+                    display: inline-block;
+                    padding: 0 .05rem;
+                    color: #999;
+                    border: 1px solid #999;
+                    border-radius: .05rem;
+                    margin: .05rem .1rem .05rem 0;
+                    font-size: .12rem;
+                }
+                .active{
+                    background-color: #007de4;
+                    color: #fff;
+                    border-color: #007de4;
                 }
             }
         }
