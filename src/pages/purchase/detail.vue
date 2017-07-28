@@ -171,6 +171,8 @@
                         this.myOffer = data.myOffer;
                         this.userBuyInfo = data.userBuyInfo;
                         this.buyerMobile = data.buyerMobile;
+                    }else{
+                        this.$router.push({name: 'login'})
                     }
                 })
             },
