@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <com-header hideRight>订单管理</com-header>
+        <com-header>订单管理</com-header>
          <tab active-color="#007de4" v-model="activeTab">
             <tab-item v-for="(tab,index) in tabs" :key="index" @on-item-click="switchKey">
                 {{ tab.title }}
@@ -368,7 +368,7 @@
             text-indent: .1rem;
             .right-show{
                 position: absolute;
-                top: 0;
+                top: .05rem;
                 right: .1rem;
                 .contant{
                     display: block;

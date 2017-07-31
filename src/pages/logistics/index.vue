@@ -226,11 +226,19 @@
             },
             onConfirm(){
                 this.$http.post(this.api.logistics,this.apiData).then(res => {
-                    this.$vux.alert.show({
-                        title: '提交成功！',
-                        content: '物流专员会尽快与您联系'
-                    })
-                    this.resetParmas();
+                    if(res.status === 0){
+                        this.$vux.alert.show({
+                            title: '提交成功！',
+                            content: '物流专员会尽快与您联系'
+                        })
+                        this.resetParmas();
+                    }else{
+                        this.$vux.toast.show({
+                            text: res.errorMsg,
+                            type: 'warn',
+                            width: '2rem'
+                        });
+                    }
                 })
             },
             resetParmas(){

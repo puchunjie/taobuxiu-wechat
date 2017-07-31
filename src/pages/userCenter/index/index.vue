@@ -25,7 +25,7 @@
         
         <div v-else class="authentication">
             您暂未认证企业账号
-            <a class="go-atc">去认证</a>
+            <a class="go-atc" @click="authenticate">去认证</a>
         </div>
 
         <bottom-menu slot="bottom"></bottom-menu>
@@ -188,12 +188,12 @@
                             color: '#fb893f',
                             link: { name: 'integral' }
                         },
-                        {
-                            title:'上架货源',
-                            icon:'icon-fabu',
-                            color: '#007de4',
-                            link: ''
-                        },
+                        // {
+                        //     title:'上架货源',
+                        //     icon:'icon-fabu',
+                        //     color: '#007de4',
+                        //     link: ''
+                        // },
                         {
                             title:'加工资源',
                             icon:'icon-jiagongfuwu-',
@@ -280,6 +280,12 @@
             },
             bOnConfirm(){
                 this.$router.push({name:'bindingOfficer'})
+            },
+            // 认证
+            authenticate(){
+                this.$vux.alert.show({
+                    content: '当前手机版本暂不支持商户认证，请前往电脑端填写材料认证商家身份'
+                })
             }
         },
         created () {

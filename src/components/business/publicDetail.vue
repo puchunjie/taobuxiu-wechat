@@ -67,11 +67,12 @@
                 <div class="detail vux-1px-t">
                     <label>数量</label>
                     <p><count v-model="count"></count><span style="font-size:.2rem;margin-left:.1rem">{{ baseInfo.unit }}</span></p>
-                    <label>备注</label>
-                    <group :gutter="0" class="texta" v-if="modelType">
-                        <x-textarea style="font-size:.14rem;" v-model="message" :max="35" placeholder="请输入下单备注(选填)"></x-textarea>
-                    </group>
-                    
+                    <template v-if="modelType">
+                        <label>备注</label>
+                        <group :gutter="0" class="texta">
+                            <x-textarea style="font-size:.14rem;" v-model="message" :max="35" placeholder="请输入下单备注(选填)"></x-textarea>
+                        </group>
+                    </template>
                 </div>
                 <div class="time vux-1px-t" v-if="modelType">
                     <label>有效期限</label>
@@ -227,6 +228,7 @@
                     }
                 })
             },
+            // 加入购物车
             addToCart(){
                 let _this = this;
                 this.$http.post(this.api.addCart,{
@@ -250,6 +252,7 @@
                     this.$vux.loading.hide()
                 })
             },
+            // 下单
             submitGoods(){
                 let _this = this;
                 this.$http.post(this.api.doOrder,{
@@ -265,6 +268,7 @@
                             content: '下单成功！',
                             onHide () {
                                 _this.hidePop();
+                                _this.$router.push({name: 'buyerOrder'});
                             }
                         })
                     }else{

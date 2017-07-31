@@ -91,13 +91,15 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
+                p{
+                    font-size: .12rem;
+                }
             }
         }
 
         .link-btns{
             width: 100%;
             background-color: #fff;
-            border-bottom: .2rem solid #efeff4;
             overflow: hidden;
             padding: .05rem 0;
             a{

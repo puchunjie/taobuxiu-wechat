@@ -38,7 +38,7 @@
         </div>
 
         <popup v-model="detailShow" position="right" width="100%" style="z-index:1000">
-            <detail-part @on-back="detailHide" v-if="detailIronId != ''" :ironId="detailIronId"></detail-part>
+            <detail-part @on-back="detailHide" v-if="detailIronId != ''" :ironId="detailIronId" @on-delete-buy="onDeleteBuy"></detail-part>
         </popup>
     </div>
 </template>
@@ -180,8 +180,9 @@
             dayShow(time){
                 return (time - new Date().getTime()) > 86400000
             },
-            deleteBuy(){
-                this.detailShow = false;
+            // 删除进行中求购后钩子
+            onDeleteBuy(){
+                this.detailHide();
                 this.getData(()=>{
                     this.$refs.sScroller.reset();
                 })

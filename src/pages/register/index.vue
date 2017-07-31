@@ -99,7 +99,6 @@
                             this.login();
                         }else{
                             this.$vux.alert.show({
-                                title: 'error！',
                                 content: res.errorMsg
                             })
                         }

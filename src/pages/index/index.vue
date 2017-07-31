@@ -47,8 +47,8 @@
                     }],
                 cellOptions:[
                     {label:"现货市场",link:"goodsInStock",icon:"icon-yishouhuo"},
-                    {label:"特价资源",link:"special",icon:"icon-tejiashangpin"},
-                    {label:"加工定制",link:"processingInformation",icon:"icon-jiagonghuanjie"},
+                    {label:"特价资源",link:"special",icon:"icon-shaixuantubiaogaozhuanqu19"},
+                    {label:"加工定制",link:"processingInformation",icon:"icon-dingzhi"},
                     {label:"上门质检",link:"",icon:"icon-zhijianfuwu"},
                     {label:"货运物流",link:"logistics",icon:"icon-shouyewuliu"},
                     {label:"采购报价",link:"purchase",icon:"icon-cai"}
@@ -92,13 +92,16 @@
             background-color: #fff;
             .cell-icon {
                 display: block;
-                font-size: .4rem;
+                font-size: .5rem;
                 color: #007de4;
             }
             .weui-grid__icon {
-                width: .4rem!important;
-                height: .4rem!important;
-                margin: 0 auto .15rem!important;
+                width: .5rem!important;
+                height: .5rem!important;
+                margin: 0 auto .2rem!important;
+            }
+            .weui-grid{
+                padding: .1rem;
             }
         }
     }

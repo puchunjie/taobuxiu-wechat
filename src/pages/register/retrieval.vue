@@ -83,8 +83,8 @@
                     //注册
                     this.$http.post(this.api.forgetPassword,{
                         mobile: this.mobile,
-                        password: this.password,
-                        passwordConfirm: this.password,
+                        newPassword: this.password,
+                        newPasswordConfirm: this.password,
                         msgCode: this.pin * 1
                     }).then(res => {
                         //跳转到个人中心
@@ -92,7 +92,6 @@
                             this.$router.push({name:'login'})
                         }else{
                             this.$vux.alert.show({
-                                title: 'error！',
                                 content: res.errorMsg
                             })
                         }
