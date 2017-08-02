@@ -9,8 +9,7 @@
                     </div>
                     <div class="content">
                         <img class="pro-img" :src="'http://www.itaobuxiu.com'+item.cover">
-                        <textarea v-if="index === activeIndex && type" v-model="updateApi.title"></textarea>
-                        <h3 v-else>{{`${ item.title }`}}</h3>
+                        <h3>{{`${ item.title }`}}</h3>
                         <p>{{ item.sourceCity }}</p>
                     </div>
                     <div class="price-count">
@@ -54,8 +53,7 @@
                 },
                 updateApi:{
                     handingId:'',
-                    price:13.3,
-                    title:''
+                    price:13.3
                 },
                 maxCount: 0
             }
@@ -130,7 +128,6 @@
             beEdit(item,index){
                 this.updateApi.handingId = item.id;
                 this.updateApi.price = item.price;
-                this.updateApi.title = item.title;
                 this.type = true;
                 this.activeIndex = index;
             },
@@ -141,7 +138,6 @@
                         this.type = false;
                         let item = this.list[this.activeIndex];
                         item.price = this.updateApi.price;
-                        item.title = this.updateApi.title;
                         this.$vux.alert.show({
                             content: '修改成功！'
                         })
