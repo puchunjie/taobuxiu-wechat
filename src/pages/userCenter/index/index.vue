@@ -171,7 +171,7 @@
                             title:'现货资源',
                             icon:'icon-package',
                             color: '#06bb06',
-                            link: ''
+                            link: { name: 'goodsEdit' }
                         },
                         {
                             count: 0,
@@ -198,7 +198,7 @@
                             title:'加工资源',
                             icon:'icon-jiagongfuwu-',
                             color: '#fb893f',
-                            link: ''
+                            link: { name: 'machiningEdit' }
                         },
                         {
                             title:'企业资料',
@@ -252,7 +252,7 @@
                         this.seller.links[1].count = this.userInfo.sellerData.orders;
                         this.seller.info.integral.count = this.userInfo.sellerData.integral;
                         this.seller.info.buys.count = this.userInfo.sellerData.supplyPendingCount;
-                        this.seller.links[6].count = this.userInfo.sellerData.supplyPendingCount;
+                        this.seller.links[5].count = this.userInfo.sellerData.supplyPendingCount;
                         this.getCartData();//暂时处理获取购物车数量^_^
                     }else{
                         this.confirmShow = true

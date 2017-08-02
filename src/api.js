@@ -303,6 +303,48 @@ export const sdelOrder = 'seller/deleteOrder';
  */
 export const sconfOrder = 'seller/confirmOrder';
 
+
+/**
+ * 卖家店铺现货列表
+ * currentPage  
+ * pageCount
+ */
+export const shopProducts = 'iron/myProducts';
+
+/**
+ * 卖家店铺现货更新
+ * ironId  
+ * price
+ * numbers
+ */
+export const updateProduct = 'iron/updateProduct';
+
+/**
+ * 卖家店铺现货删除
+ * ironId  
+ */
+export const deleteProduct = 'iron/deleteProduct';
+
+/**
+ * 卖家店铺加工列表
+ * currentPage  
+ * pageCount
+ */
+export const shopMachining = 'handing/myProducts';
+
+/**
+ * 卖家店铺加工更新
+ * handingId  
+ * price
+ */
+export const updateMachining = 'handing/updateProduct';
+
+/**
+ * 卖家店铺加工删除
+ * handingId  
+ */
+export const deleteMachining = 'handing/deleteProduct';
+
 //==================商品，加工下单,加入购物车 ====================
 /**
  * 下单

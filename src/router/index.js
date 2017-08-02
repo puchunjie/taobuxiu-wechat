@@ -36,6 +36,8 @@ const sellerBuys = resolve => require(['@/pages/userCenter/seller/buys/index.vue
 const sellerBuysDetail = resolve => require(['@/pages/userCenter/seller/buys/detail.vue'], resolve);
 const sellerOrder = resolve => require(['@/pages/userCenter/seller/orders/index.vue'], resolve);
 const enterpriseInfo = resolve => require(['@/pages/userCenter/seller/enterpriseInfo/index.vue'], resolve);
+const goodsEdit = resolve => require(['@/pages/userCenter/seller/goodsEdit/index.vue'], resolve);
+const machiningEdit = resolve => require(['@/pages/userCenter/seller/machiningEdit/index.vue'], resolve);
 
 Vue.use(Router)
 
@@ -188,6 +190,16 @@ export default new Router({
             path: '/userCenter/seller/enterpriseInfo',
             name: 'enterpriseInfo',
             component: enterpriseInfo
+        },
+        {
+            path: '/userCenter/seller/goodsEdit',
+            name: 'goodsEdit',
+            component: goodsEdit
+        },
+        {
+            path: '/userCenter/seller/machiningEdit',
+            name: 'machiningEdit',
+            component: machiningEdit
         },
         {
             path: '/userCenter/integral',

@@ -92,13 +92,13 @@
             background-color: #fff;
             .cell-icon {
                 display: block;
-                font-size: .5rem;
+                font-size: .4rem;
                 color: #007de4;
             }
             .weui-grid__icon {
-                width: .5rem!important;
-                height: .5rem!important;
-                margin: 0 auto .2rem!important;
+                width: .4rem!important;
+                height: .4rem!important;
+                margin: 0 auto .15rem!important;
             }
             .weui-grid{
                 padding: .1rem;

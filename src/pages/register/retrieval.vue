@@ -14,7 +14,7 @@
             <x-input ref="password" v-model="password" type="password" placeholder="请设置您的新密码" required></x-input>
         </group>
         <div class="agree">请获取短信验证码，并设置您的新登录密码</div>
-        <div class="register-btn" @click="register">确认更改</div>
+        <div class="register-btn" @click="resetPassword">确认更改</div>
         
         <div class="contact">
             服务咨询热线：<a href="tel:0510-81812186">0510-81812186</a>
@@ -78,7 +78,8 @@
                     this.$refs.mobile.focus();
                 }
             },
-            register(){
+            resetPassword(){
+                let _this = this;
                 if(this.$refs.mobile.valid && this.$refs.pin.valid && this.$refs.password.valid){
                     //注册
                     this.$http.post(this.api.forgetPassword,{
@@ -89,7 +90,12 @@
                     }).then(res => {
                         //跳转到个人中心
                         if(res.status === 0){
-                            this.$router.push({name:'login'})
+                            this.$vux.alert.show({
+                                content: '修改成功，请前往登录。',
+                                onHide(){
+                                    _this.$router.push({name:'login'})
+                                }
+                            })
                         }else{
                             this.$vux.alert.show({
                                 content: res.errorMsg
