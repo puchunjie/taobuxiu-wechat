@@ -191,6 +191,12 @@ export const myBuyDetail = 'iron/myBuyDetail';
 export const publishIron = 'iron/buy'
 
 /**
+ * 买家不锈钢求购修改
+ * post
+ */
+export const editPublish = 'iron/editBuy';
+
+/**
  * 点击中标
  * ironBuyId  
  * supplyId
@@ -344,6 +350,18 @@ export const updateMachining = 'handing/updateProduct';
  * handingId  
  */
 export const deleteMachining = 'handing/deleteProduct';
+
+/**
+ * 获取关注列表
+ * GET
+ */
+export const followList = 'member/ironSubscribe'
+
+/**
+ * 保存关注
+ * post
+ */
+export const saveFollow = 'member/ironSubscribe'
 
 //==================商品，加工下单,加入购物车 ====================
 /**

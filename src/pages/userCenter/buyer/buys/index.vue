@@ -166,7 +166,7 @@
                 this.$refs.sScroller.donePu();
             },
             jumpToPublish(id){
-                this.$router.push({ name: 'bPublishProduct', params: { id: id}})
+                this.$router.push({ name: 'bPublishProduct', params: { id: id , isEdit: 0 }})
             },
             showDetail(ironId){
                 this.detailIronId = ironId;

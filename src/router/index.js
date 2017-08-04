@@ -22,10 +22,10 @@ const shopMachining = resolve => require(['@/pages/shop/machiningList.vue'], res
 
 
 // 用户中心
-const userIndex = resolve => require(['@/pages/userCenter/index/index.vue'], resolve);
-const bindingOfficer = resolve => require(['@/pages/userCenter/index/children/bindingOfficer.vue'], resolve);
-const userInfo = resolve => require(['@/pages/userCenter/index/children/userInfo.vue'], resolve);
-const integral = resolve => require(['@/pages/userCenter/common/integral/index.vue'], resolve);
+const userIndex = resolve => require(['@/pages/userCenter/index/index.vue'], resolve); //用户中心首页
+const bindingOfficer = resolve => require(['@/pages/userCenter/index/children/bindingOfficer.vue'], resolve); //绑定专员
+const userInfo = resolve => require(['@/pages/userCenter/index/children/userInfo.vue'], resolve); //用户信息
+const integral = resolve => require(['@/pages/userCenter/common/integral/index.vue'], resolve); //用户积分
 
 const buyerBuys = resolve => require(['@/pages/userCenter/buyer/buys/index.vue'], resolve);
 const buyerBuysDetail = resolve => require(['@/pages/userCenter/buyer/buys/detail.vue'], resolve);
@@ -38,6 +38,7 @@ const sellerOrder = resolve => require(['@/pages/userCenter/seller/orders/index.
 const enterpriseInfo = resolve => require(['@/pages/userCenter/seller/enterpriseInfo/index.vue'], resolve);
 const goodsEdit = resolve => require(['@/pages/userCenter/seller/goodsEdit/index.vue'], resolve);
 const machiningEdit = resolve => require(['@/pages/userCenter/seller/machiningEdit/index.vue'], resolve);
+const follow = resolve => require(['@/pages/userCenter/seller/follow/index.vue'], resolve);
 
 Vue.use(Router)
 
@@ -128,6 +129,16 @@ export default new Router({
             component: shopMachining
         },
         {
+            path: '/shopCart',
+            name: 'shopCart',
+            component: shopCart
+        },
+        {
+            path: '/confirmOrder',
+            name: 'confirmOrder',
+            component: confirmOrder
+        },
+        {
             path: '/userCenter',
             name: 'userIndex',
             component: userIndex
@@ -142,14 +153,9 @@ export default new Router({
             component: userInfo
         },
         {
-            path: '/shopCart',
-            name: 'shopCart',
-            component: shopCart
-        },
-        {
-            path: '/confirmOrder',
-            name: 'confirmOrder',
-            component: confirmOrder
+            path: '/userCenter/integral',
+            name: 'integral',
+            component: integral
         },
         {
             path: '/userCenter/buyer/buys',
@@ -162,7 +168,7 @@ export default new Router({
             component: buyerBuysDetail
         },
         {
-            path: '/userCenter/buyer/publishProduct-:id',
+            path: '/userCenter/buyer/publishProduct-:id-:isEdit',
             name: 'bPublishProduct',
             component: bPublishProduct
         },
@@ -202,9 +208,9 @@ export default new Router({
             component: machiningEdit
         },
         {
-            path: '/userCenter/integral',
-            name: 'integral',
-            component: integral
+            path: '/userCenter/seller/follow',
+            name: 'follow',
+            component: follow
         }
     ]
 })

@@ -120,7 +120,8 @@
                             link: {
                                 name: 'bPublishProduct',
                                 params:{
-                                    id: 'false'
+                                    id: 'false',
+                                    isEdit: 0
                                 }
                             }
                         },
@@ -197,7 +198,7 @@
                         {
                             title:'加工资源',
                             icon:'icon-jiagongfuwu-',
-                            color: '#fb893f',
+                            color: '#007de4',
                             link: { name: 'machiningEdit' }
                         },
                         {
@@ -215,6 +216,12 @@
                                 name: 'sellerBuys'
                             }
                         },
+                        {
+                            title:'我的关注',
+                            icon: 'icon-guanzhu1',
+                            color: '#ff3c3c',
+                            link: { name: 'follow' }
+                        }
                         // {
                         //     title:'加工报价',
                         //     icon:'icon-canyujingbiaotubiao',

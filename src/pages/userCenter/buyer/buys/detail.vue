@@ -10,6 +10,7 @@
         <div class="info">
             <div class="number vux-1px-b">
                 求购单号：{{ buy.id }}
+                <span class="iconfont icon-bianji2" v-if="buy.editStatus === 0" @click="jumpToPublish(buy.id)"></span>
                 <span class="iconfont" :class="statusIcon" @click="deletConfirm"></span>
             </div>
             <div class="item">
@@ -234,6 +235,9 @@
                         });
                     }
                 })
+            },
+            jumpToPublish(id){
+                this.$router.push({ name: 'bPublishProduct', params: { id: id , isEdit: 1 }})
             }
         },
         created () {
@@ -271,6 +275,10 @@
                 position: absolute;
                 font-size: .4rem;
                 right: 0;
+            }
+            .icon-bianji2{
+                color: #999;
+                right: .3rem;
             }
         }
 

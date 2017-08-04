@@ -31,13 +31,11 @@
 </template>
 
 <script>
-    import { ViewBox } from 'vux'
     import scrollList from '@/components/business/scrollList'
     import comHeader from '@/components/business/commonHead'
     import count from '@/components/basics/count'
     export default {
         components: {
-            ViewBox, 
             comHeader,
             scrollList,
             count

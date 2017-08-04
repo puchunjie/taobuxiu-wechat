@@ -1,6 +1,6 @@
 <template>
     <view-box>
-        <com-header>发布现货需求</com-header>
+        <com-header>{{ isEdit ? '修改现货需求' : '发布现货需求' }}</com-header>
         <group>
             <popup-picker v-for="(val,key) in picterList" :key="key" @on-hide="syncValue(key)"
             :title="val.title" :data="val.arr" v-model="val.value" placeholder="请选择(必填)"></popup-picker>
@@ -35,7 +35,7 @@
             <popup-picker @on-change="syncTime" title="有效期" :display-format="format" :data="time" v-model="pickerTime" placeholder="请选择（必填)"></popup-picker>
         </group>
 
-        <x-button class="publish" @click.native="publish" :show-loading="loading" :type="isOk? 'primary' : 'default'">{{ isOk ? '确认发布' : '请按要求填写完表格' }}</x-button>
+        <x-button class="publish" @click.native="publish" :show-loading="loading" :type="isOk? 'primary' : 'default'">{{ isOk ? isEdit ? '确认修改' : '确认发布' : '请按要求填写完表格' }}</x-button>
         <!--选择地址组件-->
         <address-picker :showChose="adShow" @on-seleted="selectedAdress"></address-picker>
     </view-box>
@@ -61,6 +61,7 @@
         },
         data () {
             return {
+                editStatus: NaN,
                 loading: false,
                 adShow: {show:false},
                 picterList:{
@@ -134,6 +135,10 @@
                     }
                 }
                 return true
+            },
+            // 是否为编辑
+            isEdit(){
+                return this.$route.params.isEdit == '1';
             }
         },
         methods: {
@@ -144,6 +149,7 @@
                     }
                 }).then(res => {
                     let data = res.data.buy;
+                    this.editStatus = data.editStatus;
                     this.picterList.ironType.value = [data.ironType];
                     this.picterList.surface.value = [data.surface];
                     this.picterList.material.value = [data.material];
@@ -201,13 +207,20 @@
                 let _this = this;
                 if(this.isOk){
                     this.loading = true;
-                    this.$http.post(this.api.publishIron,this.apiData,{
+                    // 编辑、发布判断
+                    let apiUrl = '';
+                    if(this.isEdit){
+                        apiUrl = this.api.editPublish;
+                        this.$set(this.apiData,'ironId',this.id);
+                    }else{
+                        apiUrl = this.api.publishIron;
+                    }
+                    this.$http.post(apiUrl,this.apiData,{
                         headers: { 'Content-Type': 'multipart/form-data' }
                     }).then(res => {
                         if(res.status === 0){
                             this.$vux.alert.show({
-                                title: '发布成功！',
-                                content: '恭喜您成功发布了信息。',
+                                content: this.isEdit ? '修改成功' : '发布成功！',
                                 onHide () {
                                     _this.$router.push({name:'buyerBuys'})
                                 }
