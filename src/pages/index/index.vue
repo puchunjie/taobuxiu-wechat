@@ -49,7 +49,7 @@
                     {label:"现货市场",link:"goodsInStock",icon:"icon-yishouhuo"},
                     {label:"特价资源",link:"special",icon:"icon-shaixuantubiaogaozhuanqu19"},
                     {label:"加工定制",link:"processingInformation",icon:"icon-dingzhi"},
-                    {label:"上门质检",link:"",icon:"icon-zhijianfuwu"},
+                    {label:"上门质检",link:"qualityTesting",icon:"icon-zhijianfuwu"},
                     {label:"货运物流",link:"logistics",icon:"icon-shouyewuliu"},
                     {label:"采购报价",link:"purchase",icon:"icon-cai"}
                     ],

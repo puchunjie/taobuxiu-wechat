@@ -19,6 +19,7 @@ const shopCart = resolve => require(['@/pages/shopCart/index.vue'], resolve);
 const confirmOrder = resolve => require(['@/pages/shopCart/confirmOrder.vue'], resolve);
 const shopProduct = resolve => require(['@/pages/shop/productList.vue'], resolve);
 const shopMachining = resolve => require(['@/pages/shop/machiningList.vue'], resolve);
+const qualityTesting = resolve => require(['@/pages/qualityTesting/index.vue'], resolve);
 
 
 // 用户中心
@@ -137,6 +138,11 @@ export default new Router({
             path: '/confirmOrder',
             name: 'confirmOrder',
             component: confirmOrder
+        },
+        {
+            path: '/qualityTesting',
+            name: 'qualityTesting',
+            component: qualityTesting
         },
         {
             path: '/userCenter',

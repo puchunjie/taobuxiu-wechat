@@ -21,17 +21,22 @@
 
         <div class="contact">
             服务咨询热线：<a href="tel:0510-81812186">0510-81812186</a>
-            <span class="about-us">关于我们</span>
+            <span class="about-us" @click="aboutShow = true">关于我们</span>
         </div>
         <bottom-menu slot="bottom"></bottom-menu>
+
+        <popup v-model="aboutShow" position="left" width="100%" class="popup-content">
+            <about-us @on-back="aboutShow = false"></about-us>
+        </popup>
     </view-box>
 </template>
 
 
 <script>
-    import { ViewBox, XInput, Group, Flexbox, FlexboxItem } from 'vux'
+    import { ViewBox, XInput, Group, Flexbox, FlexboxItem, Popup } from 'vux'
     import comHeader from '@/components/business/commonHead'
     import bottomMenu from '@/components/business/bottomMenu'
+    import aboutUs from '@/components/basics/aboutUs'
     export default {
         components: {
             ViewBox,
@@ -40,10 +45,13 @@
             XInput, 
             Group,
             Flexbox, 
-            FlexboxItem
+            FlexboxItem,
+            Popup,
+            aboutUs
         },
         data () {
             return {
+                aboutShow: false,
                 hidePwd: true,
                 account: '',
                 password: ''

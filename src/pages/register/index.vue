@@ -13,7 +13,7 @@
             </x-input>
             <x-input ref="password" v-model="password" type="password" placeholder="请输入您的密码" required></x-input>
         </group>
-        <div class="agree">继续操作即视为同意 <a>《淘不锈用户注册协议》</a></div>
+        <div class="agree">继续操作即视为同意 <a @click="showPop(2)">《淘不锈用户注册协议》</a></div>
         <div class="register-btn" @click="register">注册</div>
         <div class="login-register">
             <flexbox>
@@ -25,16 +25,23 @@
         
         <div class="contact">
             服务咨询热线：<a href="tel:0510-81812186">0510-81812186</a>
-            <span class="about-us">关于我们</span>
+            <span class="about-us" @click="showPop(1)">关于我们</span>
         </div>
         <bottom-menu slot="bottom"></bottom-menu>
+
+        <popup v-model="aboutShow" position="left" width="100%" class="popup-content">
+            <about-us @on-back="aboutShow = false" v-if="showType === 1"></about-us> 
+            <agreement @on-back="aboutShow = false" v-else></agreement>
+        </popup>
     </view-box>
 </template>
 
 <script>
-    import { ViewBox, XInput, Group, Flexbox, FlexboxItem, Countdown, CheckIcon } from 'vux'
+    import { ViewBox, XInput, Group, Flexbox, FlexboxItem, Countdown, CheckIcon, Popup } from 'vux'
     import comHeader from '@/components/business/commonHead'
     import bottomMenu from '@/components/business/bottomMenu'
+    import aboutUs from '@/components/basics/aboutUs'
+    import agreement from '@/components/basics/agreement'
     export default {
         components: {
             ViewBox,
@@ -45,10 +52,15 @@
             Flexbox, 
             FlexboxItem,
             Countdown,
-            CheckIcon
+            CheckIcon,
+            Popup,
+            aboutUs,
+            agreement
         },
         data () {
             return {
+                showType: 1,
+                aboutShow: false,
                 pinShow: true,
                 time: 60,
                 agree: true,
@@ -121,6 +133,10 @@
                         });
                     }
                 })
+            },
+            showPop(type){
+                this.showType = type;
+                this.aboutShow = true;
             }
         }
     }
