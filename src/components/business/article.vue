@@ -6,7 +6,7 @@
             <a @click="jumpTo(moreLink)" v-show="moreLink">更多</a>
         </div>
         <div class="content">
-            <div class="item" v-for="(item,index) in list" :key="item.id">
+            <div class="item" v-for="(item,index) in list" :key="item.id" @click="$emit('item-click',item.id)">
                 <p :class="{'left-side':showTime}">{{ item.title }}</p>
                 <span class="date" v-if="showTime">{{ formateDate(item.time) }}</span>
             </div>

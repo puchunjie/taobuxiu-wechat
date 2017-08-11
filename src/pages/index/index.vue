@@ -13,10 +13,10 @@
                 </grid>
             </section>
 
-            <article-part :list="newsList" title="淘不锈资讯" :icon="'icon-comiiszixun'" :moreLink="{name:'informationCenter'}"></article-part>
+            <article-part :list="newsList" title="淘不锈资讯" :icon="'icon-comiiszixun'" :moreLink="{name:'informationCenter'}" @item-click="jumpToDetail"></article-part>
 
             <article-part :list="buysList" title="最新采购" 
-            :icon="'icon-caigou'" showTime :moreLink="{name:'purchase'}"></article-part>
+            :icon="'icon-caigou'" showTime :moreLink="{name:'purchase'}" @item-click="$router.push({name:'purchase'})"></article-part>
         </div>
         <bottom-menu slot="bottom"></bottom-menu>
     </view-box>
@@ -65,6 +65,13 @@
             //最新采购列表
             getBuys(){
                 return this.$http.get(this.api.indexBuy)
+            },
+            // 跳转到文章详情
+            jumpToDetail(id){
+                this.$router.push({name:'informationDetail',params:{
+                    id: id,
+                    apiKey: 'allNewsDetail'
+                }})
             }
         },
         created () {
