@@ -3,7 +3,7 @@
         <com-header hideRight>卖家_订单管理</com-header>
          <tab active-color="#007de4" v-model="activeTab">
             <tab-item v-for="(tab,index) in tabs" :key="index" @on-item-click="switchKey">
-                {{ tab.title }}
+                {{ tab.title }}({{ tab.count }})
             </tab-item>
         </tab>
          <div class="tab-swiper">
@@ -88,15 +88,17 @@
         data () {
             return {
                 tabs:[
-                    {title:'所有订单',status:0},
-                    // {title:'待卖家确认',status:1},
-                    // {title:'待评分',status:2}
+                    {title:'全部',count:0},
+                    {title:'待确认',count:0},
+                    {title:'待评分',count:0},
+                    {title:'已评分',count:0}
                 ],
                 activeTab: 0,
                 list: [],
                 apiData:{
                     currentPage: 0,
-                    pageCount: 15
+                    pageCount: 15,
+                    status: -1
                 },
                 maxCount: 0,
                 rateShow: false,
@@ -153,6 +155,23 @@
                 return dateFormat(new Date(time*1), 'YYYY-MM-DD hh:mm')
             },
             switchKey(index){
+                switch (index) {
+                    case 0:
+                        this.apiData.status = -1;
+                        break;
+                    case 1:
+                        this.apiData.status = 0;
+                        break;
+                    case 2:
+                        this.apiData.status = 1;
+                        break;
+                    case 3:
+                        this.apiData.status = 2;
+                        break;
+                    default:
+                        this.apiData.status = -1;
+                        break;
+                }
                 this.activeTab = index;
                 this.resetList();
             },
@@ -167,12 +186,17 @@
                 this.$http.get(this.api.commingOrders,{
                     params: this.apiData
                 }).then(res => {
+                    let data = res.data;
                     if(this.apiData.currentPage === 0){
-                        this.list = res.data.orders;
+                        this.list = data.orders;
                     }else{
-                        this.list.push(...res.data.orders);
+                        this.list.push(...data.orders);
                     }
-                    this.maxCount = res.data.maxCount;
+                    this.tabs[0].count = data.allCounts;
+                    this.tabs[1].count = data.waitForConfirm;
+                    this.tabs[2].count = data.waitEvaluate;
+                    this.tabs[3].count = data.hasEvaluate;
+                    this.maxCount = data.maxCount;
                     callback();
                 })
             },

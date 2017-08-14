@@ -1,11 +1,13 @@
 <template>
     <view-box>
         <com-header>{{ isEdit ? '修改现货需求' : '发布现货需求' }}</com-header>
-        <group>
+        <group style="position: relative">
             <popup-picker v-for="(val,key) in picterList" :key="key" @on-hide="syncValue(key)"
             :title="val.title" :data="val.arr" v-model="val.value" placeholder="请选择(必填)"></popup-picker>
             <x-input v-for="(val,key) in whl" class="pad" :key="key" type="text" required placeholder-align="right" text-align="right"
             label-width="1.05rem" :title="val.title" placeholder="请输入(必填)" v-model="val.value"
+            @on-focus="showTip(key)"
+            @on-blur="hideTip(key)"
             @on-change="syncValue2(key)">
                 <span slot="right">mm</span>
             </x-input>
@@ -31,8 +33,14 @@
                 </div>
             </cell>
             <cell title="收货地" is-link @click.native="adShow.show = true" :value="location"></cell>
-            <x-textarea title="备注" :max="35" placeholder="请输入备注，35个字以内（选填）" v-model="apiData.message"></x-textarea>
+            <x-textarea title="备注" :max="35" placeholder="请输入备注,35个字以内（选填）" v-model="apiData.message"></x-textarea>
             <popup-picker @on-change="syncTime" title="有效期" :display-format="format" :data="time" v-model="pickerTime" placeholder="请选择（必填)"></popup-picker>
+
+            <ul class="tip-content" :class="{'tip-show':tipShow}" ref="popTip">
+                <li v-for="(item,index) in tipList" :key="index" class="vux-1px-b" @click="fillData(item)">
+                    宽度：{{ item.split('*')[0] }} 长度：{{ item.split('*')[1] }}
+                </li> 
+            </ul>
         </group>
 
         <x-button class="publish" @click.native="publish" :show-loading="loading" :type="isOk? 'primary' : 'default'">{{ isOk ? isEdit ? '确认修改' : '确认发布' : '请按要求填写完表格' }}</x-button>
@@ -43,7 +51,7 @@
 
 <script>
     import { sironTypes, ssurfaces, smaterials, sproPlaces, units, days, hours, minutes } from '@/assets/resouseData.js'
-    import { ViewBox, PopupPicker, Group, Cell, XInput, XNumber, XTextarea, XButton } from 'vux'
+    import { ViewBox, PopupPicker, Group, Cell, XInput, XNumber, XTextarea, XButton, Popup } from 'vux'
     import comHeader from '@/components/business/commonHead'
     import addressPicker from '@/components/basics/addressPicker.vue'
     export default {
@@ -57,10 +65,13 @@
             XInput,
             XNumber,
             XTextarea,
-            XButton
+            XButton,
+            Popup
         },
         data () {
             return {
+                tipShow: false,
+                tipList: [],
                 editStatus: NaN,
                 loading: false,
                 adShow: {show:false},
@@ -203,6 +214,39 @@
                 let limit = (value[0]*24*3600 + value[1]*3600 + value[2]*60) * 1000;
                 this.apiData.timeLimit = limit;
             },
+            //显示提示
+            showTip(key){
+                // 如果是长度宽度,要输入的时候就给出提示
+                if(key != 'height'){
+                    if(this.apiData.ironType === '不锈钢板' && this.apiData.surface === '2B'){
+                        this.tipList = ['1000*2000','1219*2438','1500*3000','1800*3000','2000*3000'];
+                    }else if(this.apiData.ironType === '不锈钢板' && this.apiData.surface === 'No.1'){
+                        this.tipList = ['1500*6000','1800*6000','2000*6000','1240*6000','2500*6000'];
+                    }else if(this.apiData.ironType === '不锈钢卷' && this.apiData.surface === '2B'){
+                        this.tipList = ['1000*C','1219*C','1500*C','1800*C','2000*C'];
+                    }else if(this.apiData.ironType === '不锈钢卷' && this.apiData.surface === 'No.1'){
+                        this.tipList = ['1500*C，毛边' , '1800*C，毛边', '2000*C，毛边' , '1240*C，毛边'];
+                    }
+                    this.$refs.popTip.style.top = key === 'width' ? '.65rem' : '1.13rem';
+                    this.tipShow = true;
+                }
+            },
+            hideTip(key){
+                if(key != 'height'){
+                    this.tipShow = false;
+                }
+            },
+            //填充提示数据
+            fillData(item){
+                let data = item.split("*");
+                let width = data[0];
+                let length = data[1];
+                this.whl.width.value = width;
+                this.whl.length.value = length;
+                this.apiData.width = width;
+                this.apiData.length = length;
+                this.tipShow = false;
+            },
             publish(){
                 let _this = this;
                 if(this.isOk){
@@ -294,5 +338,27 @@
             left: 1.6rem;
             top: .1rem
         }
+    }
+
+    .tip-content{
+        position: absolute;
+        top: 2.25rem;
+        right: .2rem;
+        width: 2rem;
+        color: #fff;
+        background-color:#007de4;
+        height: 0;
+        transition: all .3s;
+        margin:0 auto;
+        border-radius:.05rem;
+        font-size: .14rem;
+        overflow: hidden;
+        li{
+            text-indent: .1rem;
+            line-height: .4rem;
+        }
+    }
+    .tip-show{
+        height: 1.6rem;
     }
 </style>
