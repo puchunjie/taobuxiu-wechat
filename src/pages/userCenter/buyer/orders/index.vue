@@ -93,7 +93,8 @@
                 tabs:[
                     {title:'全部',count:0},
                     {title:'待确认',count:0},
-                    {title:'待评分',count:0}
+                    {title:'待评分',count:0},
+                    {title:'已评分',count:0}
                 ],
                 activeTab: 0,
                 list: [],
@@ -169,6 +170,9 @@
                     case 2:
                         this.apiData.status = 1;
                         break;
+                    case 3:
+                        this.apiData.status = 2;
+                        break;
                     default:
                         this.apiData.status = -1;
                         break;
@@ -196,6 +200,7 @@
                     this.tabs[0].count = data.allCounts;
                     this.tabs[1].count = data.waitForConfirm;
                     this.tabs[2].count = data.waitForVote;
+                    this.tabs[3].count = data.hasEvaluate;
                     this.maxCount = data.maxCount;
                     callback();
                 })

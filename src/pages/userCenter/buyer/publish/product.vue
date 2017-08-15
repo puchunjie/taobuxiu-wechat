@@ -220,15 +220,21 @@
                 if(key != 'height'){
                     if(this.apiData.ironType === '不锈钢板' && this.apiData.surface === '2B'){
                         this.tipList = ['1000*2000','1219*2438','1500*3000','1800*3000','2000*3000'];
+                        this.$refs.popTip.style.top = key === 'width' ? '.65rem' : '1.13rem';
+                        this.tipShow = true;
                     }else if(this.apiData.ironType === '不锈钢板' && this.apiData.surface === 'No.1'){
                         this.tipList = ['1500*6000','1800*6000','2000*6000','1240*6000','2500*6000'];
+                        this.$refs.popTip.style.top = key === 'width' ? '.65rem' : '1.13rem';
+                        this.tipShow = true;
                     }else if(this.apiData.ironType === '不锈钢卷' && this.apiData.surface === '2B'){
                         this.tipList = ['1000*C','1219*C','1500*C','1800*C','2000*C'];
+                        this.$refs.popTip.style.top = key === 'width' ? '.65rem' : '1.13rem';
+                        this.tipShow = true;
                     }else if(this.apiData.ironType === '不锈钢卷' && this.apiData.surface === 'No.1'){
                         this.tipList = ['1500*C，毛边' , '1800*C，毛边', '2000*C，毛边' , '1240*C，毛边'];
+                        this.$refs.popTip.style.top = key === 'width' ? '.65rem' : '1.13rem';
+                        this.tipShow = true;
                     }
-                    this.$refs.popTip.style.top = key === 'width' ? '.65rem' : '1.13rem';
-                    this.tipShow = true;
                 }
             },
             hideTip(key){
