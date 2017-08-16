@@ -76,7 +76,7 @@
                         orders:{
                             count: 0,
                             name: '待处理订单',
-                            link: { name: 'buyerOrder' }
+                            link: { name: 'buyerOrder',params: { status: 1 } }
                         },
                         integral:{
                             count: 0,
@@ -105,7 +105,7 @@
                             icon:'icon-dingdan',
                             color: '#ff3c3c',
                             link: {
-                                name: 'buyerOrder'
+                                name: 'buyerOrder',params: { status: 0 }
                             }
                         },
                         {
@@ -154,7 +154,8 @@
                             count: 0,
                             name: '待确认订单',
                             link: {
-                                name: 'sellerOrder'
+                                name: 'sellerOrder',
+                                params: { status: 1 }
                             }
                         },
                         integral:{
@@ -181,7 +182,8 @@
                             icon:'icon-dingdan',
                             color: '#ff3c3c',
                             link: {
-                                name: 'sellerOrder'
+                                name: 'sellerOrder',
+                                params: { status: 0 }
                             }
                         },
                         {

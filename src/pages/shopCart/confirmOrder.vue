@@ -110,7 +110,7 @@
                             title: '订单提交成功！',
                             content: '您已成功下单。',
                             onHide () {
-                                _this.$router.push({name:'buyerOrder'})
+                                _this.$router.push({name:'buyerOrder',params: { status: 0 }})
                             }
                         })
                     }else{

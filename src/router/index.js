@@ -191,12 +191,12 @@ export default new Router({
             component: sellerBuysDetail
         },
         {
-            path: '/userCenter/buyer/buyerOrder',
+            path: '/userCenter/buyer/buyerOrder-:status',
             name: 'buyerOrder',
             component: buyerOrder
         },
         {
-            path: '/userCenter/seller/sellerOrder',
+            path: '/userCenter/seller/sellerOrder-:status',
             name: 'sellerOrder',
             component: sellerOrder
         },

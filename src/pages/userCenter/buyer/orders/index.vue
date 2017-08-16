@@ -313,9 +313,8 @@
             }
         },
         created () {
-            this.getData(()=>{
-                this.$refs.sScroller.reset();
-            })
+            let tabIndex = this.$route.params.status;
+            this.switchKey(tabIndex);
         }
     }
 </script>

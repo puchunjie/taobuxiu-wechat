@@ -268,7 +268,7 @@
                             content: '下单成功！',
                             onHide () {
                                 _this.hidePop();
-                                _this.$router.push({name: 'buyerOrder'});
+                                _this.$router.push({name: 'buyerOrder',params: { status: 0 }});
                             }
                         })
                     }else{
