@@ -25,8 +25,8 @@
         
         <div v-else class="authentication">
             您暂未认证企业账号
-            <!-- <a class="go-atc" @click="authenticate">去认证</a> -->
-            <router-link class="go-atc" :to="{name:'authenticate'}">去认证</router-link>
+             <a style="float:right;margin-right:.1rem" v-show="userInfo.becomeStatus === 1">等待审核中</a> 
+            <router-link class="go-atc" :to="{name:'authenticate'}"  v-show="userInfo.becomeStatus === 0">{{ '去认证' }}</router-link>
         </div>
 
         <bottom-menu slot="bottom"></bottom-menu>
@@ -383,7 +383,6 @@
         .go-atc{
             position: absolute;
             display: block;
-            width: .7rem;
             height: .3rem;
             line-height: .3rem;
             text-align: center;
@@ -393,6 +392,7 @@
             right: .1rem;
             top: .05rem;
             text-indent: 0;
+            padding: 0 .05rem;
         }
     }
 </style>

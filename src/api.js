@@ -252,6 +252,11 @@ export const voteOrder = 'order/vote';
 
 //==================卖家====================
 /**
+ * 申请成为商家
+ */
+export const beSeller = 'member/fillSellerInfo';
+
+/**
  * 获取个卖家人信息资料(企业资料)
  */
 export const sprofile = 'seller/profile';
