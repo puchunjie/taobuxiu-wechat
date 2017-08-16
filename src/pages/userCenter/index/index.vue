@@ -25,7 +25,8 @@
         
         <div v-else class="authentication">
             您暂未认证企业账号
-            <a class="go-atc" @click="authenticate">去认证</a>
+            <!-- <a class="go-atc" @click="authenticate">去认证</a> -->
+            <router-link class="go-atc" :to="{name:'authenticate'}">去认证</router-link>
         </div>
 
         <bottom-menu slot="bottom"></bottom-menu>

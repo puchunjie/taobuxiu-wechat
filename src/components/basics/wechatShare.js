@@ -33,7 +33,7 @@ export default {
                         this.$wechat.onMenuShareTimeline({
                             imgUrl: "http://www.itaobuxiu.com/files/2017/5/15/4NPzgZ5bASPn.png",
                             link: window.location.href,
-                            title: "钢乐透 | 淘不锈旗下不锈钢特卖专区",
+                            title: "淘不锈 | 全国首家提供上门质检的不锈钢全产业链绿色服务平台",
                             type: "link",
                             success: function() {
                                 // 用户确认分享后执行的回调函数
@@ -43,10 +43,10 @@ export default {
                             }
                         });
                         this.$wechat.onMenuShareAppMessage({
-                            desc: "钢乐透”专注于最低价、最靠谱、最新鲜、最全面的不锈钢特价资源。价格打折、品质不打折，专业的质检服务为您保驾护航！",
+                            desc: "淘不锈”专注于最低价、最靠谱、最新鲜、最全面的不锈钢特价资源。价格打折、品质不打折，专业的质检服务为您保驾护航！",
                             imgUrl: "http://www.itaobuxiu.com/files/2017/5/15/4NPzgZ5bASPn.png",
                             link: window.location.href,
-                            title: "钢乐透 | 淘不锈旗下不锈钢特卖专区",
+                            title: "淘不锈 | 全国首家提供上门质检的不锈钢全产业链绿色服务平台",
                             success: function() {
                                 // 用户确认分享后执行的回调函数
                             },

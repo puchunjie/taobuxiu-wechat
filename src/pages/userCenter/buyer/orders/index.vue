@@ -49,7 +49,7 @@
                             </template>
                             <template v-else-if="item.status === 1">
                                 <a class="blue" @click="showRateBox(item.id,index)">去评价</a>
-                                <a>删除订单</a>
+                                <a @click="confimDelete(item.id)">删除订单</a>
                             </template>
                             <template v-else-if="item.status === 2 || item.status === 3">
                                 <a @click="confimDelete(item.id)">删除订单</a>
@@ -287,7 +287,9 @@
                             title: '评价成功！',
                             content: '您已评价已提交。',
                             onHide () {
-                                _this.list[_this.rateIndex].status = 2;
+                                _this.getData(()=>{
+                                    _this.$refs.sScroller.reset();
+                                })
                             }
                         })
                     }else{

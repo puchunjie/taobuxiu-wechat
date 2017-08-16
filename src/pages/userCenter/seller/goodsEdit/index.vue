@@ -24,7 +24,10 @@
                         </template>
                     </div>
                     <div class="action-btns vux-1px-t">
-                        <a @click="edit(item,index)">{{ index === activeIndex && type ? '完成' : '编辑' }}</a>
+                        <a @click="edit(item,index)" 
+                        :class="{'bulue-btn':index === activeIndex && type}">
+                            {{ index === activeIndex && type ? '完成' : '编辑' }}
+                        </a>
                         <a @click="del(item,index)">{{ index === activeIndex && type ? '取消' : '删除' }}</a>
                     </div>
                 </div>
@@ -281,6 +284,10 @@
                 border: 1px solid #333;
                 color: #333;
                 margin-right: .1rem;
+            }
+            .bulue-btn{
+                color: #007de4;
+                border-color: #007de4;
             }
         }
     }

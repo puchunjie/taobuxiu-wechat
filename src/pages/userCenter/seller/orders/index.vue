@@ -257,7 +257,9 @@
                             title: '接单成功！',
                             content: '您已成功接下此单。',
                             onHide () {
-                                _this.list[index].status = 1;
+                                _this.getData(()=>{
+                                    _this.$refs.sScroller.reset();
+                                })
                             }
                         })
                     }else{

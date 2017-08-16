@@ -40,6 +40,8 @@ const enterpriseInfo = resolve => require(['@/pages/userCenter/seller/enterprise
 const goodsEdit = resolve => require(['@/pages/userCenter/seller/goodsEdit/index.vue'], resolve);
 const machiningEdit = resolve => require(['@/pages/userCenter/seller/machiningEdit/index.vue'], resolve);
 const follow = resolve => require(['@/pages/userCenter/seller/follow/index.vue'], resolve);
+const authenticate = resolve => require(['@/pages/userCenter/seller/authenticate/index.vue'], resolve);
+const authenticate2 = resolve => require(['@/pages/userCenter/seller/authenticate/step.vue'], resolve);
 
 Vue.use(Router)
 
@@ -217,6 +219,16 @@ export default new Router({
             path: '/userCenter/seller/follow',
             name: 'follow',
             component: follow
+        },
+        {
+            path: '/userCenter/seller/authenticate',
+            name: 'authenticate',
+            component: authenticate
+        },
+        {
+            path: '/userCenter/seller/authenticate2',
+            name: 'authenticate2',
+            component: authenticate2
         }
     ]
 })
