@@ -42,6 +42,8 @@ const machiningEdit = resolve => require(['@/pages/userCenter/seller/machiningEd
 const follow = resolve => require(['@/pages/userCenter/seller/follow/index.vue'], resolve);
 const authenticate = resolve => require(['@/pages/userCenter/seller/authenticate/index.vue'], resolve);
 const authenticate2 = resolve => require(['@/pages/userCenter/seller/authenticate/step.vue'], resolve);
+const publishProduct = resolve => require(['@/pages/userCenter/seller/publish/product.vue'], resolve);
+const publishMachining = resolve => require(['@/pages/userCenter/seller/publish/machining.vue'], resolve);
 
 Vue.use(Router)
 
@@ -229,6 +231,16 @@ export default new Router({
             path: '/userCenter/seller/authenticate2',
             name: 'authenticate2',
             component: authenticate2
+        },
+        {
+            path: '/userCenter/seller/publishProduct',
+            name: 'publishProduct',
+            component: publishProduct
+        },
+        {
+            path: '/userCenter/seller/publishMachining',
+            name: 'publishMachining',
+            component: publishMachining
         }
     ]
 })

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <com-header hideRight>加工资源</com-header>
+        <com-header>加工资源</com-header>
          <div class="tab-swiper">
             <scrollList ref="sScroller" style="background-color:#efeff4" @on-pull-down="reflash" @on-pull-up="loadMore" :height="'-55'" backShow>
                 <div class="item" v-for="(item,index) in list" :key="item.id">

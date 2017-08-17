@@ -251,9 +251,15 @@
                         headers: { 'Content-Type': 'multipart/form-data' },
                         pic: true
                     }).then(res => {
+                        let _this = this;
                         this.$vux.loading.hide()
                         if(res.status === 0){
-                            this.$router.push({name: 'userIndex'})
+                            this.$vux.alert.show({
+                                content: '资料上传完毕，请等待审核.',
+                                onHide () {
+                                    _this.$router.push({name: 'userIndex'})
+                                }
+                            })
                         }else{
                             this.$vux.toast.show({
                                 text: res.errorMsg,

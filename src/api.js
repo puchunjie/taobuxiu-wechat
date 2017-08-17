@@ -368,6 +368,16 @@ export const followList = 'member/ironSubscribe'
  */
 export const saveFollow = 'member/ironSubscribe'
 
+/**
+ * 发布不锈钢锈钢信息
+ */
+export const ironPush = 'iron/push';
+
+/**
+ * 发布加工信息
+ */
+export const handingPush = 'handing/push';
+
 //==================商品，加工下单,加入购物车 ====================
 /**
  * 下单

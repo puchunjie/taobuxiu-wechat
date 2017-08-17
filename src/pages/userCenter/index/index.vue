@@ -224,13 +224,19 @@
                             icon: 'icon-guanzhu1',
                             color: '#ff3c3c',
                             link: { name: 'follow' }
+                        },
+                        {
+                            title:'上架现货',
+                            icon:'icon-ziyuanshangchuan',
+                            color: '#ff3c3c',
+                            link: { name: 'publishProduct' }
+                        },
+                        {
+                            title:'上架加工',
+                            icon:'icon-ziyuanshangchuan',
+                            color: '#007de4',
+                            link: { name: 'publishMachining' }
                         }
-                        // {
-                        //     title:'加工报价',
-                        //     icon:'icon-canyujingbiaotubiao',
-                        //     color: '#ff3c3c',
-                        //     link: ''
-                        // }
                     ]
                 }     
             }
