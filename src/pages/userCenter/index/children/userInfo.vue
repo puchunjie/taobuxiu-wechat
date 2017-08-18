@@ -2,8 +2,10 @@
     <div>
         <com-header hideRight>账户信息</com-header>
         <group>
-            <cell title="头像">
-                <img class="user-pic" slot="child" :src="userInfo.avator"></img>
+            <cell title="头像" style="position:relative">
+                <img class="user-pic" slot="child" :src="headImg"></img>
+                <label slot="child" class="upload" for="headImg"></label>
+                <input id="headImg" style="display:none" type="file" accept="image" ref="headImg" @change="showImg">
             </cell>
             <cell title="真实姓名" :value="userInfo.name"></cell>
         </group>
@@ -50,6 +52,7 @@
         },
         data () {
             return {
+                headImg:'',
                 phoneImg: phone,
                 editPassword: false,
                 apiData:{
@@ -109,7 +112,19 @@
                         this.resetUserInfo();
                     }
                 });
+            },
+            showImg(){
+                let _this = this;
+                let input = this.$refs.headImg ;
+                let reader = new FileReader();
+                reader.readAsDataURL(input.files[0]);
+                reader.onload=function(e){
+                    _this.headImg = this.result;
+                }
             }
+        },
+        mounted () {
+            this.headImg = this.userInfo.avator;
         }
     }
 </script>
@@ -118,6 +133,7 @@
     .user-pic{
         width: .45rem;
         height: .45rem;
+        border-radius: 50%;
     }
     .iphone{
         width: .24rem;
@@ -130,5 +146,13 @@
         margin:0 auto;
         border-radius:.05rem;
         padding-top:.1rem;
+    }
+
+    .upload{
+        position:absolute;
+        display: block;
+        right:.1rem;
+        width:.5rem;
+        height:.5rem;
     }
 </style>

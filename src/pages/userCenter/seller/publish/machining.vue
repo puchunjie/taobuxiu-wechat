@@ -1,19 +1,19 @@
 <template>
     <view-box>
-        <com-header>上架现货资源</com-header>
+        <com-header>上架加工资源</com-header>
 
         <template v-if="step === 1">
             <group gutter=".1rem" style="position: relative">
                 <popup-picker @on-hide="syncType"
                 :title="machiningTypes.title" :data="machiningTypes.arr" v-model="machiningTypes.value" placeholder="请选择(必填)"></popup-picker>
 
-                <cell title="地址" is-link @click.native="adShow.show = true" :value="location"></cell>
+                <cell title="地点" is-link @click.native="adShow.show = true" :value="location"></cell>
 
                 <cell title="单价" value-align="left">
                     <div class="number">
                         <div class="item" style="width:2rem;">
                             <x-input placeholder="请输入(必填)" v-model="apiData.price" required placeholder-align="right" text-align="right">
-                                <span slot="right">/元</span>
+                                <span slot="right" style="color:#000">元/</span>
                             </x-input>
                         </div>
                         <div class="item2 unit vux-1px-l" style="width:1rem;">
@@ -22,7 +22,7 @@
                     </div>
                 </cell>
 
-                <x-textarea title="标题" :max="35" placeholder="请填写该加工的专业说明（必填），将被显示为该加工资源的标题" v-model="apiData.title"></x-textarea>
+                <x-textarea title="标题" max="35" rows="2" :show-counter="false" placeholder="请填写该加工的专业说明（必填），将被显示为该加工资源的标题" v-model="apiData.title"></x-textarea>
 
             </group>
 
@@ -32,10 +32,13 @@
         <template v-else>
             <div class="wrap clearfix">
                 <div class="img-contnet">
-                    <p>封面资源(必传)</p>
+                    <p><span style="color:red">*</span>封面资源</p>
                     <label class="upload" for="cover">
                         <span class="iconfont icon-shangchuantupian" v-if="cover === ''"></span>
-                        <img :src="cover" v-else>
+                        <template v-else>
+                            <img :src="cover">
+                            <span class="del iconfont icon-closecircled" @click.stop="clearImg('cover')"></span>
+                        </template>
                      </label>
                     <input id="cover" type="file" accept="image" ref="cover" @change="showImg('cover')">
                 </div>
@@ -43,7 +46,10 @@
                     <p>图片1</p>
                     <label class="upload" for="image1">
                         <span class="iconfont icon-shangchuantupian" v-if="image1 === ''"></span>
-                        <img :src="image1" v-else>
+                        <template v-else>
+                            <img :src="image1">
+                            <span class="del iconfont icon-closecircled" @click.stop="clearImg('image1')"></span>
+                        </template>
                      </label>
                     <input id="image1" type="file" accept="image" ref="image1" @change="showImg('image1')">
                 </div>
@@ -51,7 +57,10 @@
                     <p>图片2</p>
                     <label class="upload" for="image2">
                         <span class="iconfont icon-shangchuantupian" v-if="image2 === ''"></span>
-                        <img :src="image2" v-else>
+                        <template v-else>
+                            <img :src="image2">
+                            <span class="del iconfont icon-closecircled" @click.stop="clearImg('image2')"></span>
+                        </template>
                      </label>
                     <input id="image2" type="file" accept="image" ref="image2" @change="showImg('image2')">
                 </div>
@@ -59,7 +68,10 @@
                     <p>图片3</p>
                     <label class="upload" for="image3">
                         <span class="iconfont icon-shangchuantupian" v-if="image3 === ''"></span>
-                        <img :src="image3" v-else>
+                        <template v-else>
+                            <img :src="image3">
+                            <span class="del iconfont icon-closecircled" @click.stop="clearImg('image3')"></span>
+                        </template>
                      </label>
                     <input id="image3" type="file" accept="image" ref="image3" @change="showImg('image3')">
                 </div>
@@ -94,7 +106,7 @@
         },
         data () {
             return {
-                step: 1,
+                step: 2,
                 adShow: {show:false},
                 machiningTypes:{
                     title: '种类',
@@ -112,7 +124,7 @@
                 image1: '',
                 image2: '',
                 image3: '',
-                location: '请选择（必填)',
+                location: '请选择加工地点（必填)',
                 unit:['吨'],
                 units: [units],
             }
@@ -129,6 +141,10 @@
             selectedAdress(data){
                 this.location = data.str;
                 this.apiData.souCityId = data.id;
+            },
+            // 取消上传
+            clearImg(ref){
+                this[ref] = '';
             },
             // 图片预览
             showImg(ref){
@@ -278,9 +294,11 @@
                     text-indent: .1rem;
                 }
                 .upload{
+                    position: relative;
                     display: block;
                     height: 1.7rem;
                     line-height: 1.7rem;
+                    padding: .1rem;
                     text-align: center;
                     img{
                         display: block;
@@ -288,8 +306,16 @@
                         height: 100%;
                         pointer-events:none;
                     }
+                    .del{
+                        position: absolute;
+                        right: -.08rem;
+                        top: -.03rem;
+                        font-size: .3rem;
+                        line-height: .3rem;
+                        color: red;
+                    }
                 }
-                .iconfont{
+                .icon-shangchuantupian{
                     font-size: 1.5rem;
                     pointer-events:none;
                 }
