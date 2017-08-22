@@ -172,9 +172,16 @@
                 this.detailIronId = ironId;
                 this.detailShow = true;
             },
-            detailHide(){
+            detailHide(isOffer){
                 this.detailShow = false;
                 this.detailIronId = '';
+                // 如果报过价，从详情返时重新获取列表数据
+                if(isOffer){
+                    this.getData(()=>{
+                        this.$refs.sScroller.reset();
+                    })
+                }
+
             },
             // 是否显示天数
             dayShow(time){

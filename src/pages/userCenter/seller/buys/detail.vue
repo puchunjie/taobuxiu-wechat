@@ -2,7 +2,7 @@
     <view-box style="overflow:hidden">
         <x-header slot="header" :left-options="{showBack:false}">
             {{ offerShow ? '抢单' : '报价细节' }}
-            <span class="iconfont icon-fanhui" slot="left" @click="onBack"></span>
+            <span class="iconfont icon-fanhui" slot="left" @click="onBack(0)"></span>
         </x-header>
 
         <div class="panel">
@@ -221,6 +221,7 @@
             },
             //报价
             offer(){
+                let _this = this;
                 if(this.price != '' && this.msg != ''){
                     this.$vux.loading.show({
                         text: '报价中...'
@@ -235,7 +236,10 @@
                             this.getDetail();
                             this.$vux.alert.show({
                                 title: '报价成功！',
-                                content: '您已成功报价。'
+                                content: '您已成功报价。',
+                                onHide () {
+                                    _this.onBack(1)
+                                }
                             })
                         }else{
                              this.$vux.toast.show({
@@ -254,10 +258,11 @@
                     });
                 }
             },
-            onBack(){
+            onBack(isOffer){
+                isOffer = isOffer === 1; 
                 this.price = '';
                 this.msg = '';
-                this.$emit('on-back')
+                this.$emit('on-back',isOffer)
             }
         },
         created () {
