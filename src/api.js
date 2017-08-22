@@ -197,6 +197,11 @@ export const publishIron = 'iron/buy'
 export const editPublish = 'iron/editBuy';
 
 /**
+ * 加工求购信息发布
+ */
+export const publishHanding = 'handing/buy'
+
+/**
  * 点击中标
  * ironBuyId  
  * supplyId
@@ -209,6 +214,21 @@ export const selectSupply = 'iron/selectSupply';
  * ironId
  */
 export const deleteIronBuy = 'iron/deleteIronBuy';
+
+
+/**
+ * 买家加工报价管理 列表
+ * currentPage   //当前页面
+ * pageCount     //每页个数
+ * status // 0 进行中  1 已确认  2 已取消  -1 所有
+ */
+export const bmyHandingBuys = 'handing/myBuy';
+
+/**
+ * 买家加工报价管理详情
+ * ironId   //id
+ */
+export const bmyHandingBuyDetail = 'handing/myBuyDetail';
 
 /**
  * 我的购物车
@@ -274,6 +294,28 @@ export const myIronBuys = 'seller/myIronBuys';
  * ironId   //id
  */
 export const sMyBuyDetail = 'seller/myIronBuyDetail';
+
+/**
+ * 卖家加工报价管理 列表
+ * currentPage   //当前页面
+ * pageCount     //每页个数
+ * status // 0 进行中  1 已确认  2 已取消  -1 所有
+ */
+export const myHandingBuys = 'seller/myHandingBuys';
+
+/**
+ * 卖家加工报价管理详情
+ * ironId   //id
+ */
+export const myHandingBuyDetail = 'seller/myHandingBuyDetail';
+
+/**
+ * 卖家点击报价
+ * handingId:PmPNOklFbltl
+ * price:123123
+ * msg:123123123
+ */
+export const offerHandingBuy = 'seller/offerHandingBuy';
 
 /**
  * 卖家点击报价

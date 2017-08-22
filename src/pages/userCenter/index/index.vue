@@ -135,12 +135,27 @@
                                 name: 'buyerBuys'
                             }
                         },
-                        // {
-                        //     title:'加工求购',
-                        //     icon:'icon-qiugou',
-                        //     color: '#06bb06',
-                        //     link: ''
-                        // }
+                        {
+                            title:'加工求购',
+                            icon:'icon-yanshenjiagong',
+                            color: '#007de4',
+                            link: {
+                                name: 'buyerMachining'
+                            }
+                        },
+                        {
+                            count: 0,
+                            title:'招标加工',
+                            icon:'icon-fabu2',
+                            color: '#ff3c3c',
+                            link: {
+                                name: 'bPublishMaching',
+                                params:{
+                                    id: 'false',
+                                    isEdit: 0
+                                }
+                            }
+                        },
                     ]
                 },
                 seller: {
@@ -217,6 +232,15 @@
                             color: '#007de4',
                             link: {
                                 name: 'sellerBuys'
+                            }
+                        },
+                        {
+                            count: 0,
+                            title:'加工报价',
+                            icon:'icon-zhaobiao',
+                            color: '#007de4',
+                            link: {
+                                name: 'sellerMaching'
                             }
                         },
                         {

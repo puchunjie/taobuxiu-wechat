@@ -29,12 +29,13 @@ const userInfo = resolve => require(['@/pages/userCenter/index/children/userInfo
 const integral = resolve => require(['@/pages/userCenter/common/integral/index.vue'], resolve); //用户积分
 
 const buyerBuys = resolve => require(['@/pages/userCenter/buyer/buys/index.vue'], resolve);
-const buyerBuysDetail = resolve => require(['@/pages/userCenter/buyer/buys/detail.vue'], resolve);
+const buyerMachining = resolve => require(['@/pages/userCenter/buyer/machings/index.vue'], resolve);
 const bPublishProduct = resolve => require(['@/pages/userCenter/buyer/publish/product.vue'], resolve);
+const bPublishMaching = resolve => require(['@/pages/userCenter/buyer/publish/maching.vue'], resolve);
 const buyerOrder = resolve => require(['@/pages/userCenter/buyer/orders/index.vue'], resolve);
 
 const sellerBuys = resolve => require(['@/pages/userCenter/seller/buys/index.vue'], resolve);
-const sellerBuysDetail = resolve => require(['@/pages/userCenter/seller/buys/detail.vue'], resolve);
+const sellerMaching = resolve => require(['@/pages/userCenter/seller/machings/index.vue'], resolve);
 const sellerOrder = resolve => require(['@/pages/userCenter/seller/orders/index.vue'], resolve);
 const enterpriseInfo = resolve => require(['@/pages/userCenter/seller/enterpriseInfo/index.vue'], resolve);
 const goodsEdit = resolve => require(['@/pages/userCenter/seller/goodsEdit/index.vue'], resolve);
@@ -173,9 +174,9 @@ export default new Router({
             component: buyerBuys
         },
         {
-            path: '/userCenter/buyer/buysDetail-:ironId',
-            name: 'buyerBuysDetail',
-            component: buyerBuysDetail
+            path: '/userCenter/buyer/machings',
+            name: 'buyerMachining',
+            component: buyerMachining
         },
         {
             path: '/userCenter/buyer/publishProduct-:id-:isEdit',
@@ -183,14 +184,19 @@ export default new Router({
             component: bPublishProduct
         },
         {
+            path: '/userCenter/buyer/publishMaching-:id-:isEdit',
+            name: 'bPublishMaching',
+            component: bPublishMaching
+        },
+        {
             path: '/userCenter/seller/buys',
             name: 'sellerBuys',
             component: sellerBuys
         },
         {
-            path: '/userCenter/seller/buysDetail-:ironId',
-            name: 'sellerBuysDetail',
-            component: sellerBuysDetail
+            path: '/userCenter/seller/machings',
+            name: 'sellerMaching',
+            component: sellerMaching
         },
         {
             path: '/userCenter/buyer/buyerOrder-:status',

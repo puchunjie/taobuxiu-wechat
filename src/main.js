@@ -27,8 +27,8 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios; //把axios挂载到this.$http上
 Vue.prototype.api = api; //所有接口列表挂载
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-// axios.defaults.baseURL = 'http://192.168.0.251'; //本地
-axios.defaults.baseURL = 'http://118.178.17.15:9090'; //测试服
+axios.defaults.baseURL = 'http://192.168.0.251'; //本地
+// axios.defaults.baseURL = 'http://118.178.17.15:9090'; //测试服
 // axios.defaults.baseURL = 'http://www.itaobuxiu.com';
 axios.defaults.withCredentials = true;
 

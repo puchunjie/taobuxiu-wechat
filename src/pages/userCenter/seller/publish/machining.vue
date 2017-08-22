@@ -22,7 +22,7 @@
                     </div>
                 </cell>
 
-                <x-textarea title="标题" max="35" rows="2" :show-counter="false" placeholder="请填写该加工的专业说明（必填），将被显示为该加工资源的标题" v-model="apiData.title"></x-textarea>
+                <x-textarea title="标题" :max="35" :rows="2" :show-counter="false" placeholder="请填写该加工的专业说明（必填），将被显示为该加工资源的标题" v-model="apiData.title"></x-textarea>
 
             </group>
 
@@ -106,7 +106,7 @@
         },
         data () {
             return {
-                step: 2,
+                step: 1,
                 adShow: {show:false},
                 machiningTypes:{
                     title: '种类',

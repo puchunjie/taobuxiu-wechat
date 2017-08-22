@@ -113,7 +113,7 @@
         },
         data () {
             return {
-                step: 2,
+                step: 1,
                 adShow: {show:false},
                 picterList:{
                     ironType:{

@@ -22,82 +22,62 @@
             </div>
             <div class="content">
                 <h3 class="tit">
-                {{ `${ buy.ironType } | ${ buy.material } | ${ buy.surface } | ${ buy.proPlace }` }}
+                {{ buy.handingType }}
                 </h3>
-                <p>{{ `${ buy.height }*${ buy.width }*${ buy.length } | 公差：${ buy.tolerance } | ${ buy.numbers }${ buy.unit }` }}</p>
                 <p>{{ buy.sourceCity }}</p>
                 <p class="remark">备注：{{ buy.message }}</p>
             </div>
         </div>    
 
-        <div class="panel">
-            <div class="title">采购客户</div>
+         <div class="panel" style="margin-top:.1rem;padding:.05rem 0">
             <div class="content">
-                <div class="group">
-                    <label>历史总采购：</label>
-                    <span>采购{{ userBuyInfo.buyTimes }}次</span>
-                </div>
-                <div class="group">
-                    <label>采购成功率：</label>
-                    <span class="blue">{{ successRate }}</span>
-                </div>
                 <template v-if="buy.status === 4">
                     <div class="group">
-                        <label>采购公司名：</label>
-                        <span>{{ buyerSeller.companyName }}</span>
-                    </div>
-                    <div class="group">
-                        <label>采购联系人：</label>
-                        <span>{{ buyerSeller.contact }}</span>
+                        <label>求购客户</label>
                         <a class="contact" :href="'tel:'+ buyerMobile">联系对方</a>
                     </div>
                 </template>
             </div>
-        </div> 
+        </div>  
         <p class="suggest" v-if="offerShow">建议报出低价，提高抢单成功率</p>
 
         <div class="offer-container fix-bottom" v-if="offerShow">
             <div class="left">
                 <group gutter="0">
                     <x-input placeholder="请输入您的报价" v-model="price" required ref="price">
-                        <span slot="right">元/{{ buy.unit }}</span>
+                        <span slot="right">元/
+                            <input type="text" v-model="unit" class="unit" placeholder="请输入单位">
+                        </span>
                     </x-input>
+                    
                 </group>
                 <group gutter=".05rem">
                     <x-textarea placeholder="请输入您的供货备注" ref="msg" v-model="msg" :rows="2" :max="35"></x-textarea>
                 </group>
             </div>
             <div class="right">
-                <a class="btn ignore" @click="showIgnore = true">忽&nbsp;略</a>
                 <a class="btn offer" @click="offer">立&nbsp;即报&nbsp;价</a>
             </div>
         </div>
 
-        <div class="panel fix-bottom" v-else>
-            <div class="title">
-                我的报价
-                <span class="status-icon iconfont" :class="statusIcon"></span> 
-            </div>
-            <div class="content">
-                <div class="group">
-                    <label>报价：</label>
-                    <span>&yen;{{ myOffer.price }}/{{ myOffer.unit }}</span>
+         <div class="panel fix-bottom" v-else>
+            <template v-if="myOffer">
+                <div class="title">
+                    我的报价
+                    <span class="status-icon iconfont" :class="statusIcon"></span> 
                 </div>
-                <div class="group">
-                    <label>备注：</label>
-                    <span>{{ myOffer.supplyMsg }}</span>
+                <div class="content">
+                    <div class="group">
+                         <label>报价：</label>
+                        <span>&yen;{{ myOffer.price }}/{{ myOffer.unit }}</span>  
+                    </div>
+                    <div class="group">
+                        <label>备注：</label>
+                        <span>{{ myOffer.supplyMsg }}</span> 
+                    </div>
                 </div>
-                <div class="group" v-if="buy.status === 4">
-                    <label>总额：</label>
-                    <span style="color:green">&yen;{{ accMul(buy.numbers,myOffer.price) }}</span>
-                </div>
-            </div>
-        </div>
-
-        <confirm v-model="showIgnore"
-            title="确定要忽略此单么？"
-            @on-confirm="ignore">
-        </confirm>
+            </template>
+        </div> 
     </view-box>  
 </template>
 
@@ -122,16 +102,11 @@
         data () {
             return {
                 buy:{},
-                buyerSeller:{},
                 myOffer: {},
-                userBuyInfo: {
-                    buySuccessRate: 0
-                },
                 buyerMobile: '',
                 price: '',
                 msg: '',
-                showIgnore: false,
-                   
+                unit: ''
             }
         },
         computed: {
@@ -153,10 +128,7 @@
             // 是否显示报价窗口
             offerShow(){
                 return this.buy.status === 0
-            },
-            successRate(){
-                return this.accMul(this.userBuyInfo.buySuccessRate,100) + '%'
-            } 
+            }
         },
         methods: {
             formateDate(time){
@@ -167,17 +139,15 @@
                 return (time - new Date().getTime()) > 86400000
             },
             getDetail(){
-                this.$http.get(this.api.sMyBuyDetail,{
+                this.$http.get(this.api.myHandingBuyDetail,{
                     params:{
-                        ironId: this.ironId
+                        handingId: this.ironId
                     }
                 }).then(res => {
                     let data = res.data;
                     if(res.status === 0){
                         this.buy = data.buy;
-                        this.buyerSeller = data.buyerSeller;
                         this.myOffer = data.myOffer;
-                        this.userBuyInfo = data.userBuyInfo;
                         this.buyerMobile = data.buyerMobile;
                     }
                 })
@@ -196,39 +166,16 @@
 
                 return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m) 
             },
-            // 忽略
-            ignore(){
-                let _this = this;
-                this.$http.post(this.api.missIronBuyOffer,{
-                    ironId: this.ironId
-                }).then(res =>{
-                    if(res.status === 0){
-                        this.$vux.alert.show({
-                            title: '忽略成功！',
-                            content: '点击确定跳转到列表页',
-                            onHide () {
-                                _this.$router.go(-1)
-                            }
-                        })
-                    }else{
-                        this.$vux.toast.show({
-                            text: res.errorMsg,
-                            type: 'warn',
-                            width: '2rem'
-                        });
-                    }
-                })
-            },
             //报价
             offer(){
                 if(this.price != '' && this.msg != ''){
                     this.$vux.loading.show({
                         text: '报价中...'
                     });
-                    this.$http.post(this.api.offerIronBuy,{
-                        ironId: this.ironId,
+                    this.$http.post(this.api.offerHandingBuy,{
+                        handingId: this.ironId,
                         price: this.price,
-                        unit: this.buy.unit,
+                        unit: this.unit,
                         msg: this.msg
                     }).then(res => {
                         if(res.status === 0){
@@ -373,9 +320,9 @@
             .offer{
                 background-color: #ff8d00;
                 color: #fff;
-                margin-top: .05rem;
-                height: .69rem;
-                line-height: .35rem;
+                margin-top: .0rem;
+                height: 1.08rem;
+                line-height: .54rem;
             }
             .ignore{
                 margin-top: .01rem;
@@ -384,6 +331,12 @@
                 height: .31rem;
                 line-height: .31rem;
             }
+        }
+        .unit{
+            display: inline-block;
+            width: .7rem;
+            border:none; 
+            outline:none;
         }
     }
 
