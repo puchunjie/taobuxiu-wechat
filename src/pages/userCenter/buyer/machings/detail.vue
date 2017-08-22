@@ -157,8 +157,8 @@
                 this.supplyId = supplyId;
             },
             select(){
-                this.$http.post(this.api.selectSupply,{
-                    ironBuyId: this.ironId,
+                this.$http.post(this.api.hselectSupply,{
+                    handingBuyId: this.ironId,
                     supplyId: this.supplyId
                 }).then(res => {
                     if(res.status === 0){

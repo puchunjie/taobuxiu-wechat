@@ -197,16 +197,23 @@ export const publishIron = 'iron/buy'
 export const editPublish = 'iron/editBuy';
 
 /**
+ * 点击中标
+ * ironBuyId  
+ * supplyId
+ */
+export const selectSupply = 'iron/selectSupply';
+
+/**
  * 加工求购信息发布
  */
 export const publishHanding = 'handing/buy'
 
 /**
  * 点击中标
- * ironBuyId  
+ * handingBuyId  
  * supplyId
  */
-export const selectSupply = 'iron/selectSupply';
+export const hselectSupply = 'handing/selectSupply';
 
 
 /**
