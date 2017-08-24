@@ -1,6 +1,6 @@
 <template>
     <view-box>
-        <com-header>上架加工资源</com-header>
+        <com-header>发布加工求购</com-header>
 
         <group gutter=".1rem" style="position: relative">
             <popup-picker @on-hide="syncType"
@@ -115,29 +115,46 @@
                 })
             },
             publish(){
-                this.$vux.loading.show({
-                    text: '发布中。。。'
-                })
-                this.$http.post(this.api.publishHanding,this.apiData,{
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                }).then(res => {
-                    let _this = this;
-                    this.$vux.loading.hide()
-                    if(res.status === 0){
-                        this.$vux.alert.show({
-                            content: '上架成功.',
-                            onHide () {
-                                _this.$router.push({name: 'buyerMachining'})
-                            }
-                        })
+                let _this = this;
+                if(this.isOk){
+                    this.$vux.loading.show({
+                        text: '发布中。。。'
+                    });
+                    // 编辑、发布判断
+                    let apiUrl = '';
+                    if(this.isEdit){
+                        apiUrl = this.api.editMaching;
+                        this.$set(this.apiData,'handingId',this.id);
                     }else{
-                        this.$vux.toast.show({
-                            text: res.errorMsg,
-                            type: 'warn',
-                            width: '2rem'
-                        });
+                        apiUrl = this.api.publishHanding;
                     }
-                })
+                    this.$http.post(apiUrl,this.apiData,{
+                        headers: { 'Content-Type': 'multipart/form-data' }
+                    }).then(res => {
+                        this.$vux.loading.hide()
+                        if(res.status === 0){
+                            this.$vux.alert.show({
+                                content: this.isEdit ? '修改成功' : '发布成功！',
+                                onHide () {
+                                    _this.$router.push({name: 'buyerMachining'})
+                                }
+                            })
+                        }else{
+                            this.$vux.toast.show({
+                                text: res.errorMsg,
+                                type: 'warn',
+                                width: '2rem'
+                            });
+                        }
+                    })
+                }else{
+                    this.$vux.toast.show({
+                        text: '请将发布信息正确填写完整！',
+                        type: 'warn',
+                        width: '2rem'
+                    })
+                }
+                
             }
         },
         created () {

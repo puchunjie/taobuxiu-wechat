@@ -204,6 +204,13 @@ export const editPublish = 'iron/editBuy';
 export const selectSupply = 'iron/selectSupply';
 
 /**
+ * 取消求购
+ * ironId
+ */
+export const deleteIronBuy = 'iron/deleteIronBuy';
+
+
+/**
  * 加工求购信息发布
  */
 export const publishHanding = 'handing/buy'
@@ -215,12 +222,19 @@ export const publishHanding = 'handing/buy'
  */
 export const hselectSupply = 'handing/selectSupply';
 
+/**
+ * 买家删除加工求购
+ * handingBuyId
+ */
+export const deleteHandingBuy = 'handing/deleteHandingBuy';
 
 /**
- * 取消求购
- * ironId
+ * 买家加工求购修改
+ * post
+ * handingId
  */
-export const deleteIronBuy = 'iron/deleteIronBuy';
+export const editMaching = 'handing/editBuy';
+
 
 
 /**
@@ -323,6 +337,12 @@ export const myHandingBuyDetail = 'seller/myHandingBuyDetail';
  * msg:123123123
  */
 export const offerHandingBuy = 'seller/offerHandingBuy';
+
+/**
+ * 卖家点击忽略报价-加工
+ * handingId
+ */
+export const missMachingBuyOffer = 'seller/missHandingBuyOffer';
 
 /**
  * 卖家点击报价

@@ -68,7 +68,7 @@
                 </group>
             </div>
             <div class="right">
-                <a class="btn ignore" @click="showIgnore = true">忽&nbsp;略</a>
+                <a class="btn ignore" @click="ignoreConf">忽&nbsp;略</a>
                 <a class="btn offer" @click="offer">立&nbsp;即报&nbsp;价</a>
             </div>
         </div>
@@ -93,11 +93,6 @@
                 </div>
             </div>
         </div>
-
-        <confirm v-model="showIgnore"
-            title="确定要忽略此单么？"
-            @on-confirm="ignore">
-        </confirm>
     </view-box>  
 </template>
 
@@ -129,9 +124,7 @@
                 },
                 buyerMobile: '',
                 price: '',
-                msg: '',
-                showIgnore: false,
-                   
+                msg: ''
             }
         },
         computed: {
@@ -195,6 +188,15 @@
                 }catch(e){} 
 
                 return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m) 
+            },
+            ignoreConf(){
+                let _this = this;
+                this.$vux.confirm.show({
+                    content: '确定要忽略此单么？',
+                    onConfirm () {
+                        _this.ignore()
+                    }
+                })
             },
             // 忽略
             ignore(){

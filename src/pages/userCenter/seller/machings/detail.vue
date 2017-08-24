@@ -56,6 +56,7 @@
                 </group>
             </div>
             <div class="right">
+                <a class="btn ignore" @click="ignoreConf">忽&nbsp;略</a>
                 <a class="btn offer" @click="offer">立&nbsp;即报&nbsp;价</a>
             </div>
         </div>
@@ -165,6 +166,38 @@
                 }catch(e){} 
 
                 return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m) 
+            },
+            ignoreConf(){
+                let _this = this;
+                this.$vux.confirm.show({
+                    content: '确定要忽略此单么？',
+                    onConfirm () {
+                        _this.ignore()
+                    }
+                })
+            },
+            // 忽略
+            ignore(){
+                let _this = this;
+                this.$http.post(this.api.missMachingBuyOffer,{
+                    handingId: this.ironId
+                }).then(res =>{
+                    if(res.status === 0){
+                        this.$vux.alert.show({
+                            title: '忽略成功！',
+                            content: '点击确定跳转到列表页',
+                            onHide () {
+                                _this.$router.go(-1)
+                            }
+                        })
+                    }else{
+                        this.$vux.toast.show({
+                            text: res.errorMsg,
+                            type: 'warn',
+                            width: '2rem'
+                        });
+                    }
+                })
             },
             //报价
             offer(){
@@ -324,9 +357,9 @@
             .offer{
                 background-color: #ff8d00;
                 color: #fff;
-                margin-top: .0rem;
-                height: 1.08rem;
-                line-height: .54rem;
+                margin-top: .05rem;
+                height: .69rem;
+                line-height: .35rem;
             }
             .ignore{
                 margin-top: .01rem;

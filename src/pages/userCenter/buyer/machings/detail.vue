@@ -37,8 +37,9 @@
 
         <div class="detail">
             <div class="tit vux-1px-b">
-                <span class="l">{{ supplies.length }}家有效报价</span>
+                <span class="l">{{ missSupplies.length }}家遗憾错过</span>
                 报价细节
+                <span class="r">{{ supplies.length }}家有效报价</span>
             </div>
             <div class="list">
                 <div class="company vux-1px-b" v-for="(item,index) in supplies" :key="index">
@@ -49,6 +50,12 @@
                     <a v-if="buy.status === 0" @click="showComf(item.sellerId)" class="btna select">选他中标</a>
                     <a class="btna contact" :href="'tel:'+ item.mobile">联系对方</a>
                     <span v-if="item.isWinner" class="iconfont icon-zhongbiao win"></span>
+                </div>
+                <div class="company vux-1px-b" v-for="(item,index) in missSupplies" :key="index">
+                    <h3 class="name">{{ item.companyName }}</h3>
+                    <a class="btna contact" :href="'tel:'+ item.mobile">联系对方</a>
+                    <p class="price">忽略（无计划或无货）</p>
+                    <p class="">抢单成功：{{ item.winningTimes }}次    联系人：{{ item.contact }}</p>
                 </div>
             </div>
         </div>
@@ -79,6 +86,7 @@
             return {
                 buy:{},
                 supplies: [],
+                missSupplies: [],
                 showSelect: false,
                 salesManPhone: '',
                 supplyId: ''    
@@ -148,6 +156,7 @@
                     if(res.status === 0){
                         this.buy = res.data.buy;
                         this.supplies = res.data.supplies;
+                        this.missSupplies = res.data.missSupplies;
                         this.salesManPhone = res.data.salesManPhone;
                     }
                 })
@@ -194,8 +203,8 @@
             },
             deleteIron(){
                 let _this = this;
-                this.$http.post(this.api.deleteIronBuy,{
-                    ironId: this.ironId
+                this.$http.get(this.api.deleteHandingBuy,{
+                    params: { handingBuyId: this.ironId }
                 }).then(res => {
                     if(res.status === 0){
                         this.$vux.alert.show({
@@ -215,7 +224,7 @@
                 })
             },
             jumpToPublish(id){
-                this.$router.push({ name: 'bPublishProduct', params: { id: id , isEdit: 1 }})
+                this.$router.push({ name: 'bPublishMaching', params: { id: id , isEdit: 1 }})
             }
         },
         created () {
