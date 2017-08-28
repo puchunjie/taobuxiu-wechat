@@ -101,6 +101,7 @@
                     if(res.status === 0){
                         let data = res.data.buy;
                         this.apiData.handingType = data.handingType;
+                        this.machiningTypes.value = [data.handingType]
                         this.apiData.souCityId = data.souCityId;
                         this.location = data.sourceCity;
                         this.apiData.message = data.message;

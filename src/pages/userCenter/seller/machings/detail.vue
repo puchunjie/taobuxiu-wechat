@@ -29,7 +29,7 @@
             </div>
         </div>    
 
-         <div class="panel" style="margin-top:.1rem;padding:.05rem 0">
+         <!-- <div class="panel" style="margin-top:.1rem;padding:.05rem 0">
             <div class="content">
                 <template v-if="buy.status === 4">
                     <div class="group">
@@ -38,7 +38,31 @@
                     </div>
                 </template>
             </div>
-        </div>  
+        </div>   -->
+        <div class="panel">
+            <div class="title">采购客户</div>
+            <div class="content">
+                <div class="group">
+                    <label>历史总采购：</label>
+                    <span>采购{{ userBuyInfo.buyTimes }}次</span>
+                </div>
+                <div class="group">
+                    <label>采购成功率：</label>
+                    <span class="blue">{{ successRate }}</span>
+                </div>
+                <template v-if="buy.status === 4">
+                    <div class="group">
+                        <label>采购公司名：</label>
+                        <span>{{ buyerSeller.companyName }}</span>
+                    </div>
+                    <div class="group">
+                        <label>采购联系人：</label>
+                        <span>{{ buyerSeller.contact }}</span>
+                        <a class="contact" :href="'tel:'+ buyerMobile">联系对方</a>
+                    </div>
+                </template>
+            </div>
+        </div>
         <p class="suggest" v-if="offerShow">建议报出低价，提高抢单成功率</p>
 
         <div class="offer-container fix-bottom" v-if="offerShow">
@@ -104,6 +128,10 @@
             return {
                 buy:{},
                 myOffer: {},
+                buyerSeller:{},
+                userBuyInfo: {
+                    buySuccessRate: 0
+                },
                 buyerMobile: '',
                 price: '',
                 msg: '',
@@ -129,7 +157,10 @@
             // 是否显示报价窗口
             offerShow(){
                 return this.buy.status === 0
-            }
+            },
+            successRate(){
+                return this.accMul(this.userBuyInfo.buySuccessRate,100) + '%'
+            } 
         },
         methods: {
             formateDate(time){
@@ -148,7 +179,9 @@
                     let data = res.data;
                     if(res.status === 0){
                         this.buy = data.buy;
+                        this.buyerSeller = data.buyerSeller;
                         this.myOffer = data.myOffer;
+                        this.userBuyInfo = data.userBuyInfo;
                         this.buyerMobile = data.buyerMobile;
                     }
                 })

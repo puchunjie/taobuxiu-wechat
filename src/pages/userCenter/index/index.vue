@@ -288,6 +288,7 @@
                         this.buyer.info.integral.count = this.userInfo.userData.integral;
                         this.buyer.info.buys.count = this.userInfo.userData.buys;
                         this.buyer.links[4].count = this.userInfo.userData.buys;
+                        this.buyer.links[5].count = this.userInfo.userData.handingbuys;
                         this.seller.info.orders.count = this.userInfo.sellerData.orders;
                         this.seller.links[1].count = this.userInfo.sellerData.orders;
                         this.seller.info.integral.count = this.userInfo.sellerData.integral;
