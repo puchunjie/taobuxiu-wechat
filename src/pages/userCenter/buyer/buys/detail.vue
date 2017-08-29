@@ -10,7 +10,7 @@
         <div class="info">
             <div class="number vux-1px-b">
                 求购单号：{{ buy.id }}
-                <span class="iconfont icon-bianji2" v-if="buy.editStatus === 0" @click="jumpToPublish(buy.id)"></span>
+                <span class="iconfont icon-bianji2" v-if="editShow" @click="jumpToPublish(buy.id)"></span>
                 <span class="iconfont" :class="statusIcon" @click="deletConfirm"></span>
             </div>
             <div class="item">
@@ -97,6 +97,9 @@
             }
         },
         computed: {
+            editShow(){
+                return this.buy.editStatus === 0 && this.buy.status === 0
+            },
             statusStr(){
                 switch (this.buy.status) {
                     case 0:
