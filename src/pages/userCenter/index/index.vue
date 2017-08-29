@@ -294,6 +294,7 @@
                         this.seller.info.integral.count = this.userInfo.sellerData.integral;
                         this.seller.info.buys.count = this.userInfo.sellerData.supplyPendingCount;
                         this.seller.links[5].count = this.userInfo.sellerData.supplyPendingCount;
+                        this.seller.links[6].count = this.userInfo.sellerData.HandingwaitSupplyCount;
                         this.getCartData();//暂时处理获取购物车数量^_^
                     }else{
                         this.confirmShow = true
