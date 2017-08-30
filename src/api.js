@@ -155,6 +155,11 @@ export const recruitDetail = 'recruitDetail'
 export const userInfo = '/member/profile'
 
 /**
+ * 更改个人信息
+ */
+export const updateProfile = 'member/updateProfile';
+
+/**
  * 绑定专员
  * salesmanId
  */
