@@ -2,7 +2,7 @@
     <view-box>
         <com-header>上架加工资源</com-header>
 
-        <template v-if="step === 1">
+        <div v-show="step === 1">
             <group gutter=".1rem" style="position: relative">
                 <popup-picker @on-hide="syncType"
                 :title="machiningTypes.title" :data="machiningTypes.arr" v-model="machiningTypes.value" placeholder="请选择(必填)"></popup-picker>
@@ -27,9 +27,9 @@
             </group>
 
             <a class="submit-btn" @click="next">下一步</a>
-        </template>
+        </div>
 
-        <template v-else>
+        <div v-show="step === 2">
             <div class="wrap clearfix">
                 <div class="img-contnet">
                     <p><span style="color:red">*</span>封面资源</p>
@@ -79,7 +79,7 @@
 
             <a class="submit-btn" style="bottom:.6rem" @click="step = 1">上一步</a>
             <a class="submit-btn" @click="publish">提交</a>
-        </template>
+        </div>
         
 
         <!--选择地址组件-->
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-    import {  smachiningTypes, units } from '@/assets/resouseData.js'
+    import {  smachiningTypes } from '@/assets/resouseData.js'
     import { ViewBox, PopupPicker, Group, Cell, XInput, XTextarea, XSwitch } from 'vux'
     import comHeader from '@/components/business/commonHead'
     import addressPicker from '@/components/basics/addressPicker.vue'
@@ -126,7 +126,7 @@
                 image3: '',
                 location: '请选择加工地点（必填)',
                 unit:['吨'],
-                units: [units],
+                units:[['吨','平方米','米']],
             }
         },
         computed: {

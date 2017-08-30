@@ -76,7 +76,7 @@
             <div class="warp clearfix">
                 <template  v-if="!apiData.isThreeInOne">
                     <div class="img-contnet">
-                        <p>营业执照</p>
+                        <p><span style="color:red">*</span>营业执照</p>
                         <label class="upload" for="businessLic">
                             <span class="iconfont icon-shangchuantupian" v-if="businessLicShow === ''"></span>
                             <img :src="businessLicShow" v-else>
@@ -84,7 +84,7 @@
                         <input id="businessLic" type="file" accept="image" ref="businessLic" @change="showImg('businessLic')">
                     </div>
                     <div class="img-contnet">
-                        <p>组织代码机构证</p>
+                        <p><span style="color:red">*</span>组织代码机构证</p>
                         <label class="upload" for="codeLic">
                             <span class="iconfont icon-shangchuantupian" v-if="codeLicShow === ''"></span>
                             <img :src="codeLicShow" v-else>
@@ -92,7 +92,7 @@
                         <input id="codeLic" type="file" accept="image" ref="codeLic" @change="showImg('codeLic')">
                     </div>
                     <div class="img-contnet">
-                        <p>税务登记证</p>
+                        <p><span style="color:red">*</span>税务登记证</p>
                         <label class="upload" for="financeLic">
                             <span class="iconfont icon-shangchuantupian" v-if="financeLicShow === ''"></span>
                             <img :src="financeLicShow" v-else>
@@ -101,7 +101,7 @@
                     </div>
                 </template>
                 <div class="img-contnet" v-else>
-                     <p>三证合一</p>
+                     <p><span style="color:red">*</span>三证合一</p>
                     <label class="upload" for="allCer">
                         <span class="iconfont icon-shangchuantupian" v-if="allCerShow === ''"></span>
                         <img :src="allCerShow" v-else>

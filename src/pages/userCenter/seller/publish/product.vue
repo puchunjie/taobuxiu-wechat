@@ -26,12 +26,13 @@
                     <span slot="right">{{ apiData.unit }}</span>
                 </x-input>
 
-                <x-textarea title="规格" max="35" rows="2" :show-counter="false" placeholder="请输入规格及公差等参数，如12*1500*6000，11.45-11.5" v-model="apiData.title"></x-textarea>
+                <x-textarea title="规格" :max="35" :rows="2" :show-counter="false" placeholder="请输入规格及公差等参数，如12*1500*6000，11.45-11.5" v-model="apiData.title"></x-textarea>
             </group>
 
             <group gutter=".1rem">
                 <x-switch title="是否为特价" v-model="apiData.isSpec"></x-switch>
             </group>
+            <p style="padding:.1rem;color:red">低于市场价的急售/特价货源淘不锈将根据市场价进行仔细审核</p>
 
             <a class="submit-btn" @click="next">下一步</a>
         </template>

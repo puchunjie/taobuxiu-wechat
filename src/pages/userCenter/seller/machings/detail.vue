@@ -70,7 +70,12 @@
                 <group gutter="0">
                     <x-input placeholder="请输入您的报价" v-model="price" required ref="price">
                         <span slot="right">元/
-                            <input type="text" v-model="unit" class="unit" placeholder="请输入单位">
+                            <!-- <input type="text" v-model="unit" class="unit" placeholder="请输入单位"> -->
+                            <select v-model="unit">
+                                <option>吨</option>
+                                <option>平方米</option>
+                                <option>米</option>
+                            </select>
                         </span>
                     </x-input>
                     
@@ -135,7 +140,7 @@
                 buyerMobile: '',
                 price: '',
                 msg: '',
-                unit: ''
+                unit: '吨'
             }
         },
         computed: {
