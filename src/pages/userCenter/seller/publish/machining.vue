@@ -211,7 +211,7 @@
                         this.$vux.loading.hide()
                         if(res.status === 0){
                             this.$vux.alert.show({
-                                content: '上架成功.',
+                                content: '提交成功，等待管理员审核',
                                 onHide () {
                                     _this.$router.push({name: 'machiningEdit'})
                                 }
