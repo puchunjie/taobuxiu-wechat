@@ -2,7 +2,7 @@
     <div class="container">
         <com-header>逛店铺</com-header>
         <div class="main-info">
-             <img class="pic" :src="shopInfo.cover"> 
+             <img class="pic" :src="'http://www.itaobuxiu.com/'+shopInfo.cover"> 
              <div class="panel">
                  <h3>{{ shopInfo.companyName }}</h3>
                  <p>{{ shopInfo.officeAddress }}</p>

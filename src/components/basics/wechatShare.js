@@ -23,7 +23,7 @@ export default {
                 }
             }).then(res => {
                 let data = res.data;
-                if (res.data.status === 0) {
+                if (res.status === 0) {
                     this.wxconfig.appId = data.appid;
                     this.wxconfig.nonceStr = data.nonceStr;
                     this.wxconfig.timestamp = data.timestamp;

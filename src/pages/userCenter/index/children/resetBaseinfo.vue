@@ -69,7 +69,7 @@
                     if(res.status === 0){
                         this.$vux.alert.show({
                             title: '修改成功！',
-                            content: '您的账户密码已经修改成功。',
+                            content: '您的个人信息已经修改成功。',
                             onHide () {
                                 _this.onBack();
                             }
