@@ -39,11 +39,9 @@
             return {
                 test:{show:true},
                 swiperImgs:[{
-                        img: 'http://wap.gangg.cn/system/templates/default12/images/bn12121-1.jpg?4',
+                        img: 'http://www.itaobuxiu.com/files/ads/ads_mobile/mobile_mainpage/mainpage_ad1.png',
                     }, {
-                        img: 'http://wap.gangg.cn/system/templates/default12/images/bn12121-1.jpg?4'
-                    }, {
-                        img: 'http://wap.gangg.cn/system/templates/default12/images/bn12121-1.jpg?4',
+                        img: 'http://www.itaobuxiu.com/files/ads/ads_mobile/mobile_mainpage/mainpage_ad2.png'
                     }],
                 cellOptions:[
                     {label:"现货市场",link:"goodsInStock",icon:"icon-yishouhuo"},

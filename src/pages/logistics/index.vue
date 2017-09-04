@@ -3,7 +3,7 @@
         <view-box body-padding-bottom="53px">
         <div class="container">
             <section class="head-img">
-                <swiper :list="swiperImgs" height="1.6rem" auto></swiper>
+                <swiper :list="swiperImgs" height="1.6rem"></swiper>
             </section>
 
             <section class="goods-info">
@@ -100,9 +100,7 @@
         data () {
             return {
                 swiperImgs:[{
-                        img: 'http://wap.gangg.cn/system/templates/default12/images/bn12121-1.jpg?4',
-                    }, {
-                        img: 'http://wap.gangg.cn/system/templates/default12/images/bn12121-1.jpg?4'
+                        img: 'http://www.itaobuxiu.com/files/ads/ads_mobile/mobile_logistics/logistics_ad1.jpg'
                     }],
                 confirmShow: false,
                 phoneImg: phone,
